@@ -28,11 +28,11 @@
 - [可选类型与错误类型](part-03-zig-basics/03-3-optional-and-error.md)
 - [结构体与枚举](part-03-zig-basics/03-4-struct-and-enum.md)
 
-### 第四部分：控制流
-- [条件语句](part-04-control-flow/04-1-conditionals.md)
-- [循环](part-04-control-flow/04-2-loops.md)
-- [Switch 表达式](part-04-control-flow/04-3-switch-expression.md)
-- [编译时执行](part-04-control-flow/04-4-comptime.md)
+### 第四部分：控制流 ✅
+- [条件语句 (if/else)](part-04-control-flow/04-1-if-else.md)
+- [循环 (while/for)](part-04-control-flow/04-2-while-for.md)
+- [Switch 表达式](part-04-control-flow/04-3-switch.md)
+- [编译时执行 (comptime)](part-04-control-flow/04-4-comptime.md)
 
 ### 第五部分：函数
 - [函数基础](part-05-functions/05-1-function-basics.md)
@@ -130,6 +130,7 @@
 | 项目概览 | 🟢 已完成 | 4 | 4 |
 | 快速开始 | 🟢 已完成 | 4 | 4 |
 | Zig 语言基础 | 🟢 已完成 | 4 | 4 |
+| 控制流 | 🟢 已完成 | 4 | 4 |
 | 构建系统 | ⚪ 待开始 | 3 | 0 |
 | 核心模块 | ⚪ 待开始 | 4 | 0 |
 | 内存管理 | ⚪ 待开始 | 3 | 0 |
@@ -140,7 +141,7 @@
 | 扩展指南 | ⚪ 待开始 | 4 | 0 |
 | 测试调试 | ⚪ 待开始 | 3 | 0 |
 | 附录 | ⚪ 待开始 | 3 | 0 |
-| **总计** | | **53** | **12** |
+| **总计** | | **53** | **16** |
 
 **图例**：🟢 已完成 | 🟡 进行中 | ⚪ 待开始
 
@@ -175,6 +176,13 @@
 ---
 
 ## 📝 更新日志
+
+### 2026-03-21 (Part 4)
+- ✅ 完成第四部分：控制流（4 篇）
+  - 条件语句 (if/else)
+  - 循环 (while/for)
+  - Switch 表达式
+  - 编译时执行 (comptime)
 
 ### 2026-03-21 (Part 3)
 - ✅ 完成第三部分：Zig 语言基础（4 篇）
