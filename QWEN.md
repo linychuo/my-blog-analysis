@@ -8,7 +8,8 @@ Technical documentation repository for analyzing **my-blog** - a static blog gen
 
 This repository contains comprehensive technical documentation analyzing **my-blog**, a static blog generator built with Zig 0.15.2. The documentation provides in-depth coverage of the project's architecture, implementation details, and usage patterns.
 
-**Source Project**: [github.com/linychuo/my-blog](https://github.com/linychuo/my-blog)
+**Source Project**: [github.com/linychuo/my-blog](https://github.com/linychuo/my-blog)  
+**Branch**: `zig-build`
 
 ### Key Characteristics
 
@@ -257,3 +258,6 @@ zig-out/blog/
 ---
 
 *Last updated: 2026-03-21*
+
+## Qwen Added Memories
+- The my-blog-analysis documentation analyzes the 'zig-build' branch of github.com/linychuo/my-blog, not the main branch.
