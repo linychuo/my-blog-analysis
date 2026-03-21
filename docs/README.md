@@ -66,7 +66,7 @@
 - [模板继承](part-10-template-engine/10-3-inheritance.md)
 - [模板详解](part-10-template-engine/10-4-templates-detail.md)
 
-### 第十一部分：Markdown 解析器
+### 第十一部分：Markdown 解析器 ✅
 - [解析器架构](part-11-markdown-parser/11-1-parser-architecture.md)
 - [块级元素](part-11-markdown-parser/11-2-block-elements.md)
 - [内联元素](part-11-markdown-parser/11-3-inline-elements.md)
@@ -137,12 +137,12 @@
 | 内存管理 | 🟢 已完成 | 3 | 3 |
 | 错误处理 | 🟢 已完成 | 3 | 3 |
 | 模板引擎 | 🟢 已完成 | 4 | 4 |
-| Markdown 解析器 | ⚪ 待开始 | 4 | 0 |
+| Markdown 解析器 | 🟢 已完成 | 4 | 4 |
 | 样式与前端 | ⚪ 待开始 | 3 | 0 |
 | 扩展指南 | ⚪ 待开始 | 4 | 0 |
 | 测试调试 | ⚪ 待开始 | 3 | 0 |
 | 附录 | ⚪ 待开始 | 3 | 0 |
-| **总计** | | **53** | **36** |
+| **总计** | | **53** | **40** |
 
 **图例**：🟢 已完成 | 🟡 进行中 | ⚪ 待开始
 
@@ -177,6 +177,13 @@
 ---
 
 ## 📝 更新日志
+
+### 2026-03-21 (Part 11)
+- ✅ 完成第十一部分：Markdown 解析器（4 篇）
+  - 解析器架构
+  - 块级元素
+  - 内联元素
+  - HTML 生成
 
 ### 2026-03-21 (Part 10)
 - ✅ 完成第十部分：模板引擎（4 篇）
