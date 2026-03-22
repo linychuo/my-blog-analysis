@@ -79,28 +79,28 @@
 - [11.3 内联元素](part-11-markdown-parser/11-3-inline-elements.md)
 - [11.4 HTML 生成](part-11-markdown-parser/11-4-html-generation.md)
 
-### 第十二部分：样式与前端 ⚪
+### 第十二部分：样式与前端 ✅
 
 - [12.1 CSS 架构](part-12-styling/12-1-css-architecture.md)
 - [12.2 主题系统](part-12-styling/12-2-theme-system.md)
 - [12.3 前端功能](part-12-styling/12-3-frontend-features.md)
 
-### 第十三部分：扩展指南 ⚪
+### 第十三部分：扩展指南 ✅
 
 - [13.1 编写博客](part-13-extension-guides/13-1-writing-posts.md)
-- [13.2 添加 RSS](part-13-extension-guides/13-2-adding-rss.md)
-- [13.3 添加搜索](part-13-extension-guides/13-3-adding-search.md)
+- [13.2 添加 RSS](part-13-extension-guides/13-2-rss-feed.md)
+- [13.3 添加搜索](part-13-extension-guides/13-3-search-integration.md)
 - [13.4 性能优化](part-13-extension-guides/13-4-performance-optimization.md)
 
-### 第十四部分：测试与调试 ⚪
+### 第十四部分：测试与调试 ✅
 
 - [14.1 单元测试](part-14-testing/14-1-unit-testing.md)
-- [14.2 调试技巧](part-14-testing/14-2-debugging.md)
+- [14.2 调试技巧](part-14-testing/14-2-debugging-techniques.md)
 - [14.3 内存泄漏检测](part-14-testing/14-3-memory-leak-detection.md)
 
-### 附录 ⚪
+### 附录 ✅
 
-- [附录 A：标准库 API](appendix/appendix-a-std-api.md)
+- [附录 A：标准库 API](appendix/appendix-a-std-lib-api.md)
 - [附录 B：常用模式](appendix/appendix-b-common-patterns.md)
 - [附录 C：常见问题](appendix/appendix-c-faq.md)
 
@@ -121,11 +121,17 @@
 | 错误处理 | ✅ 已完成 | 3/3 | 100% |
 | 模板引擎 | ✅ 已完成 | 4/4 | 100% |
 | Markdown 解析器 | ✅ 已完成 | 4/4 | 100% |
-| 样式与前端 | ⚪ 待开始 | 0/3 | 0% |
-| 扩展指南 | ⚪ 待开始 | 0/4 | 0% |
-| 测试调试 | ⚪ 待开始 | 0/3 | 0% |
-| 附录 | ⚪ 待开始 | 0/3 | 0% |
-| **总计** | | **40/53** | **75%** |
+| 样式与前端 | ✅ 已完成 | 3/3 | 100% |
+| 扩展指南 | ✅ 已完成 | 4/4 | 100% |
+| 测试调试 | ✅ 已完成 | 3/3 | 100% |
+| 附录 | ✅ 已完成 | 3/3 | 100% |
+| **总计** | | **53/53** | **100%** |
+
+---
+
+## 🎉 全部完成！
+
+**所有 53 篇文档已完整完成！**
 
 ---
 
@@ -162,6 +168,11 @@
 
 | 日期 | 更新内容 |
 |------|----------|
+| 2026-03-22 | 🎉 完成全部 53 篇文档（100%） |
+| 2026-03-22 | 完成第十二部分（样式与前端）3 篇文档 |
+| 2026-03-22 | 完成第十三部分（扩展指南）4 篇文档 |
+| 2026-03-22 | 完成第十四部分（测试与调试）3 篇文档 |
+| 2026-03-22 | 完成附录 3 篇文档 |
 | 2026-03-21 | 完成第十一部分（Markdown 解析器）4 篇文档 |
 | 2026-03-21 | 完成第十部分（模板引擎）4 篇文档 |
 | 2026-03-21 | 完成第三部分（Zig 语言基础）4 篇文档 |
