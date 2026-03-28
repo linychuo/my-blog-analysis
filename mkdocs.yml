@@ -42,9 +42,6 @@ plugins:
   - search:
       lang: 
         - zh
-        - en
-  - minify:
-      minify_html: true
   - glightbox
 
 markdown_extensions:
