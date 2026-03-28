@@ -459,9 +459,9 @@ date_time: January 15, 2024  # 文本格式（不支持）
 
 ## 相关文档
 
-- [13.2 添加 RSS 订阅](./013-2-rss-feed.md) - 生成 RSS 订阅源
-- [13.3 集成搜索功能](./013-3-search-integration.md) - 添加站内搜索
-- [11.1 Markdown 解析器架构](../part-11-markdown-parser/011-1-parser-architecture.md) - Markdown 解析原理
+- [13.2 添加 RSS 订阅](./13-2-rss-feed.md) - 生成 RSS 订阅源
+- [13.3 集成搜索功能](./13-3-search-integration.md) - 添加站内搜索
+- [11.1 Markdown 解析器架构](../part-11-markdown-parser/11-1-parser-architecture.md) - Markdown 解析原理
 
 ---
 

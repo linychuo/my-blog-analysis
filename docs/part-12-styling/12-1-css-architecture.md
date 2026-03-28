@@ -384,9 +384,9 @@ button:focus-visible {
 
 ## 相关文档
 
-- [12.2 主题系统实现](./012-2-theme-system.md) - 暗色/亮色主题切换机制
-- [12.3 前端功能集成](./012-3-frontend-features.md) - highlight.js 与 KaTeX 使用
-- [10.2 模板语法详解](../part-10-template-engine/010-2-template-syntax.md) - Handlebars 模板结构
+- [12.2 主题系统实现](./12-2-theme-system.md) - 暗色/亮色主题切换机制
+- [12.3 前端功能集成](./12-3-frontend-features.md) - highlight.js 与 KaTeX 使用
+- [10.2 模板语法详解](../part-10-template-engine/10-2-template-syntax.md) - Handlebars 模板结构
 
 ---
 

@@ -596,9 +596,9 @@ console.timeEnd('search');  // 应 < 100ms
 
 ## 相关文档
 
-- [13.1 编写博客文章指南](./013-1-writing-posts.md) - 文章格式
-- [13.2 添加 RSS 订阅](./013-2-rss-feed.md) - RSS 生成
-- [13.4 性能优化指南](./013-4-performance-optimization.md) - 构建和加载优化
+- [13.1 编写博客文章指南](./13-1-writing-posts.md) - 文章格式
+- [13.2 添加 RSS 订阅](./13-2-rss-feed.md) - RSS 生成
+- [13.4 性能优化指南](./13-4-performance-optimization.md) - 构建和加载优化
 
 ---
 

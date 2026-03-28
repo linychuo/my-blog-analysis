@@ -469,9 +469,9 @@ test "check coverage" {
 
 ## 相关文档
 
-- [14.2 调试技巧](./014-2-debugging-techniques.md) - 调试方法和工具
-- [14.3 内存泄漏检测](./014-3-memory-leak-detection.md) - 内存管理测试
-- [9.3 错误处理模式](../part-09-error-handling/009-3-error-handling-patterns.md) - 错误处理测试
+- [14.2 调试技巧](./14-2-debugging-techniques.md) - 调试方法和工具
+- [14.3 内存泄漏检测](./14-3-memory-leak-detection.md) - 内存管理测试
+- [9.3 错误处理模式](../part-09-error-handling/09-3-error-handling-patterns.md) - 错误处理测试
 
 ---
 

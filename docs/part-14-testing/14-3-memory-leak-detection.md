@@ -511,9 +511,9 @@ pub fn formatPostTitle(post: Post) [256]u8 {
 
 ## 相关文档
 
-- [14.1 单元测试](./014-1-unit-testing.md) - 测试基础
-- [14.2 调试技巧](./014-2-debugging-techniques.md) - 调试方法
-- [8.2 所有权模式](../part-08-memory-management/008-2-ownership-patterns.md) - 内存所有权
+- [14.1 单元测试](./14-1-unit-testing.md) - 测试基础
+- [14.2 调试技巧](./14-2-debugging-techniques.md) - 调试方法
+- [8.2 所有权模式](../part-08-memory-management/08-2-memory-ownership.md) - 内存所有权
 
 ---
 

@@ -543,9 +543,9 @@ for (posts) |post| {
 
 ## 相关文档
 
-- [13.1 编写博客文章指南](./013-1-writing-posts.md) - 文章格式优化
-- [13.3 集成搜索功能](./013-3-search-integration.md) - 搜索性能优化
-- [6.2 std.Build API](../part-06-build-system/006-2-std-build-api.md) - 构建系统基础
+- [13.1 编写博客文章指南](./13-1-writing-posts.md) - 文章格式优化
+- [13.3 集成搜索功能](./13-3-search-integration.md) - 搜索性能优化
+- [6.2 std.Build API](../part-06-build-system/06-2-std-build-api.md) - 构建系统基础
 
 ---
 

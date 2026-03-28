@@ -462,7 +462,7 @@ zig build -Doptimize=ReleaseFast run
 
 ### Q25: 如何添加 RSS 订阅？
 
-**A:** 参考文档 [13.2 添加 RSS 订阅](../part-13-extension-guides/013-2-rss-feed.md)
+**A:** 参考文档 [13.2 添加 RSS 订阅](../part-13-extension-guides/13-2-rss-feed.md)
 
 简要步骤：
 1. 扩展 `Blogger.zig` 生成 `rss.xml`
@@ -471,7 +471,7 @@ zig build -Doptimize=ReleaseFast run
 
 ### Q26: 如何添加搜索功能？
 
-**A:** 参考文档 [13.3 集成搜索功能](../part-13-extension-guides/013-3-search-integration.md)
+**A:** 参考文档 [13.3 集成搜索功能](../part-13-extension-guides/13-3-search-integration.md)
 
 简要步骤：
 1. 生成 `search-index.json`
@@ -584,7 +584,7 @@ aws s3 cp backups/$DATE.tar.gz s3://my-backups/
 
 - [附录 A: std 库 API](./appendix-a-std-lib-api.md) - 标准库参考
 - [附录 B: 常用代码模式](./appendix-b-common-patterns.md) - 代码模式
-- [13.1 编写博客文章指南](../part-13-extension-guides/013-1-writing-posts.md) - 文章创作
+- [13.1 编写博客文章指南](../part-13-extension-guides/13-1-writing-posts.md) - 文章创作
 
 ---
 

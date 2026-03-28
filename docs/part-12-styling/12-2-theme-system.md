@@ -368,9 +368,9 @@ setTheme('dim');  // 切换到"护眼模式"
 
 ## 相关文档
 
-- [12.1 CSS 架构与设计系统](./012-1-css-architecture.md) - CSS 变量定义
-- [12.3 前端功能集成](./012-3-frontend-features.md) - highlight.js 与 KaTeX
-- [10.1 模板引擎架构](../part-10-template-engine/010-1-architecture.md) - layout.hbs 模板结构
+- [12.1 CSS 架构与设计系统](./12-1-css-architecture.md) - CSS 变量定义
+- [12.3 前端功能集成](./12-3-frontend-features.md) - highlight.js 与 KaTeX
+- [10.1 模板引擎架构](../part-10-template-engine/10-1-architecture.md) - layout.hbs 模板结构
 
 ---
 

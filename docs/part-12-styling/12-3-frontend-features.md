@@ -449,9 +449,9 @@ function scrollToTop() {
 
 ## 相关文档
 
-- [12.1 CSS 架构与设计系统](./012-1-css-architecture.md) - CSS 变量与布局
-- [12.2 主题系统实现](./012-2-theme-system.md) - 主题切换机制
-- [11.3 HTML 生成器](../part-11-markdown-parser/011-3-html-generator.md) - Markdown 转 HTML 流程
+- [12.1 CSS 架构与设计系统](./12-1-css-architecture.md) - CSS 变量与布局
+- [12.2 主题系统实现](./12-2-theme-system.md) - 主题切换机制
+- [11.3 HTML 生成器](../part-11-markdown-parser/11-3-html-generation.md) - Markdown 转 HTML 流程
 
 ---
 

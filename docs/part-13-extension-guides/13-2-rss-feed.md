@@ -428,9 +428,9 @@ for (posts[0..max_items]) |post| {
 
 ## 相关文档
 
-- [13.1 编写博客文章指南](./013-1-writing-posts.md) - 文章格式和 frontmatter
-- [13.3 集成搜索功能](./013-3-search-integration.md) - 站内搜索实现
-- [7.2 Blogger.zig 核心模块](../part-07-core-modules/007-2-blogger-struct.md) - 核心生成逻辑
+- [13.1 编写博客文章指南](./13-1-writing-posts.md) - 文章格式和 frontmatter
+- [13.3 集成搜索功能](./13-3-search-integration.md) - 站内搜索实现
+- [7.2 Blogger.zig 核心模块](../part-07-core-modules/07-2-post-struct.md) - 核心生成逻辑
 
 ---
 

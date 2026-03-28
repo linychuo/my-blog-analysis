@@ -478,9 +478,9 @@ pub fn divide(a: f64, b: f64) f64 {
 
 ## 相关文档
 
-- [14.1 单元测试](./014-1-unit-testing.md) - 测试基础
-- [14.3 内存泄漏检测](./014-3-memory-leak-detection.md) - 内存调试
-- [9.2 错误传播](../part-09-error-handling/009-2-error-propagation.md) - 错误处理
+- [14.1 单元测试](./14-1-unit-testing.md) - 测试基础
+- [14.3 内存泄漏检测](./14-3-memory-leak-detection.md) - 内存调试
+- [9.2 错误传播](../part-09-error-handling/09-2-error-propagation.md) - 错误处理
 
 ---
 
