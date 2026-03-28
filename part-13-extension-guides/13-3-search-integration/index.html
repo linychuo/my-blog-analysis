@@ -1,29 +1,40 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Zig 博客分析系统的完整技术文档，包含项目概览、快速开始、语言基础等 14 个部分">
       
       
       
+        <link rel="canonical" href="https://linychuo.github.io/my-blog-analysis/part-13-extension-guides/13-3-search-integration/">
+      
+      
+        <link rel="prev" href="../13-2-rss-feed/">
+      
+      
+        <link rel="next" href="../13-4-performance-optimization/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../img/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>13.3 集成搜索功能 - My Blog Analysis</title>
+        <title>添加搜索 - My Blog Analysis - Zig 技术文档</title>
       
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -42,6 +53,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -51,7 +64,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -61,7 +81,7 @@
       
         
         <a href="#133" class="md-skip">
-          Skip to content
+          跳转至
         </a>
       
     </div>
@@ -74,12 +94,11 @@
 
   
 
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="My Blog Analysis - Zig 技术文档" class="md-header__button md-logo" aria-label="My Blog Analysis - Zig 技术文档" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../img/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -90,18 +109,44 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            My Blog Analysis
+            My Blog Analysis - Zig 技术文档
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              13.3 集成搜索功能
+              添加搜索
             
           </span>
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -118,27 +163,29 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
       
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -149,15 +196,387 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/linychuo/my-blog-analysis" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-blog-analysis
+  </div>
+</a>
+      </div>
+    
   </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  🏠 首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-01-project-overview/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 第一部分：项目概览
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-02-quick-start/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🚀 第二部分：快速开始
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-03-zig-basics/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔤 第三部分：Zig 语言基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-04-control-flow/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔄 第四部分：控制流
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-05-functions/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔧 第五部分：函数
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-06-build-system/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🏗️ 第六部分：构��系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-07-core-modules/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ⚙️ 第七部分：核心模块分析
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-08-memory-management/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  💾 第八部分：内存管理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-09-error-handling/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ⚠️ 第九部分：错误处理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-10-template-engine/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🎨 第十部分：模板引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-11-markdown-parser/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📝 第十一部分：Markdown 解析器
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-12-styling/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🎭 第十二部分：样式与前端
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔌 第十三部分：扩展指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-14-testing/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🧪 第十四部分：测试与调试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../appendix/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📖 附录
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
   
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
-        
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -171,17 +590,30 @@
                     
 
 
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
-      
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis - Zig 技术文档" class="md-nav__button md-logo" aria-label="My Blog Analysis - Zig 技术文档" data-md-component="logo">
+      
+  <img src="../../img/logo.png" alt="logo">
 
     </a>
-    My Blog Analysis
+    My Blog Analysis - Zig 技术文档
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linychuo/my-blog-analysis" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-blog-analysis
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -191,26 +623,68 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
+      
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    首页
+    📚 第一部分：项目概览
   
 
     
@@ -221,12 +695,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    首页
+    📚 第一部分：项目概览
   
 
           </label>
@@ -239,14 +713,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/index.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    1
+    项目概览
   
 
     
@@ -267,14 +741,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part2/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-1-project-background/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2
+    项目背景与目标
   
 
     
@@ -295,14 +769,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part3/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-2-tech-stack/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    3
+    技术栈选型
   
 
     
@@ -323,14 +797,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part4/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-3-features/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4
+    功能特性清单
   
 
     
@@ -351,14 +825,111 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part5/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-4-project-structure/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    5
+    项目结构说明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 第二部分：快速开始
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🚀 第二部分：快速开始
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-02-quick-start/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速开始
   
 
     
@@ -379,14 +950,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part6/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-1-requirements/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    6
+    环境要求
   
 
     
@@ -407,14 +978,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part7/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-2-build-and-run/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    7
+    构建与运行
   
 
     
@@ -435,14 +1006,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part8/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-3-cli-options/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    8
+    命令行选项
   
 
     
@@ -463,14 +1034,111 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part9/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-4-output-structure/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    9
+    输出结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔤 第三部分：Zig 语言基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔤 第三部分：Zig 语言基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-03-zig-basics/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zig 基础
   
 
     
@@ -491,14 +1159,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part10/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-1-variables-and-types/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    10
+    变量与类型
   
 
     
@@ -519,14 +1187,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part11/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-2-important-types/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    11
+    重要类型详解
   
 
     
@@ -547,14 +1215,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part12/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-3-optional-and-error/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    12
+    可选类型与错误类型
   
 
     
@@ -575,14 +1243,111 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part13/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-4-struct-and-enum/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    13
+    结构体与枚举
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔄 第四部分：控制流
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔄 第四部分：控制流
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    控制流
   
 
     
@@ -603,14 +1368,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part14/index.md" class="md-nav__link">
+      <a href="../../part-04-control-flow/04-1-if-else/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    14
+    条件语句 (if/else)
   
 
     
@@ -623,6 +1388,2514 @@
   
 
               
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/04-2-while-for/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    循环 (while/for)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/04-3-switch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Switch 表达式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/04-4-comptime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译时执行 (comptime)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔧 第五部分：函数
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔧 第五部分：函数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/05-1-function-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    函数基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/05-2-parameters-and-return/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参数与返回值
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/05-3-generics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    泛型编程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏗️ 第六部分：构��系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🏗️ 第六部分：构��系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    构建系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/06-1-build-zig-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    build.zig 结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/06-2-std-build-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    std.Build API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/06-3-package-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚙️ 第七部分：核心模块分析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ⚙️ 第七部分：核心模块分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-07-core-modules/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-07-core-modules/07-1-main-entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入口点分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-07-core-modules/07-2-post-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Post 结构体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-07-core-modules/07-3-blogger-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blogger 结构体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-07-core-modules/07-4-filesystem-ops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文件系统操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💾 第八部分：内存管理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💾 第八部分：内存管理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/08-1-allocators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存分配器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/08-2-memory-ownership/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存所有权
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/08-3-defer-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    defer 模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚠️ 第九部分：错误处理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ⚠️ 第九部分：错误处理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/09-1-error-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误类型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/09-2-error-propagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误传播
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/09-3-error-handling-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误处理模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎨 第十部分：模板引擎
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎨 第十部分：模板引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板引擎
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-1-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-2-template-syntax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板语法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-3-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板继承
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-4-templates-detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📝 第十一部分：Markdown 解析器
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📝 第十一部分：Markdown 解析器
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 解析器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-1-parser-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    解析器架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-2-block-elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    块级元素
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-3-inline-elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内联元素
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-4-html-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTML 生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎭 第十二部分：样式与前端
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎭 第十二部分：样式与前端
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    样式与前端
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/12-1-css-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSS 架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/12-2-theme-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主题系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/12-3-frontend-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端功能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔌 第十三部分：扩展指南
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔌 第十三部分：扩展指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    扩展指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-1-writing-posts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编写博客
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-2-rss-feed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    添加 RSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    添加搜索
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    添加搜索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1331" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.1 搜索方案对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.1 搜索方案对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可选方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fusejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐方案：Fuse.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1332" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.2 搜索架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.2 搜索架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1333" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.3 生成搜索索引
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.3 生成搜索索引">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-bloggerzig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 扩展 Blogger.zig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 辅助函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 集成到生成流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1334" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.4 创建搜索页面
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.4 创建搜索页面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searchhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        search.html 模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1335-fusejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.5 Fuse.js 配置选项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.5 Fuse.js 配置选项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阈值调优
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1336" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.6 搜索优化技巧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.6 搜索优化技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 索引大小优化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 搜索结果高亮
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 搜索结果分页
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 搜索历史
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1337" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.7 搜索页面集成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.7 搜索页面集成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在导航栏添加搜索入口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加快捷键
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1338" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.8 性能优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.8 性能优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        索引压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        懒加载索引
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        预加载索引
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1339" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3.9 测试搜索功能
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3.9 测试搜索功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-4-performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    性能优化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧪 第十四部分：测试与调试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧪 第十四部分：测试与调试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试与调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/14-1-unit-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单元测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/14-2-debugging-techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/14-3-memory-leak-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存泄漏检测
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 附录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📖 附录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -638,7 +3911,91 @@
   <span class="md-ellipsis">
     
   
-    附录
+    附录首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/appendix-a-std-lib-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标准库 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/appendix-b-common-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/appendix-c-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
   
 
     
@@ -672,7 +4029,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -681,7 +4038,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1096,15 +4453,18 @@
                   
 
 
+  
+  
 
-<h1 id="133">13.3 集成搜索功能</h1>
+
+<h1 id="133">13.3 集成搜索功能<a class="headerlink" href="#133" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>实现方案</strong>: 基于 Fuse.js 的客户端全文搜索<br />
 <strong>索引文件</strong>: <code>zig-out/blog/search-index.json</code><br />
 <strong>搜索页面</strong>: <code>zig-out/blog/search.html</code></p>
 </blockquote>
-<h2 id="1331">13.3.1 搜索方案对比</h2>
-<h3 id="_1">可选方案</h3>
+<h2 id="1331">13.3.1 搜索方案对比<a class="headerlink" href="#1331" title="Permanent link">&para;</a></h2>
+<h3 id="_1">可选方案<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1141,7 +4501,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="fusejs">推荐方案：Fuse.js</h3>
+<h3 id="fusejs">推荐方案：Fuse.js<a class="headerlink" href="#fusejs" title="Permanent link">&para;</a></h3>
 <p>my-blog 推荐使用 <strong>Fuse.js</strong> 实现客户端搜索：</p>
 <table>
 <thead>
@@ -1173,9 +4533,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="1332">13.3.2 搜索架构</h2>
-<h3 id="_2">数据流</h3>
-<pre><code>┌─────────────────────────────────────────────────────────┐
+<h2 id="1332">13.3.2 搜索架构<a class="headerlink" href="#1332" title="Permanent link">&para;</a></h2>
+<h3 id="_2">数据流<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────┐
 │                    搜索功能架构                          │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
@@ -1198,351 +4558,351 @@
 │     └──────────────┘                                    │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
-</code></pre>
-<h3 id="_3">文件结构</h3>
-<pre><code>zig-out/blog/
+</code></pre></div>
+<h3 id="_3">文件结构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>zig-out/blog/
 ├── search.html           # 搜索页面
 ├── search-index.json     # 搜索索引（自动生成）
 ├── style.css             # 包含搜索样式
 └── ...
-</code></pre>
-<h2 id="1333">13.3.3 生成搜索索引</h2>
-<h3 id="1-bloggerzig">1. 扩展 Blogger.zig</h3>
-<pre><code class="language-zig">// 在 Blogger.zig 中添加搜索索引生成
-pub fn generateSearchIndex(self: *Blogger, posts: []Post) !void {
-    const index_path = try std.fs.path.join(self.allocator, &amp;.{ self.dest_dir, &quot;search-index.json&quot; });
-    defer self.allocator.free(index_path);
+</code></pre></div>
+<h2 id="1333">13.3.3 生成搜索索引<a class="headerlink" href="#1333" title="Permanent link">&para;</a></h2>
+<h3 id="1-bloggerzig">1. 扩展 Blogger.zig<a class="headerlink" href="#1-bloggerzig" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 在 Blogger.zig 中添加搜索索引生成</span>
+<span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">generateSearchIndex</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="n">Post</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">index_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">.{</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;search-index.json&quot;</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">index_path</span><span class="p">);</span>
 
-    var index_file = try std.fs.cwd().createFile(index_path, .{});
-    defer index_file.close();
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">index_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">createFile</span><span class="p">(</span><span class="n">index_path</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">index_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
 
-    const writer = index_file.writer();
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index_file</span><span class="p">.</span><span class="n">writer</span><span class="p">();</span>
 
-    // 写入 JSON 数组
-    try writer.writeAll(&quot;[\n&quot;);
+<span class="w">    </span><span class="c1">// 写入 JSON 数组</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;[</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
-    for (posts, 0..) |post, i| {
-        if (i &gt; 0) try writer.writeAll(&quot;,\n&quot;);
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">..)</span><span class="w"> </span><span class="o">|</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;,</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
-        // 写入文章数据
-        try writer.writeAll(&quot;  {\n&quot;);
-        try writer.writeAll(&quot;    \&quot;title\&quot;: \&quot;{s}\&quot;,\n&quot;, .{try self.escapeJson(post.title)});
-        try writer.writeAll(&quot;    \&quot;url\&quot;: \&quot;{s}\&quot;,\n&quot;, .{try self.buildPostUrl(post)});
-        try writer.writeAll(&quot;    \&quot;date\&quot;: \&quot;{s}\&quot;,\n&quot;, .{post.date_time});
-        try writer.writeAll(&quot;    \&quot;tags\&quot;: [{s}],\n&quot;, .{try self.buildTagsJson(post.tags)});
-        try writer.writeAll(&quot;    \&quot;content\&quot;: \&quot;{s}\&quot;\n&quot;, .{try self.escapeJson(self.truncateContent(post.content))});
-        try writer.writeAll(&quot;  }&quot;);
-    }
+<span class="w">        </span><span class="c1">// 写入文章数据</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;  {</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;    </span><span class="se">\&quot;</span><span class="s">title</span><span class="se">\&quot;</span><span class="s">: </span><span class="se">\&quot;</span><span class="s">{s}</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">escapeJson</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="n">title</span><span class="p">)});</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;    </span><span class="se">\&quot;</span><span class="s">url</span><span class="se">\&quot;</span><span class="s">: </span><span class="se">\&quot;</span><span class="s">{s}</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">buildPostUrl</span><span class="p">(</span><span class="n">post</span><span class="p">)});</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;    </span><span class="se">\&quot;</span><span class="s">date</span><span class="se">\&quot;</span><span class="s">: </span><span class="se">\&quot;</span><span class="s">{s}</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">post</span><span class="p">.</span><span class="n">date_time</span><span class="p">});</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;    </span><span class="se">\&quot;</span><span class="s">tags</span><span class="se">\&quot;</span><span class="s">: [{s}],</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">buildTagsJson</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="n">tags</span><span class="p">)});</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;    </span><span class="se">\&quot;</span><span class="s">content</span><span class="se">\&quot;</span><span class="s">: </span><span class="se">\&quot;</span><span class="s">{s}</span><span class="se">\&quot;\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">escapeJson</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">truncateContent</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="n">content</span><span class="p">))});</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;  }&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    try writer.writeAll(&quot;\n]\n&quot;);
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
-    std.debug.print(&quot;Generated search index at {s}\n&quot;, .{index_path});
-}
-</code></pre>
-<h3 id="2">2. 辅助函数</h3>
-<pre><code class="language-zig">// JSON 转义
-fn escapeJson(self: *Blogger, input: []const u8) ![]u8 {
-    var result = std.ArrayList(u8).init(self.allocator);
-    errdefer result.deinit();
+<span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Generated search index at {s}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">index_path</span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2">2. 辅助函数<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// JSON 转义</span>
+<span class="k">fn</span><span class="w"> </span><span class="n">escapeJson</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="p">[]</span><span class="kt">u8</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="kt">u8</span><span class="p">).</span><span class="n">init</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="k">errdefer</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">deinit</span><span class="p">();</span>
 
-    for (input) |char| {
-        switch (char) {
-            '&quot;' =&gt; try result.appendSlice(&quot;\\\&quot;&quot;),
-            '\\' =&gt; try result.appendSlice(&quot;\\\\&quot;),
-            '\n' =&gt; try result.appendSlice(&quot;\\n&quot;),
-            '\r' =&gt; try result.appendSlice(&quot;\\r&quot;),
-            '\t' =&gt; try result.appendSlice(&quot;\\t&quot;),
-            else =&gt; try result.append(char),
-        }
-    }
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">input</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="n">char</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">char</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s">&#39;&quot;&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\\&quot;</span><span class="s">&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="se">&#39;\\&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\\\</span><span class="s">&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="se">&#39;\n&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">n&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="se">&#39;\r&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">r&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="se">&#39;\t&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">t&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">),</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return result.toOwnedSlice();
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">toOwnedSlice</span><span class="p">();</span>
+<span class="p">}</span>
 
-// 截断内容（只保留纯文本前 500 字符）
-fn truncateContent(self: *Blogger, content: []const u8) []const u8 {
-    // 移除 HTML 标签
-    var text = self.stripHtmlTags(content);
+<span class="c1">// 截断内容（只保留纯文本前 500 字符）</span>
+<span class="k">fn</span><span class="w"> </span><span class="n">truncateContent</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 移除 HTML 标签</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">stripHtmlTags</span><span class="p">(</span><span class="n">content</span><span class="p">);</span>
 
-    // 截断
-    const max_len = @min(text.len, 500);
-    return text[0..max_len];
-}
+<span class="w">    </span><span class="c1">// 截断</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">max_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">@min</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="n">max_len</span><span class="p">];</span>
+<span class="p">}</span>
 
-// 构建标签 JSON 数组
-fn buildTagsJson(self: *Blogger, tags: []const u8) ![]u8 {
-    // 解析逗号分隔的标签
-    var result = std.ArrayList(u8).init(self.allocator);
-    var iter = std.mem.splitScalar(u8, tags, ',');
-    var first = true;
+<span class="c1">// 构建标签 JSON 数组</span>
+<span class="k">fn</span><span class="w"> </span><span class="n">buildTagsJson</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">tags</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="p">[]</span><span class="kt">u8</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 解析逗号分隔的标签</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="kt">u8</span><span class="p">).</span><span class="n">init</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">splitScalar</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;,&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 
-    while (iter.next()) |tag| {
-        if (!first) try result.appendSlice(&quot;, &quot;);
-        try result.appendSlice(&quot;\&quot;&quot;);
-        try result.appendSlice(try self.escapeJson(std.mem.trim(u8, tag, &quot; \t\n&quot;)));
-        try result.appendSlice(&quot;\&quot;&quot;);
-        first = false;
-    }
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">iter</span><span class="p">.</span><span class="n">next</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="n">tag</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">first</span><span class="p">)</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">escapeJson</span><span class="p">(</span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">trim</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; </span><span class="se">\t\n</span><span class="s">&quot;</span><span class="p">)));</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return result.toOwnedSlice();
-}
-</code></pre>
-<h3 id="3">3. 集成到生成流程</h3>
-<pre><code class="language-zig">pub fn generate(self: *Blogger) !void {
-    const posts = try self.loadPosts();
-    defer self.cleanupPosts(posts);
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">toOwnedSlice</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3">3. 集成到生成流程<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">generate</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">loadPosts</span><span class="p">();</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">cleanupPosts</span><span class="p">(</span><span class="n">posts</span><span class="p">);</span>
 
-    // 生成各种页面
-    try self.generateIndex(posts);
-    try self.generatePostPages(posts);
-    try self.generateTagPages(posts);
+<span class="w">    </span><span class="c1">// 生成各种页面</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateIndex</span><span class="p">(</span><span class="n">posts</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generatePostPages</span><span class="p">(</span><span class="n">posts</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateTagPages</span><span class="p">(</span><span class="n">posts</span><span class="p">);</span>
 
-    // 生成搜索索引（新增）
-    try self.generateSearchIndex(posts);
+<span class="w">    </span><span class="c1">// 生成搜索索引（新增）</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateSearchIndex</span><span class="p">(</span><span class="n">posts</span><span class="p">);</span>
 
-    // 复制搜索页面模板
-    try self.copySearchPage();
-}
-</code></pre>
-<h2 id="1334">13.3.4 创建搜索页面</h2>
-<h3 id="searchhtml">search.html 模板</h3>
-<pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-    &lt;title&gt;Search - YongchaoLi's Blog&lt;/title&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
-    &lt;style&gt;
-        /* 搜索页面专用样式 */
-        .search-container {
-            max-width: 800px;
-            margin: 48px auto;
-            padding: 0 24px;
-        }
+<span class="w">    </span><span class="c1">// 复制搜索页面模板</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">copySearchPage</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="1334">13.3.4 创建搜索页面<a class="headerlink" href="#1334" title="Permanent link">&para;</a></h2>
+<h3 id="searchhtml">search.html 模板<a class="headerlink" href="#searchhtml" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Search - YongchaoLi&#39;s Blog<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/style.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="c">/* 搜索页面专用样式 */</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">search-container</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">800</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-box {
-            width: 100%;
-            padding: 16px 24px;
-            font-size: 18px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-box</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--border</span><span class="p">);</span>
+<span class="w">            </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--bg-secondary</span><span class="p">);</span>
+<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-primary</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-box</span><span class="p">:</span><span class="nd">focus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">outline</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">            </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--accent</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-results {
-            margin-top: 32px;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-results</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-item {
-            padding: 24px;
-            border-bottom: 1px solid var(--border);
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-item</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--border</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-item</span><span class="p">:</span><span class="nd">last-child</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-title {
-            font-size: var(--font-lg);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-title</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--font-lg</span><span class="p">);</span>
+<span class="w">            </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="p">;</span>
+<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-primary</span><span class="p">);</span>
+<span class="w">            </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-title a {
-            color: var(--accent);
-            text-decoration: none;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-title</span><span class="w"> </span><span class="nt">a</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--accent</span><span class="p">);</span>
+<span class="w">            </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-title a:hover {
-            text-decoration: underline;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-title</span><span class="w"> </span><span class="nt">a</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">underline</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-date {
-            font-size: var(--font-sm);
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-date</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--font-sm</span><span class="p">);</span>
+<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-secondary</span><span class="p">);</span>
+<span class="w">            </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-excerpt {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-excerpt</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-secondary</span><span class="p">);</span>
+<span class="w">            </span><span class="k">line-height</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-result-tags {
-            margin-top: 12px;
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-result-tags</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-no-results {
-            text-align: center;
-            padding: 48px 24px;
-            color: var(--text-secondary);
-        }
+<span class="w">        </span><span class="p">.</span><span class="nc">search-no-results</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="kt">px</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-secondary</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        .search-loading {
-            text-align: center;
-            padding: 48px;
-            color: var(--text-secondary);
-        }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;nav class=&quot;navbar&quot;&gt;
-        &lt;div class=&quot;navbar-content&quot;&gt;
-            &lt;a href=&quot;/index.html&quot; class=&quot;navbar-brand&quot;&gt;YongchaoLi's Blog&lt;/a&gt;
-            &lt;div class=&quot;navbar-menu&quot;&gt;
-                &lt;a href=&quot;/about.html&quot;&gt;About&lt;/a&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/nav&gt;
+<span class="w">        </span><span class="p">.</span><span class="nc">search-loading</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-secondary</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-content&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/index.html&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span><span class="p">&gt;</span>YongchaoLi&#39;s Blog<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-menu&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/about.html&quot;</span><span class="p">&gt;</span>About<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
 
-    &lt;div class=&quot;search-container&quot;&gt;
-        &lt;h1&gt;Search&lt;/h1&gt;
-        &lt;input type=&quot;text&quot; class=&quot;search-box&quot; id=&quot;search-input&quot; placeholder=&quot;Search articles...&quot; autofocus&gt;
-        &lt;div class=&quot;search-results&quot; id=&quot;search-results&quot;&gt;
-            &lt;div class=&quot;search-loading&quot;&gt;Loading search index...&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;search-container&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Search<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;search-box&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;search-input&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Search articles...&quot;</span> <span class="na">autofocus</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;search-results&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;search-results&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;search-loading&quot;</span><span class="p">&gt;</span>Loading search index...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-    &lt;!-- 加载 Fuse.js --&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script&gt;
-        // 搜索功能实现
-        let fuse = null;
-        let allArticles = [];
+    <span class="cm">&lt;!-- 加载 Fuse.js --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="c1">// 搜索功能实现</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">fuse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">allArticles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
 
-        // 加载搜索索引
-        async function loadSearchIndex() {
-            try {
-                const response = await fetch('/search-index.json');
-                allArticles = await response.json();
+<span class="w">        </span><span class="c1">// 加载搜索索引</span>
+<span class="w">        </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">loadSearchIndex</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/search-index.json&#39;</span><span class="p">);</span>
+<span class="w">                </span><span class="nx">allArticles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
 
-                // 初始化 Fuse.js
-                fuse = new Fuse(allArticles, {
-                    keys: [
-                        { name: 'title', weight: 0.5 },
-                        { name: 'content', weight: 0.3 },
-                        { name: 'tags', weight: 0.2 }
-                    ],
-                    threshold: 0.4,  // 模糊搜索阈值（0=精确，1=任意）
-                    includeMatches: true,
-                    minMatchCharLength: 2,
-                    limit: 20
-                });
+<span class="w">                </span><span class="c1">// 初始化 Fuse.js</span>
+<span class="w">                </span><span class="nx">fuse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Fuse</span><span class="p">(</span><span class="nx">allArticles</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nx">keys</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">weight</span><span class="o">:</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                        </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;content&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">weight</span><span class="o">:</span><span class="w"> </span><span class="mf">0.3</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                        </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;tags&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">weight</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nx">threshold</span><span class="o">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w">  </span><span class="c1">// 模糊搜索阈值（0=精确，1=任意）</span>
+<span class="w">                    </span><span class="nx">includeMatches</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                    </span><span class="nx">minMatchCharLength</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
+<span class="w">                    </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span>
+<span class="w">                </span><span class="p">});</span>
 
-                document.getElementById('search-results').innerHTML = '';
-            } catch (error) {
-                console.error('Failed to load search index:', error);
-                document.getElementById('search-results').innerHTML = 
-                    '&lt;div class=&quot;search-no-results&quot;&gt;Failed to load search index.&lt;/div&gt;';
-            }
-        }
+<span class="w">                </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-results&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Failed to load search index:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">                </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-results&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">                    </span><span class="s1">&#39;&lt;div class=&quot;search-no-results&quot;&gt;Failed to load search index.&lt;/div&gt;&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
 
-        // 执行搜索
-        function search(query) {
-            if (!fuse || !query.trim()) {
-                document.getElementById('search-results').innerHTML = '';
-                return;
-            }
+<span class="w">        </span><span class="c1">// 执行搜索</span>
+<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">search</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">fuse</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="nx">query</span><span class="p">.</span><span class="nx">trim</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-results&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
 
-            const results = fuse.search(query);
-            displayResults(results);
-        }
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fuse</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+<span class="w">            </span><span class="nx">displayResults</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        // 显示搜索结果
-        function displayResults(results) {
-            const container = document.getElementById('search-results');
+<span class="w">        </span><span class="c1">// 显示搜索结果</span>
+<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">displayResults</span><span class="p">(</span><span class="nx">results</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">container</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-results&#39;</span><span class="p">);</span>
 
-            if (results.length === 0) {
-                container.innerHTML = '&lt;div class=&quot;search-no-results&quot;&gt;No results found.&lt;/div&gt;';
-                return;
-            }
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">container</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;div class=&quot;search-no-results&quot;&gt;No results found.&lt;/div&gt;&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
 
-            let html = '';
-            results.forEach(result =&gt; {
-                const item = result.item;
-                const excerpt = item.content.substring(0, 200) + '...';
-                const tags = item.tags.map(tag =&gt; `&lt;span class=&quot;tag&quot;&gt;${tag}&lt;/span&gt;`).join('');
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nx">html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="nx">results</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">const</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">item</span><span class="p">;</span>
+<span class="w">                </span><span class="kd">const</span><span class="w"> </span><span class="nx">excerpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;...&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="kd">const</span><span class="w"> </span><span class="nx">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">item</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">tag</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="sb">`&lt;span class=&quot;tag&quot;&gt;</span><span class="si">${</span><span class="nx">tag</span><span class="si">}</span><span class="sb">&lt;/span&gt;`</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
 
-                html += `
-                    &lt;div class=&quot;search-result-item&quot;&gt;
-                        &lt;div class=&quot;search-result-title&quot;&gt;
-                            &lt;a href=&quot;${item.url}&quot;&gt;${highlightMatch(item.title, '${result.item.title}')}&lt;/a&gt;
-                        &lt;/div&gt;
-                        &lt;div class=&quot;search-result-date&quot;&gt;${item.date}&lt;/div&gt;
-                        &lt;div class=&quot;search-result-excerpt&quot;&gt;${excerpt}&lt;/div&gt;
-                        &lt;div class=&quot;search-result-tags&quot;&gt;${tags}&lt;/div&gt;
-                    &lt;/div&gt;
-                `;
-            });
+<span class="w">                </span><span class="nx">html</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="sb">`</span>
+<span class="sb">                    &lt;div class=&quot;search-result-item&quot;&gt;</span>
+<span class="sb">                        &lt;div class=&quot;search-result-title&quot;&gt;</span>
+<span class="sb">                            &lt;a href=&quot;</span><span class="si">${</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">&quot;&gt;</span><span class="si">${</span><span class="nx">highlightMatch</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;${result.item.title}&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">&lt;/a&gt;</span>
+<span class="sb">                        &lt;/div&gt;</span>
+<span class="sb">                        &lt;div class=&quot;search-result-date&quot;&gt;</span><span class="si">${</span><span class="nx">item</span><span class="p">.</span><span class="nx">date</span><span class="si">}</span><span class="sb">&lt;/div&gt;</span>
+<span class="sb">                        &lt;div class=&quot;search-result-excerpt&quot;&gt;</span><span class="si">${</span><span class="nx">excerpt</span><span class="si">}</span><span class="sb">&lt;/div&gt;</span>
+<span class="sb">                        &lt;div class=&quot;search-result-tags&quot;&gt;</span><span class="si">${</span><span class="nx">tags</span><span class="si">}</span><span class="sb">&lt;/div&gt;</span>
+<span class="sb">                    &lt;/div&gt;</span>
+<span class="sb">                `</span><span class="p">;</span>
+<span class="w">            </span><span class="p">});</span>
 
-            container.innerHTML = html;
-        }
+<span class="w">            </span><span class="nx">container</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">html</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        // 高亮匹配词
-        function highlightMatch(text, original) {
-            // 简单实现：返回原文本
-            return text;
-        }
+<span class="w">        </span><span class="c1">// 高亮匹配词</span>
+<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">highlightMatch</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="nx">original</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 简单实现：返回原文本</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">text</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-        // 事件监听
-        document.addEventListener('DOMContentLoaded', loadSearchIndex);
+<span class="w">        </span><span class="c1">// 事件监听</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">loadSearchIndex</span><span class="p">);</span>
 
-        document.getElementById('search-input').addEventListener('input', (e) =&gt; {
-            search(e.target.value);
-        });
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-input&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">search</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+<span class="w">        </span><span class="p">});</span>
 
-        // 支持 URL 参数搜索
-        const urlParams = new URLSearchParams(window.location.search);
-        const query = urlParams.get('q');
-        if (query) {
-            document.getElementById('search-input').value = query;
-            // 索引加载后会自动搜索
-        }
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<h2 id="1335-fusejs">13.3.5 Fuse.js 配置选项</h2>
-<h3 id="_4">核心配置</h3>
-<pre><code class="language-javascript">const fuse = new Fuse(articles, {
-    // 搜索键及其权重
-    keys: [
-        { name: 'title', weight: 0.5 },    // 标题权重最高
-        { name: 'content', weight: 0.3 },  // 内容权重中等
-        { name: 'tags', weight: 0.2 }      // 标签权重较低
-    ],
+<span class="w">        </span><span class="c1">// 支持 URL 参数搜索</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">urlParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">);</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">urlParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">query</span><span class="p">;</span>
+<span class="w">            </span><span class="c1">// 索引加载后会自动搜索</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="1335-fusejs">13.3.5 Fuse.js 配置选项<a class="headerlink" href="#1335-fusejs" title="Permanent link">&para;</a></h2>
+<h3 id="_4">核心配置<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">fuse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Fuse</span><span class="p">(</span><span class="nx">articles</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 搜索键及其权重</span>
+<span class="w">    </span><span class="nx">keys</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">weight</span><span class="o">:</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="p">},</span><span class="w">    </span><span class="c1">// 标题权重最高</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;content&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">weight</span><span class="o">:</span><span class="w"> </span><span class="mf">0.3</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// 内容权重中等</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;tags&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">weight</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="w"> </span><span class="p">}</span><span class="w">      </span><span class="c1">// 标签权重较低</span>
+<span class="w">    </span><span class="p">],</span>
 
-    // 模糊搜索阈值
-    threshold: 0.4,  // 0=精确匹配，1=完全模糊
+<span class="w">    </span><span class="c1">// 模糊搜索阈值</span>
+<span class="w">    </span><span class="nx">threshold</span><span class="o">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w">  </span><span class="c1">// 0=精确匹配，1=完全模糊</span>
 
-    // 最小匹配字符数
-    minMatchCharLength: 2,
+<span class="w">    </span><span class="c1">// 最小匹配字符数</span>
+<span class="w">    </span><span class="nx">minMatchCharLength</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
 
-    // 最大结果数
-    limit: 20,
+<span class="w">    </span><span class="c1">// 最大结果数</span>
+<span class="w">    </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span><span class="p">,</span>
 
-    // 是否包含匹配位置
-    includeMatches: true,
+<span class="w">    </span><span class="c1">// 是否包含匹配位置</span>
+<span class="w">    </span><span class="nx">includeMatches</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 
-    // 是否高亮匹配
-    includeScore: true,
+<span class="w">    </span><span class="c1">// 是否高亮匹配</span>
+<span class="w">    </span><span class="nx">includeScore</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 
-    // 排序规则
-    shouldSort: true,
+<span class="w">    </span><span class="c1">// 排序规则</span>
+<span class="w">    </span><span class="nx">shouldSort</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 
-    // 是否区分大小写
-    caseSensitive: false
-});
-</code></pre>
-<h3 id="_5">阈值调优</h3>
+<span class="w">    </span><span class="c1">// 是否区分大小写</span>
+<span class="w">    </span><span class="nx">caseSensitive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="_5">阈值调优<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1579,119 +4939,119 @@ fn buildTagsJson(self: *Blogger, tags: []const u8) ![]u8 {
 </tr>
 </tbody>
 </table>
-<h2 id="1336">13.3.6 搜索优化技巧</h2>
-<h3 id="1">1. 索引大小优化</h3>
-<pre><code class="language-zig">// 只索引必要字段
-fn generateSearchIndex(self: *Blogger, posts: []Post) !void {
-    for (posts) |post| {
-        // 截断内容，减少索引大小
-        const truncated = self.truncateContent(post.content, 500);
+<h2 id="1336">13.3.6 搜索优化技巧<a class="headerlink" href="#1336" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 索引大小优化<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 只索引必要字段</span>
+<span class="k">fn</span><span class="w"> </span><span class="n">generateSearchIndex</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="n">Post</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 截断内容，减少索引大小</span>
+<span class="w">        </span><span class="kr">const</span><span class="w"> </span><span class="n">truncated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">truncateContent</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">);</span>
 
-        // 移除 HTML 标签
-        const plain_text = self.stripHtmlTags(truncated);
+<span class="w">        </span><span class="c1">// 移除 HTML 标签</span>
+<span class="w">        </span><span class="kr">const</span><span class="w"> </span><span class="n">plain_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">stripHtmlTags</span><span class="p">(</span><span class="n">truncated</span><span class="p">);</span>
 
-        // 只存储纯文本
-        try self.writeIndexEntry(writer, post.title, plain_text, post.tags);
-    }
-}
-</code></pre>
-<h3 id="2_1">2. 搜索结果高亮</h3>
-<pre><code class="language-javascript">// 高亮匹配词
-function highlightMatch(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '&lt;mark&gt;$1&lt;/mark&gt;');
-}
+<span class="w">        </span><span class="c1">// 只存储纯文本</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">writeIndexEntry</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">plain_text</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">tags</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2_1">2. 搜索结果高亮<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 高亮匹配词</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">highlightMatch</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">regex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">RegExp</span><span class="p">(</span><span class="sb">`(</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">)`</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;gi&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">regex</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;mark&gt;$1&lt;/mark&gt;&#39;</span><span class="p">);</span>
+<span class="p">}</span>
 
-// CSS 样式
-mark {
-    background-color: rgba(88, 166, 255, 0.3);
-    padding: 2px 4px;
-    border-radius: 2px;
-}
-</code></pre>
-<h3 id="3_1">3. 搜索结果分页</h3>
-<pre><code class="language-javascript">const RESULTS_PER_PAGE = 10;
-let currentPage = 1;
+<span class="c1">// CSS 样式</span>
+<span class="nx">mark</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="nx">rgba</span><span class="p">(</span><span class="mf">88</span><span class="p">,</span><span class="w"> </span><span class="mf">166</span><span class="p">,</span><span class="w"> </span><span class="mf">255</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">padding</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="nx">px</span><span class="w"> </span><span class="mf">4</span><span class="nx">px</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="nx">px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3_1">3. 搜索结果分页<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">RESULTS_PER_PAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">currentPage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
 
-function search(query, page = 1) {
-    const results = fuse.search(query);
-    const start = (page - 1) * RESULTS_PER_PAGE;
-    const end = start + RESULTS_PER_PAGE;
-    displayResults(results.slice(start, end));
-    renderPagination(results.length, page);
-}
-</code></pre>
-<h3 id="4">4. 搜索历史</h3>
-<pre><code class="language-javascript">// 保存搜索历史到 localStorage
-function saveSearchHistory(query) {
-    let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-    history = [query, ...history.filter(q =&gt; q !== query)].slice(0, 10);
-    localStorage.setItem('searchHistory', JSON.stringify(history));
-}
+<span class="kd">function</span><span class="w"> </span><span class="nx">search</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="w"> </span><span class="nx">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fuse</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">page</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">RESULTS_PER_PAGE</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">RESULTS_PER_PAGE</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">displayResults</span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="w"> </span><span class="nx">end</span><span class="p">));</span>
+<span class="w">    </span><span class="nx">renderPagination</span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span><span class="w"> </span><span class="nx">page</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="4">4. 搜索历史<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 保存搜索历史到 localStorage</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">saveSearchHistory</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">history</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;searchHistory&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;[]&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">history</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">query</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nx">history</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">query</span><span class="p">)].</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;searchHistory&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">history</span><span class="p">));</span>
+<span class="p">}</span>
 
-// 显示搜索历史
-function showSearchHistory() {
-    const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-    // 显示为建议列表
-}
-</code></pre>
-<h2 id="1337">13.3.7 搜索页面集成</h2>
-<h3 id="_6">在导航栏添加搜索入口</h3>
-<pre><code class="language-html">&lt;nav class=&quot;navbar&quot;&gt;
-    &lt;div class=&quot;navbar-content&quot;&gt;
-        &lt;a href=&quot;/index.html&quot; class=&quot;navbar-brand&quot;&gt;YongchaoLi's Blog&lt;/a&gt;
-        &lt;div class=&quot;navbar-menu&quot;&gt;
-            &lt;a href=&quot;/about.html&quot;&gt;About&lt;/a&gt;
-            &lt;a href=&quot;/search.html&quot; class=&quot;search-icon&quot; aria-label=&quot;Search&quot;&gt;
-                &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
-                    &lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot;/&gt;
-                    &lt;path d=&quot;M21 21l-4.35-4.35&quot;/&gt;
-                &lt;/svg&gt;
-            &lt;/a&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/nav&gt;
-</code></pre>
-<h3 id="_7">添加快捷键</h3>
-<pre><code class="language-javascript">// 按 '/' 键聚焦搜索框
-document.addEventListener('keydown', (e) =&gt; {
-    if (e.key === '/' &amp;&amp; document.activeElement.tagName !== 'INPUT') {
-        e.preventDefault();
-        document.getElementById('search-input').focus();
-    }
-});
+<span class="c1">// 显示搜索历史</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">showSearchHistory</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">history</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;searchHistory&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;[]&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 显示为建议列表</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="1337">13.3.7 搜索页面集成<a class="headerlink" href="#1337" title="Permanent link">&para;</a></h2>
+<h3 id="_6">在导航栏添加搜索入口<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-content&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/index.html&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span><span class="p">&gt;</span>YongchaoLi&#39;s Blog<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-menu&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/about.html&quot;</span><span class="p">&gt;</span>About<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/search.html&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;search-icon&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Search&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">svg</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">&quot;0 0 24 24&quot;</span> <span class="na">fill</span><span class="o">=</span><span class="s">&quot;none&quot;</span> <span class="na">stroke</span><span class="o">=</span><span class="s">&quot;currentColor&quot;</span> <span class="na">stroke-width</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">circle</span> <span class="na">cx</span><span class="o">=</span><span class="s">&quot;11&quot;</span> <span class="na">cy</span><span class="o">=</span><span class="s">&quot;11&quot;</span> <span class="na">r</span><span class="o">=</span><span class="s">&quot;8&quot;</span><span class="p">/&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">path</span> <span class="na">d</span><span class="o">=</span><span class="s">&quot;M21 21l-4.35-4.35&quot;</span><span class="p">/&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="_7">添加快捷键<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 按 &#39;/&#39; 键聚焦搜索框</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;/&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">activeElement</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;INPUT&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-input&#39;</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">});</span>
 
-// 按 Escape 键清除搜索
-document.addEventListener('keydown', (e) =&gt; {
-    if (e.key === 'Escape' &amp;&amp; document.activeElement.id === 'search-input') {
-        document.getElementById('search-input').value = '';
-        document.getElementById('search-results').innerHTML = '';
-    }
-});
-</code></pre>
-<h2 id="1338">13.3.8 性能优化</h2>
-<h3 id="_8">索引压缩</h3>
-<pre><code class="language-zig">// 使用更紧凑的 JSON 格式
-const json = try std.json.stringifyAlloc(allocator, index_data, .{
-    .whitespace = .minified,  // 无空格
-});
-</code></pre>
-<h3 id="_9">懒加载索引</h3>
-<pre><code class="language-javascript">// 用户聚焦搜索框时才加载索引
-let fuse = null;
+<span class="c1">// 按 Escape 键清除搜索</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;Escape&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">activeElement</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;search-input&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-results&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<h2 id="1338">13.3.8 性能优化<a class="headerlink" href="#1338" title="Permanent link">&para;</a></h2>
+<h3 id="_8">索引压缩<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 使用更紧凑的 JSON 格式</span>
+<span class="kr">const</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">json</span><span class="p">.</span><span class="n">stringifyAlloc</span><span class="p">(</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">index_data</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">whitespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">minified</span><span class="p">,</span><span class="w">  </span><span class="c1">// 无空格</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="_9">懒加载索引<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 用户聚焦搜索框时才加载索引</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">fuse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
 
-document.getElementById('search-input').addEventListener('focus', async () =&gt; {
-    if (!fuse) {
-        await loadSearchIndex();
-    }
-});
-</code></pre>
-<h3 id="_10">预加载索引</h3>
-<pre><code class="language-html">&lt;!-- 在首页预加载提示 --&gt;
-&lt;link rel=&quot;prefetch&quot; href=&quot;/search-index.json&quot;&gt;
-</code></pre>
-<h2 id="1339">13.3.9 测试搜索功能</h2>
-<h3 id="_11">测试用例</h3>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;search-input&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;focus&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">fuse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="nx">loadSearchIndex</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="_10">预加载索引<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 在首页预加载提示 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;prefetch&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/search-index.json&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="1339">13.3.9 测试搜索功能<a class="headerlink" href="#1339" title="Permanent link">&para;</a></h2>
+<h3 id="_11">测试用例<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1726,13 +5086,13 @@ document.getElementById('search-input').addEventListener('focus', async () =&gt;
 </tr>
 </tbody>
 </table>
-<h3 id="_12">性能测试</h3>
-<pre><code class="language-javascript">// 测试搜索速度
-console.time('search');
-const results = fuse.search('zig');
-console.timeEnd('search');  // 应 &lt; 100ms
-</code></pre>
-<h2 id="_13">相关文档</h2>
+<h3 id="_12">性能测试<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 测试搜索速度</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fuse</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s1">&#39;zig&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1">// 应 &lt; 100ms</span>
+</code></pre></div>
+<h2 id="_13">相关文档<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../13-1-writing-posts/">13.1 编写博客文章指南</a> - 文章格式</li>
 <li><a href="../13-2-rss-feed/">13.2 添加 RSS 订阅</a> - RSS 生成</li>
@@ -1757,8 +5117,16 @@ console.timeEnd('search');  // 应 &lt; 100ms
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
         
       </main>
       
@@ -1768,10 +5136,35 @@ console.timeEnd('search');  // 应 &lt; 100ms
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 My Blog Analysis. All rights reserved.
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
       Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/linychuo/my-blog-analysis" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
     </a>
   
 </div>
@@ -1789,10 +5182,12 @@ console.timeEnd('search');  // 应 &lt; 100ms
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.tabs.link", "content.code.copy", "content.code.annotate", "toc.follow", "toc.sticky"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

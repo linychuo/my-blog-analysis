@@ -1,29 +1,40 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Zig 博客分析系统的完整技术文档，包含项目概览、快速开始、语言基础等 14 个部分">
       
       
       
+        <link rel="canonical" href="https://linychuo.github.io/my-blog-analysis/part-07-core-modules/07-3-blogger-struct/">
+      
+      
+        <link rel="prev" href="../07-2-post-struct/">
+      
+      
+        <link rel="next" href="../07-4-filesystem-ops/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../img/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>07-3 Blogger 结构体 - My Blog Analysis</title>
+        <title>Blogger 结构体 - My Blog Analysis - Zig 技术文档</title>
       
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -42,6 +53,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -51,7 +64,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -61,7 +81,7 @@
       
         
         <a href="#07-3-blogger" class="md-skip">
-          Skip to content
+          跳转至
         </a>
       
     </div>
@@ -74,12 +94,11 @@
 
   
 
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="My Blog Analysis - Zig 技术文档" class="md-header__button md-logo" aria-label="My Blog Analysis - Zig 技术文档" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../img/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -90,18 +109,44 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            My Blog Analysis
+            My Blog Analysis - Zig 技术文档
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              07-3 Blogger 结构体
+              Blogger 结构体
             
           </span>
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -118,27 +163,29 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
       
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -149,15 +196,387 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/linychuo/my-blog-analysis" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-blog-analysis
+  </div>
+</a>
+      </div>
+    
   </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  🏠 首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-01-project-overview/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 第一部分：项目概览
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-02-quick-start/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🚀 第二部分：快速开始
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-03-zig-basics/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔤 第三部分：Zig 语言基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-04-control-flow/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔄 第四部分：控制流
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-05-functions/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔧 第五部分：函数
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-06-build-system/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🏗️ 第六部分：构��系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ⚙️ 第七部分：核心模块分析
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-08-memory-management/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  💾 第八部分：内存管理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-09-error-handling/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ⚠️ 第九部分：错误处理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-10-template-engine/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🎨 第十部分：模板引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-11-markdown-parser/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📝 第十一部分：Markdown 解析器
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-12-styling/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🎭 第十二部分：样式与前端
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-13-extension-guides/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🔌 第十三部分：扩展指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../part-14-testing/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  🧪 第十四部分：测试与调试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../appendix/index.md" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📖 附录
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
   
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
-        
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -171,17 +590,30 @@
                     
 
 
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
-      
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis - Zig 技术文档" class="md-nav__button md-logo" aria-label="My Blog Analysis - Zig 技术文档" data-md-component="logo">
+      
+  <img src="../../img/logo.png" alt="logo">
 
     </a>
-    My Blog Analysis
+    My Blog Analysis - Zig 技术文档
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linychuo/my-blog-analysis" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-blog-analysis
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -191,26 +623,68 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
+      
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    首页
+    📚 第一部分：项目概览
   
 
     
@@ -221,12 +695,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    首页
+    📚 第一部分：项目概览
   
 
           </label>
@@ -239,14 +713,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/index.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    1
+    项目概览
   
 
     
@@ -267,14 +741,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part2/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-1-project-background/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2
+    项目背景与目标
   
 
     
@@ -295,14 +769,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part3/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-2-tech-stack/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    3
+    技术栈选型
   
 
     
@@ -323,14 +797,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part4/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-3-features/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4
+    功能特性清单
   
 
     
@@ -351,14 +825,111 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part5/index.md" class="md-nav__link">
+      <a href="../../part-01-project-overview/01-4-project-structure/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    5
+    项目结构说明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 第二部分：快速开始
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🚀 第二部分：快速开始
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-02-quick-start/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速开始
   
 
     
@@ -379,14 +950,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part6/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-1-requirements/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    6
+    环境要求
   
 
     
@@ -407,14 +978,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part7/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-2-build-and-run/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    7
+    构建与运行
   
 
     
@@ -435,14 +1006,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part8/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-3-cli-options/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    8
+    命令行选项
   
 
     
@@ -463,14 +1034,111 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part9/index.md" class="md-nav__link">
+      <a href="../../part-02-quick-start/02-4-output-structure/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    9
+    输出结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔤 第三部分：Zig 语言基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔤 第三部分：Zig 语言基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-03-zig-basics/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zig 基础
   
 
     
@@ -491,14 +1159,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part10/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-1-variables-and-types/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    10
+    变量与类型
   
 
     
@@ -519,14 +1187,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part11/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-2-important-types/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    11
+    重要类型详解
   
 
     
@@ -547,14 +1215,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part12/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-3-optional-and-error/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    12
+    可选类型与错误类型
   
 
     
@@ -575,14 +1243,111 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part13/index.md" class="md-nav__link">
+      <a href="../../part-03-zig-basics/03-4-struct-and-enum/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    13
+    结构体与枚举
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔄 第四部分：控制流
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔄 第四部分：控制流
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    控制流
   
 
     
@@ -603,14 +1368,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part14/index.md" class="md-nav__link">
+      <a href="../../part-04-control-flow/04-1-if-else/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    14
+    条件语句 (if/else)
   
 
     
@@ -623,6 +1388,2658 @@
   
 
               
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/04-2-while-for/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    循环 (while/for)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/04-3-switch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Switch 表达式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-04-control-flow/04-4-comptime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译时执行 (comptime)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔧 第五部分：函数
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔧 第五部分：函数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/05-1-function-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    函数基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/05-2-parameters-and-return/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参数与返回值
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-05-functions/05-3-generics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    泛型编程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏗️ 第六部分：构��系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🏗️ 第六部分：构��系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    构建系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/06-1-build-zig-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    build.zig 结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/06-2-std-build-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    std.Build API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-06-build-system/06-3-package-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚙️ 第七部分：核心模块分析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ⚙️ 第七部分：核心模块分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-1-main-entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入口点分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-2-post-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Post 结构体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blogger 结构体
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blogger 结构体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-blogger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Blogger 结构体概览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Blogger 结构体概览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 完整代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 结构体字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 方法分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 构造函数：new()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 构造函数：new()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 初始化流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 使用示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 主入口：generate()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 主入口：generate()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 完整流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 生成流程图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 内存管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-copystaticfiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 静态文件复制：copyStaticFiles()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 静态文件复制：copyStaticFiles()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 完整代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 错误处理模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 目录遍历
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-loadposts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 文章加载：loadPosts()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 文章加载：loadPosts()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 完整代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 文件过滤逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 错误恢复
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-generatepostpage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 文章页面生成：generatePostPage()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 文章页面生成：generatePostPage()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 关键步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 模板渲染流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-writehtmlfilewithdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 日期目录结构：writeHtmlFileWithDate()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 日期目录结构：writeHtmlFileWithDate()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 日期解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-generateindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 首页生成：generateIndex()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 首页生成：generateIndex()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 文章列表 HTML 构建
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-generatetagpages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 标签页面：generateTagPages()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 标签页面：generateTagPages()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 标签映射构建
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-sortpostsbydatedesc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 排序函数：sortPostsByDateDesc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 排序函数：sortPostsByDateDesc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 比较逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 设计模式总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. 设计模式总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 构造器模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 外观模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 资源管理模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-4-filesystem-ops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文件系统操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💾 第八部分：内存管理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💾 第八部分：内存管理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/08-1-allocators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存分配器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/08-2-memory-ownership/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存所有权
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-08-memory-management/08-3-defer-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    defer 模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚠️ 第九部分：错误处理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ⚠️ 第九部分：错误处理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/09-1-error-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误类型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/09-2-error-propagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误传播
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-09-error-handling/09-3-error-handling-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误处理模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎨 第十部分：模板引擎
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎨 第十部分：模板引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板引擎
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-1-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-2-template-syntax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板语法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-3-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板继承
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-10-template-engine/10-4-templates-detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📝 第十一部分：Markdown 解析器
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📝 第十一部分：Markdown 解析器
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 解析器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-1-parser-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    解析器架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-2-block-elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    块级元素
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-3-inline-elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内联元素
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-11-markdown-parser/11-4-html-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTML 生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎭 第十二部分：样式与前端
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎭 第十二部分：样式与前端
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    样式与前端
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/12-1-css-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSS 架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/12-2-theme-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主题系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-12-styling/12-3-frontend-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端功能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔌 第十三部分：扩展指南
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔌 第十三部分：扩展指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-13-extension-guides/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    扩展指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-13-extension-guides/13-1-writing-posts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编写博客
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-13-extension-guides/13-2-rss-feed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    添加 RSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-13-extension-guides/13-3-search-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    添加搜索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-13-extension-guides/13-4-performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    性能优化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧪 第十四部分：测试与调试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧪 第十四部分：测试与调试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试与调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/14-1-unit-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单元测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/14-2-debugging-techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part-14-testing/14-3-memory-leak-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存泄漏检测
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 附录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📖 附录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -638,7 +4055,91 @@
   <span class="md-ellipsis">
     
   
-    附录
+    附录首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/appendix-a-std-lib-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标准库 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/appendix-b-common-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/appendix-c-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
   
 
     
@@ -672,7 +4173,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -681,7 +4182,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1240,57 +4741,60 @@
                   
 
 
+  
+  
 
-<h1 id="07-3-blogger">07-3 Blogger 结构体</h1>
+
+<h1 id="07-3-blogger">07-3 Blogger 结构体<a class="headerlink" href="#07-3-blogger" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p>博客生成核心逻辑与页面渲染</p>
 </blockquote>
 <hr />
-<h2 id="1-blogger">1. Blogger 结构体概览</h2>
-<h3 id="11">1.1 完整代码</h3>
-<pre><code class="language-zig">pub const Blogger = struct {
-    dest_dir: []const u8,
-    posts_dir: []const u8,
-    allocator: Allocator,
-    template_engine: TemplateEngine,
+<h2 id="1-blogger">1. Blogger 结构体概览<a class="headerlink" href="#1-blogger" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 完整代码<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">pub</span><span class="w"> </span><span class="kr">const</span><span class="w"> </span><span class="n">Blogger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">dest_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span>
+<span class="w">    </span><span class="n">posts_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span>
+<span class="w">    </span><span class="n">allocator</span><span class="o">:</span><span class="w"> </span><span class="n">Allocator</span><span class="p">,</span>
+<span class="w">    </span><span class="n">template_engine</span><span class="o">:</span><span class="w"> </span><span class="n">TemplateEngine</span><span class="p">,</span>
 
-    pub fn new(allocator: Allocator, posts_dir: []const u8, dest_dir: []const u8) Blogger {
-        const engine = TemplateEngine.init(allocator, &quot;templates&quot;);
-        return .{
-            .allocator = allocator,
-            .posts_dir = posts_dir,
-            .dest_dir = dest_dir,
-            .template_engine = engine,
-        };
-    }
+<span class="w">    </span><span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="n">allocator</span><span class="o">:</span><span class="w"> </span><span class="n">Allocator</span><span class="p">,</span><span class="w"> </span><span class="n">posts_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">dest_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span><span class="n">Blogger</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">const</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TemplateEngine</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;templates&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">.{</span>
+<span class="w">            </span><span class="p">.</span><span class="n">allocator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allocator</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">posts_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts_dir</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">dest_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dest_dir</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">template_engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">engine</span><span class="p">,</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
 
-    pub fn generate(self: *Blogger) !void {
-        std.debug.print(&quot;Generating blog...\n Posts directory: {s}\n Output directory: {s}\n&quot;, .{ self.posts_dir, self.dest_dir });
-        try std.fs.cwd().makePath(self.dest_dir);
+<span class="w">    </span><span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">generate</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Generating blog...</span><span class="se">\n</span><span class="s"> Posts directory: {s}</span><span class="se">\n</span><span class="s"> Output directory: {s}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">posts_dir</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="w"> </span><span class="p">});</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">makePath</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="p">);</span>
 
-        // Copy static files
-        try self.copyStaticFiles();
+<span class="w">        </span><span class="c1">// Copy static files</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">copyStaticFiles</span><span class="p">();</span>
 
-        var posts = std.ArrayList(Post){};
-        defer {
-            for (posts.items) |*post| post.deinit(self.allocator);
-            posts.deinit(self.allocator);
-        }
-        try self.loadPosts(&amp;posts);
-        std.mem.sort(Post, posts.items, {}, sortPostsByDateDesc);
+<span class="w">        </span><span class="kr">var</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="n">Post</span><span class="p">){};</span>
+<span class="w">        </span><span class="k">defer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="o">|*</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">            </span><span class="n">posts</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">loadPosts</span><span class="p">(</span><span class="o">&amp;</span><span class="n">posts</span><span class="p">);</span>
+<span class="w">        </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">sort</span><span class="p">(</span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="n">sortPostsByDateDesc</span><span class="p">);</span>
 
-        for (posts.items) |post| try self.generatePostPage(post);
-        try self.generateIndex(posts.items);
-        try self.generateAbout();
-        try self.generateTagPages(posts.items);
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generatePostPage</span><span class="p">(</span><span class="n">post</span><span class="p">);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateIndex</span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateAbout</span><span class="p">();</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateTagPages</span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">);</span>
 
-        std.debug.print(&quot;Blog generation complete!\n&quot;, .{});
-    }
+<span class="w">        </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Blog generation complete!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // ... 私有方法
-};
-</code></pre>
-<h3 id="12">1.2 结构体字段</h3>
+<span class="w">    </span><span class="c1">// ... 私有方法</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="12">1.2 结构体字段<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1328,7 +4832,7 @@
 </tbody>
 </table>
 <p><strong>总大小</strong>：约 112 字节（64 位系统）</p>
-<h3 id="13">1.3 方法分类</h3>
+<h3 id="13">1.3 方法分类<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1351,10 +4855,10 @@
 </tbody>
 </table>
 <hr />
-<h2 id="2-new">2. 构造函数：new()</h2>
-<h3 id="21">2.1 函数签名</h3>
-<pre><code class="language-zig">pub fn new(allocator: Allocator, posts_dir: []const u8, dest_dir: []const u8) Blogger
-</code></pre>
+<h2 id="2-new">2. 构造函数：new()<a class="headerlink" href="#2-new" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 函数签名<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="n">allocator</span><span class="o">:</span><span class="w"> </span><span class="n">Allocator</span><span class="p">,</span><span class="w"> </span><span class="n">posts_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">dest_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span><span class="n">Blogger</span>
+</code></pre></div>
 <p><strong>参数分析</strong>：</p>
 <table>
 <thead>
@@ -1386,19 +4890,19 @@
 </tr>
 </tbody>
 </table>
-<h3 id="22">2.2 初始化流程</h3>
-<pre><code class="language-zig">pub fn new(allocator: Allocator, posts_dir: []const u8, dest_dir: []const u8) Blogger {
-    const engine = TemplateEngine.init(allocator, &quot;templates&quot;);
-    return .{
-        .allocator = allocator,
-        .posts_dir = posts_dir,
-        .dest_dir = dest_dir,
-        .template_engine = engine,
-    };
-}
-</code></pre>
+<h3 id="22">2.2 初始化流程<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="n">allocator</span><span class="o">:</span><span class="w"> </span><span class="n">Allocator</span><span class="p">,</span><span class="w"> </span><span class="n">posts_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">dest_dir</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span><span class="n">Blogger</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TemplateEngine</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;templates&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">.{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">allocator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allocator</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">posts_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">posts_dir</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">dest_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dest_dir</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">template_engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">engine</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>初始化步骤</strong>：</p>
-<pre><code>[1] 初始化模板引擎
+<div class="highlight"><pre><span></span><code>[1] 初始化模板引擎
     TemplateEngine.init(allocator, &quot;templates&quot;)
     │
     ▼
@@ -1412,50 +4916,50 @@
     │
     ▼
 [3] 返回实例
-</code></pre>
-<h3 id="23">2.3 使用示例</h3>
-<pre><code class="language-zig">// 在 main.zig 中
-var blogger = Blogger.new(allocator, posts_dir, dest_dir);
-try blogger.generate();
-</code></pre>
+</code></pre></div>
+<h3 id="23">2.3 使用示例<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 在 main.zig 中</span>
+<span class="kr">var</span><span class="w"> </span><span class="n">blogger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Blogger</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">posts_dir</span><span class="p">,</span><span class="w"> </span><span class="n">dest_dir</span><span class="p">);</span>
+<span class="k">try</span><span class="w"> </span><span class="n">blogger</span><span class="p">.</span><span class="n">generate</span><span class="p">();</span>
+</code></pre></div>
 <hr />
-<h2 id="3-generate">3. 主入口：generate()</h2>
-<h3 id="31">3.1 函数签名</h3>
-<pre><code class="language-zig">pub fn generate(self: *Blogger) !void
-</code></pre>
+<h2 id="3-generate">3. 主入口：generate()<a class="headerlink" href="#3-generate" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 函数签名<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">generate</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span>
+</code></pre></div>
 <p><strong>返回类型</strong>：<code>!void</code>（可能失败的无返回值函数）</p>
-<h3 id="32">3.2 完整流程</h3>
-<pre><code class="language-zig">pub fn generate(self: *Blogger) !void {
-    // [1] 打印生成信息
-    std.debug.print(&quot;Generating blog...\n Posts directory: {s}\n Output directory: {s}\n&quot;, .{ self.posts_dir, self.dest_dir });
+<h3 id="32">3.2 完整流程<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="n">generate</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// [1] 打印生成信息</span>
+<span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Generating blog...</span><span class="se">\n</span><span class="s"> Posts directory: {s}</span><span class="se">\n</span><span class="s"> Output directory: {s}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">posts_dir</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="w"> </span><span class="p">});</span>
 
-    // [2] 创建输出目录
-    try std.fs.cwd().makePath(self.dest_dir);
+<span class="w">    </span><span class="c1">// [2] 创建输出目录</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">makePath</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="p">);</span>
 
-    // [3] 复制静态文件
-    try self.copyStaticFiles();
+<span class="w">    </span><span class="c1">// [3] 复制静态文件</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">copyStaticFiles</span><span class="p">();</span>
 
-    // [4] 加载并排序文章
-    var posts = std.ArrayList(Post){};
-    defer {
-        for (posts.items) |*post| post.deinit(self.allocator);
-        posts.deinit(self.allocator);
-    }
-    try self.loadPosts(&amp;posts);
-    std.mem.sort(Post, posts.items, {}, sortPostsByDateDesc);
+<span class="w">    </span><span class="c1">// [4] 加载并排序文章</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="n">Post</span><span class="p">){};</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="o">|*</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">        </span><span class="n">posts</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">loadPosts</span><span class="p">(</span><span class="o">&amp;</span><span class="n">posts</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">sort</span><span class="p">(</span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="n">sortPostsByDateDesc</span><span class="p">);</span>
 
-    // [5] 生成各种页面
-    for (posts.items) |post| try self.generatePostPage(post);
-    try self.generateIndex(posts.items);
-    try self.generateAbout();
-    try self.generateTagPages(posts.items);
+<span class="w">    </span><span class="c1">// [5] 生成各种页面</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generatePostPage</span><span class="p">(</span><span class="n">post</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateIndex</span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateAbout</span><span class="p">();</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">generateTagPages</span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">);</span>
 
-    // [6] 完成提示
-    std.debug.print(&quot;Blog generation complete!\n&quot;, .{});
-}
-</code></pre>
-<h3 id="33">3.3 生成流程图</h3>
-<pre><code>generate()
+<span class="w">    </span><span class="c1">// [6] 完成提示</span>
+<span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Blog generation complete!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="33">3.3 生成流程图<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>generate()
     │
     ├─ [1] 打印配置信息
     │
@@ -1475,18 +4979,18 @@ try blogger.generate();
     │   └─ generateTagPages() (标签页)
     │
     └─ [6] 打印完成信息
-</code></pre>
-<h3 id="34">3.4 内存管理</h3>
-<pre><code class="language-zig">var posts = std.ArrayList(Post){};
-defer {
-    // 清理所有 Post 实例
-    for (posts.items) |*post| post.deinit(self.allocator);
-    // 清理 ArrayList 本身
-    posts.deinit(self.allocator);
-}
-</code></pre>
+</code></pre></div>
+<h3 id="34">3.4 内存管理<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">var</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="n">Post</span><span class="p">){};</span>
+<span class="k">defer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 清理所有 Post 实例</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="o">|*</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 清理 ArrayList 本身</span>
+<span class="w">    </span><span class="n">posts</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>defer 块执行时机</strong>：</p>
-<pre><code>generate() 开始
+<div class="highlight"><pre><span></span><code>generate() 开始
     │
     ▼
 posts 初始化
@@ -1502,200 +5006,200 @@ generate() 返回前
     │
     ▼
 defer 块执行 → 释放所有内存
-</code></pre>
+</code></pre></div>
 <hr />
-<h2 id="4-copystaticfiles">4. 静态文件复制：copyStaticFiles()</h2>
-<h3 id="41">4.1 函数签名</h3>
-<pre><code class="language-zig">fn copyStaticFiles(self: *Blogger) !void
-</code></pre>
-<h3 id="42">4.2 完整代码</h3>
-<pre><code class="language-zig">fn copyStaticFiles(self: *Blogger) !void {
-    const static_dir = &quot;static&quot;;
-    var dir = std.fs.cwd().openDir(static_dir, .{ .iterate = true }) catch {
-        std.debug.print(&quot; Warning: static directory not found, skipping static files\n&quot;, .{});
-        return;
-    };
-    defer dir.close();
+<h2 id="4-copystaticfiles">4. 静态文件复制：copyStaticFiles()<a class="headerlink" href="#4-copystaticfiles" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 函数签名<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">copyStaticFiles</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span>
+</code></pre></div>
+<h3 id="42">4.2 完整代码<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">copyStaticFiles</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">static_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;static&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">openDir</span><span class="p">(</span><span class="n">static_dir</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="w"> </span><span class="p">.</span><span class="n">iterate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; Warning: static directory not found, skipping static files</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">dir</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
 
-    try std.fs.cwd().makePath(self.dest_dir);
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">makePath</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="p">);</span>
 
-    var walker = try dir.walk(self.allocator);
-    defer walker.deinit();
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">walker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">dir</span><span class="p">.</span><span class="n">walk</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">walker</span><span class="p">.</span><span class="n">deinit</span><span class="p">();</span>
 
-    while (try walker.next()) |entry| {
-        if (entry.kind == .file) {
-            const src_path = try std.fs.path.join(self.allocator, &amp;.{ static_dir, entry.path });
-            defer self.allocator.free(src_path);
-            const dest_path = try std.fs.path.join(self.allocator, &amp;.{ self.dest_dir, entry.path });
-            defer self.allocator.free(dest_path);
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">try</span><span class="w"> </span><span class="n">walker</span><span class="p">.</span><span class="n">next</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="n">entry</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">.</span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">src_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">.{</span><span class="w"> </span><span class="n">static_dir</span><span class="p">,</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="w"> </span><span class="p">});</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">src_path</span><span class="p">);</span>
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">dest_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">.{</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="p">,</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="w"> </span><span class="p">});</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">dest_path</span><span class="p">);</span>
 
-            const dest_dir_path = std.fs.path.dirname(dest_path);
-            if (dest_dir_path) |dir_path| {
-                try std.fs.cwd().makePath(dir_path);
-            }
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">dest_dir_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dest_path</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dest_dir_path</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="n">dir_path</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">makePath</span><span class="p">(</span><span class="n">dir_path</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
 
-            var src_file = try dir.openFile(entry.path, .{});
-            defer src_file.close();
-            const dest_file = try std.fs.cwd().createFile(dest_path, .{});
-            defer dest_file.close();
-            const content = try src_file.readToEndAlloc(self.allocator, 1024 * 1024);
-            defer self.allocator.free(content);
-            try dest_file.writeAll(content);
+<span class="w">            </span><span class="kr">var</span><span class="w"> </span><span class="n">src_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">dir</span><span class="p">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="n">src_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">dest_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">createFile</span><span class="p">(</span><span class="n">dest_path</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="n">dest_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">src_file</span><span class="p">.</span><span class="n">readToEndAlloc</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">);</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">content</span><span class="p">);</span>
+<span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="n">dest_file</span><span class="p">.</span><span class="n">writeAll</span><span class="p">(</span><span class="n">content</span><span class="p">);</span>
 
-            std.debug.print(&quot; Copied: {s}\n&quot;, .{entry.path});
-        }
-    }
-}
-</code></pre>
-<h3 id="43">4.3 错误处理模式</h3>
-<pre><code class="language-zig">var dir = std.fs.cwd().openDir(static_dir, .{ .iterate = true }) catch {
-    std.debug.print(&quot; Warning: static directory not found, skipping static files\n&quot;, .{});
-    return;  // 优雅降级：没有静态文件也能继续
-};
-</code></pre>
+<span class="w">            </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; Copied: {s}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="43">4.3 错误处理模式<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">var</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">openDir</span><span class="p">(</span><span class="n">static_dir</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="w"> </span><span class="p">.</span><span class="n">iterate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; Warning: static directory not found, skipping static files</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span><span class="w">  </span><span class="c1">// 优雅降级：没有静态文件也能继续</span>
+<span class="p">};</span>
+</code></pre></div>
 <p><strong>catch vs try</strong>：</p>
-<pre><code class="language-zig">// try - 传播错误
-try std.fs.cwd().makePath(self.dest_dir);
+<div class="highlight"><pre><span></span><code><span class="c1">// try - 传播错误</span>
+<span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">makePath</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">dest_dir</span><span class="p">);</span>
 
-// catch - 本地处理
-var dir = openDir() catch {
-    // 处理错误
-    return;
-};
-</code></pre>
-<h3 id="44">4.4 目录遍历</h3>
-<pre><code class="language-zig">var walker = try dir.walk(self.allocator);
-defer walker.deinit();
+<span class="c1">// catch - 本地处理</span>
+<span class="kr">var</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">openDir</span><span class="p">()</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 处理错误</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="44">4.4 目录遍历<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">var</span><span class="w"> </span><span class="n">walker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">dir</span><span class="p">.</span><span class="n">walk</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="k">defer</span><span class="w"> </span><span class="n">walker</span><span class="p">.</span><span class="n">deinit</span><span class="p">();</span>
 
-while (try walker.next()) |entry| {
-    if (entry.kind == .file) {
-        // 处理文件
-    }
-}
-</code></pre>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">try</span><span class="w"> </span><span class="n">walker</span><span class="p">.</span><span class="n">next</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="n">entry</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">.</span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 处理文件</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>walker 遍历结果</strong>：</p>
-<pre><code>static/
+<div class="highlight"><pre><span></span><code>static/
 ├── style.css      → entry.path = &quot;style.css&quot;
 └── imgs/
     └── logo.png   → entry.path = &quot;imgs/logo.png&quot;
-</code></pre>
+</code></pre></div>
 <hr />
-<h2 id="5-loadposts">5. 文章加载：loadPosts()</h2>
-<h3 id="51">5.1 函数签名</h3>
-<pre><code class="language-zig">fn loadPosts(self: *Blogger, posts: *std.ArrayList(Post)) !void
-</code></pre>
-<h3 id="52">5.2 完整代码</h3>
-<pre><code class="language-zig">fn loadPosts(self: *Blogger, posts: *std.ArrayList(Post)) !void {
-    var dir = try std.fs.cwd().openDir(self.posts_dir, .{ .iterate = true });
-    defer dir.close();
+<h2 id="5-loadposts">5. 文章加载：loadPosts()<a class="headerlink" href="#5-loadposts" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 函数签名<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">loadPosts</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="n">Post</span><span class="p">))</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span>
+</code></pre></div>
+<h3 id="52">5.2 完整代码<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">loadPosts</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="n">Post</span><span class="p">))</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">cwd</span><span class="p">().</span><span class="n">openDir</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">posts_dir</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="w"> </span><span class="p">.</span><span class="n">iterate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">dir</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
 
-    var walker = try dir.walk(self.allocator);
-    defer walker.deinit();
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">walker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">dir</span><span class="p">.</span><span class="n">walk</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">walker</span><span class="p">.</span><span class="n">deinit</span><span class="p">();</span>
 
-    while (try walker.next()) |entry| {
-        if (entry.kind == .file and std.mem.endsWith(u8, entry.path, &quot;.markdown&quot;)) {
-            // 排除 about.markdown
-            if (std.mem.eql(u8, std.fs.path.basename(entry.path), &quot;about.markdown&quot;)) {
-                continue;
-            }
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">try</span><span class="w"> </span><span class="n">walker</span><span class="p">.</span><span class="n">next</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="n">entry</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">.</span><span class="n">file</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">endsWith</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.markdown&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 排除 about.markdown</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">eql</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">basename</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;about.markdown&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
 
-            const file = try dir.openFile(entry.path, .{});
-            defer file.close();
-            const content = try file.readToEndAlloc(self.allocator, 1024 * 1024);
-            defer self.allocator.free(content);
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">dir</span><span class="p">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="p">.{});</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">readToEndAlloc</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">);</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">content</span><span class="p">);</span>
 
-            const post = Post.parse(self.allocator, content, std.fs.path.basename(entry.path)) catch |err| {
-                std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ @errorName(err), entry.path });
-                continue;
-            };
-            try posts.append(self.allocator, post);
-            std.debug.print(&quot; Loaded: {s}\n&quot;, .{entry.path});
-        }
-    }
-}
-</code></pre>
-<h3 id="53">5.3 文件过滤逻辑</h3>
-<pre><code class="language-zig">if (entry.kind == .file and std.mem.endsWith(u8, entry.path, &quot;.markdown&quot;)) {
-    // 排除 about.markdown
-    if (std.mem.eql(u8, std.fs.path.basename(entry.path), &quot;about.markdown&quot;)) {
-        continue;
-    }
-    // 处理文章文件
-}
-</code></pre>
+<span class="w">            </span><span class="kr">const</span><span class="w"> </span><span class="n">post</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Post</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">basename</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">))</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="o">|</span><span class="n">err</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; Skipped ({s}): {s}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="w"> </span><span class="nb">@errorName</span><span class="p">(</span><span class="n">err</span><span class="p">),</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="w"> </span><span class="p">});</span>
+<span class="w">                </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">            </span><span class="p">};</span>
+<span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="n">posts</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">);</span>
+<span class="w">            </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; Loaded: {s}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="53">5.3 文件过滤逻辑<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">.</span><span class="n">file</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">endsWith</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.markdown&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 排除 about.markdown</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">eql</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">basename</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;about.markdown&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// 处理文章文件</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>过滤条件</strong>：</p>
-<pre><code>目录遍历结果
+<div class="highlight"><pre><span></span><code>目录遍历结果
     │
     ├─ 是目录？ → 跳过
     ├─ 不是 .markdown？ → 跳过
     ├─ 是 about.markdown？ → 跳过（单独处理）
     └─ 是普通文章？ → 加载
-</code></pre>
-<h3 id="54">5.4 错误恢复</h3>
-<pre><code class="language-zig">const post = Post.parse(self.allocator, content, std.fs.path.basename(entry.path)) catch |err| {
-    std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ @errorName(err), entry.path });
-    continue;  // 跳过坏文章
-};
-</code></pre>
+</code></pre></div>
+<h3 id="54">5.4 错误恢复<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">const</span><span class="w"> </span><span class="n">post</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Post</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">basename</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">))</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="o">|</span><span class="n">err</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; Skipped ({s}): {s}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="w"> </span><span class="nb">@errorName</span><span class="p">(</span><span class="n">err</span><span class="p">),</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="k">continue</span><span class="p">;</span><span class="w">  </span><span class="c1">// 跳过坏文章</span>
+<span class="p">};</span>
+</code></pre></div>
 <p><strong>错误处理策略</strong>：</p>
-<pre><code>Post.parse() 失败
+<div class="highlight"><pre><span></span><code>Post.parse() 失败
     │
     ├─ 捕获错误
     │
     ├─ 打印错误信息（包括错误类型和文件路径）
     │
     └─ continue → 继续处理下一篇文章
-</code></pre>
+</code></pre></div>
 <hr />
-<h2 id="6-generatepostpage">6. 文章页面生成：generatePostPage()</h2>
-<h3 id="61">6.1 函数签名</h3>
-<pre><code class="language-zig">fn generatePostPage(self: *Blogger, post: Post) !void
-</code></pre>
-<h3 id="62">6.2 关键步骤</h3>
-<pre><code class="language-zig">fn generatePostPage(self: *Blogger, post: Post) !void {
-    // [1] Markdown → HTML
-    const html_content = try markdown.toHtml(self.allocator, post.content);
-    defer self.allocator.free(html_content);
+<h2 id="6-generatepostpage">6. 文章页面生成：generatePostPage()<a class="headerlink" href="#6-generatepostpage" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 函数签名<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">generatePostPage</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="o">:</span><span class="w"> </span><span class="n">Post</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span>
+</code></pre></div>
+<h3 id="62">6.2 关键步骤<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">generatePostPage</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="o">:</span><span class="w"> </span><span class="n">Post</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// [1] Markdown → HTML</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">html_content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">markdown</span><span class="p">.</span><span class="n">toHtml</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">content</span><span class="p">);</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">html_content</span><span class="p">);</span>
 
-    // [2] 初始化模板上下文
-    var ctx = Context.init(self.allocator);
-    defer ctx.deinit();
-    try ctx.set(&quot;title&quot;, post.title);
-    try ctx.set(&quot;date_time&quot;, post.date_time);
-    try ctx.set(&quot;content&quot;, html_content);
+<span class="w">    </span><span class="c1">// [2] 初始化模板上下文</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">deinit</span><span class="p">();</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">title</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;date_time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">date_time</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;content&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">html_content</span><span class="p">);</span>
 
-    // [3] 构建标签 HTML
-    var tags_html = std.ArrayList(u8){};
-    defer tags_html.deinit(self.allocator);
-    var tag_iter = std.mem.tokenizeScalar(u8, post.tags, ' ');
-    while (tag_iter.next()) |tag| {
-        try tags_html.appendSlice(self.allocator, &quot;&lt;a href=\&quot;/tags/&quot; ++ tag ++ &quot;.html\&quot; class=\&quot;tag-link\&quot;&gt;&quot; ++ tag ++ &quot;&lt;/a&gt;&quot;);
-    }
-    try ctx.set(&quot;tags&quot;, tags_html.items);
+<span class="w">    </span><span class="c1">// [3] 构建标签 HTML</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">tags_html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="kt">u8</span><span class="p">){};</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">tags_html</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">tag_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">tokenizeScalar</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="s">&#39; &#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">tag_iter</span><span class="p">.</span><span class="n">next</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="n">tag</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">tags_html</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;a href=</span><span class="se">\&quot;</span><span class="s">/tags/&quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot;.html</span><span class="se">\&quot;</span><span class="s"> class=</span><span class="se">\&quot;</span><span class="s">tag-link</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot;&lt;/a&gt;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;tags&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">tags_html</span><span class="p">.</span><span class="n">items</span><span class="p">);</span>
 
-    // [4] 渲染 post.hbs
-    const page_html = try self.template_engine.render(&quot;post.hbs&quot;, &amp;ctx);
-    defer self.allocator.free(page_html);
+<span class="w">    </span><span class="c1">// [4] 渲染 post.hbs</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">page_html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">template_engine</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="s">&quot;post.hbs&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">page_html</span><span class="p">);</span>
 
-    // [5] 设置页面标题和年份
-    var full_title = std.ArrayList(u8){};
-    defer full_title.deinit(self.allocator);
-    try full_title.appendSlice(self.allocator, post.title);
-    try full_title.appendSlice(self.allocator, &quot; - &quot;);
-    try ctx.set(&quot;page_title&quot;, full_title.items);
-    try ctx.set(&quot;year&quot;, &quot;2026&quot;);
+<span class="w">    </span><span class="c1">// [5] 设置页面标题和年份</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">full_title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="kt">u8</span><span class="p">){};</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">full_title</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">full_title</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">title</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">full_title</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; - &quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;page_title&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">full_title</span><span class="p">.</span><span class="n">items</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;year&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2026&quot;</span><span class="p">);</span>
 
-    // [6] 渲染 layout.hbs
-    self.template_engine.setPageContent(page_html);
-    const html = try self.template_engine.render(&quot;layout.hbs&quot;, &amp;ctx);
-    defer self.allocator.free(html);
+<span class="w">    </span><span class="c1">// [6] 渲染 layout.hbs</span>
+<span class="w">    </span><span class="n">self</span><span class="p">.</span><span class="n">template_engine</span><span class="p">.</span><span class="n">setPageContent</span><span class="p">(</span><span class="n">page_html</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">template_engine</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="s">&quot;layout.hbs&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">.</span><span class="n">free</span><span class="p">(</span><span class="n">html</span><span class="p">);</span>
 
-    // [7] 写入文件（日期目录结构）
-    try self.writeHtmlFileWithDate(post.filename, post.date_time, html);
-}
-</code></pre>
-<h3 id="63">6.3 模板渲染流程</h3>
-<pre><code>post.hbs 渲染
+<span class="w">    </span><span class="c1">// [7] 写入文件（日期目录结构）</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">writeHtmlFileWithDate</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="n">html</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="63">6.3 模板渲染流程<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>post.hbs 渲染
     │
     ├─ 上下文变量
     │   ├─ title
@@ -1715,30 +5219,30 @@ layout.hbs 渲染
     │
     ▼
 最终 HTML
-</code></pre>
+</code></pre></div>
 <hr />
-<h2 id="7-writehtmlfilewithdate">7. 日期目录结构：writeHtmlFileWithDate()</h2>
-<h3 id="71">7.1 函数签名</h3>
-<pre><code class="language-zig">fn writeHtmlFileWithDate(self: *Blogger, markdown_filename: []const u8, date_time: []const u8, html: []const u8) !void
-</code></pre>
-<h3 id="72">7.2 日期解析</h3>
-<pre><code class="language-zig">// 输入格式：&quot;2026-03-21&quot; 或 &quot;2026-3-5&quot;
-const year = date_time[0..4];  // &quot;2026&quot;
+<h2 id="7-writehtmlfilewithdate">7. 日期目录结构：writeHtmlFileWithDate()<a class="headerlink" href="#7-writehtmlfilewithdate" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 函数签名<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">writeHtmlFileWithDate</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">markdown_filename</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">date_time</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">html</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span>
+</code></pre></div>
+<h3 id="72">7.2 日期解析<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 输入格式：&quot;2026-03-21&quot; 或 &quot;2026-3-5&quot;</span>
+<span class="kr">const</span><span class="w"> </span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">date_time</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">4</span><span class="p">];</span><span class="w">  </span><span class="c1">// &quot;2026&quot;</span>
 
-// 解析月份（处理前导零）
-var month_end = pos;
-while (month_end &lt; date_time.len and date_time[month_end] != '-') : (month_end += 1) {}
-const month = if (month_end - pos == 1) blk: {
-    month_buf[0] = '0';
-    month_buf[1] = date_time[pos];
-    break :blk month_buf[0..2];
-} else date_time[pos..month_end];
+<span class="c1">// 解析月份（处理前导零）</span>
+<span class="kr">var</span><span class="w"> </span><span class="n">month_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pos</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">month_end</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">date_time</span><span class="p">.</span><span class="n">len</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">date_time</span><span class="p">[</span><span class="n">month_end</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="n">month_end</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="kr">const</span><span class="w"> </span><span class="n">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">month_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">blk</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">month_buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">month_buf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">date_time</span><span class="p">[</span><span class="n">pos</span><span class="p">];</span>
+<span class="w">    </span><span class="k">break</span><span class="w"> </span><span class="o">:</span><span class="n">blk</span><span class="w"> </span><span class="n">month_buf</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">2</span><span class="p">];</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">date_time</span><span class="p">[</span><span class="n">pos</span><span class="p">..</span><span class="n">month_end</span><span class="p">];</span>
 
-// 解析日期（处理前导零）
-// 类似逻辑...
-</code></pre>
+<span class="c1">// 解析日期（处理前导零）</span>
+<span class="c1">// 类似逻辑...</span>
+</code></pre></div>
 <p><strong>输出路径</strong>：</p>
-<pre><code>输入：markdown_filename = &quot;my-post.markdown&quot;
+<div class="highlight"><pre><span></span><code>输入：markdown_filename = &quot;my-post.markdown&quot;
       date_time = &quot;2026-03-21&quot;
 
 输出：zig-out/blog/2026/03/21/my-post.html
@@ -1746,84 +5250,84 @@ const month = if (month_end - pos == 1) blk: {
                           │    │   └─ 日期
                           │    └─ 月份
                           └─ 年份
-</code></pre>
+</code></pre></div>
 <hr />
-<h2 id="8-generateindex">8. 首页生成：generateIndex()</h2>
-<h3 id="81">8.1 函数签名</h3>
-<pre><code class="language-zig">fn generateIndex(self: *Blogger, posts: []const Post) !void
-</code></pre>
-<h3 id="82-html">8.2 文章列表 HTML 构建</h3>
-<pre><code class="language-zig">for (posts) |post| {
-    // 构建文章链接（日期目录结构）
-    var filename = std.ArrayList(u8){};
-    defer filename.deinit(self.allocator);
+<h2 id="8-generateindex">8. 首页生成：generateIndex()<a class="headerlink" href="#8-generateindex" title="Permanent link">&para;</a></h2>
+<h3 id="81">8.1 函数签名<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">generateIndex</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Blogger</span><span class="p">,</span><span class="w"> </span><span class="n">posts</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="kr">const</span><span class="w"> </span><span class="n">Post</span><span class="p">)</span><span class="w"> </span><span class="o">!</span><span class="kt">void</span>
+</code></pre></div>
+<h3 id="82-html">8.2 文章列表 HTML 构建<a class="headerlink" href="#82-html" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 构建文章链接（日期目录结构）</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">(</span><span class="kt">u8</span><span class="p">){};</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="n">filename</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
 
-    // YYYY/MM/DD/
-    if (post.date_time.len &gt;= 8) {
-        try filename.appendSlice(self.allocator, post.date_time[0..4]);
-        try filename.appendSlice(self.allocator, &quot;/&quot;);
-        // 月份和日期解析（带前导零填充）
-        // ...
-    }
+<span class="w">    </span><span class="c1">// YYYY/MM/DD/</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="n">date_time</span><span class="p">.</span><span class="n">len</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">filename</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">date_time</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">4</span><span class="p">]);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">filename</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// 月份和日期解析（带前导零填充）</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // 文章 slug
-    const base_len = post.filename.len;
-    if (base_len &gt;= 9 and std.mem.endsWith(u8, post.filename, &quot;.markdown&quot;)) {
-        try filename.appendSlice(self.allocator, post.filename[0 .. base_len - 9]);
-    }
-    try filename.appendSlice(self.allocator, &quot;.html&quot;);
+<span class="w">    </span><span class="c1">// 文章 slug</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="n">base_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">filename</span><span class="p">.</span><span class="n">len</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">base_len</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">endsWith</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.markdown&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">filename</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="w"> </span><span class="p">..</span><span class="w"> </span><span class="n">base_len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">9</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">filename</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.html&quot;</span><span class="p">);</span>
 
-    // 构建文章条目 HTML
-    try posts_html.appendSlice(self.allocator, &quot;&lt;article class=\&quot;post-preview\&quot;&gt;\n&quot;);
-    try posts_html.appendSlice(self.allocator, &quot;&lt;h2&gt;&lt;a href=\&quot;&quot; ++ filename.items ++ &quot;\&quot;&gt;&quot; ++ post.title ++ &quot;&lt;/a&gt;&lt;/h2&gt;\n&quot;);
-    try posts_html.appendSlice(self.allocator, &quot;&lt;div class=\&quot;post-meta\&quot;&gt;&quot; ++ post.date_time ++ &quot;&lt;/div&gt;\n&quot;);
-    try posts_html.appendSlice(self.allocator, &quot;&lt;div class=\&quot;post-tags\&quot;&gt;&quot; ++ tags_html.items ++ &quot;&lt;/div&gt;\n&quot;);
-    try posts_html.appendSlice(self.allocator, &quot;&lt;/article&gt;\n&quot;);
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// 构建文章条目 HTML</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">posts_html</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;article class=</span><span class="se">\&quot;</span><span class="s">post-preview</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">posts_html</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;h2&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">filename</span><span class="p">.</span><span class="n">items</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot;&lt;/a&gt;&lt;/h2&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">posts_html</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;div class=</span><span class="se">\&quot;</span><span class="s">post-meta</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">date_time</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot;&lt;/div&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">posts_html</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;div class=</span><span class="se">\&quot;</span><span class="s">post-tags</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">tags_html</span><span class="p">.</span><span class="n">items</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot;&lt;/div&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="n">posts_html</span><span class="p">.</span><span class="n">appendSlice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;/article&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
-<h2 id="9-generatetagpages">9. 标签页面：generateTagPages()</h2>
-<h3 id="91">9.1 标签映射构建</h3>
-<pre><code class="language-zig">var tag_map = std.StringHashMap(std.ArrayListUnmanaged(Post)).init(self.allocator);
-defer {
-    var it = tag_map.iterator();
-    while (it.next()) |entry| {
-        entry.value_ptr.deinit(self.allocator);
-    }
-    tag_map.deinit();
-}
+<h2 id="9-generatetagpages">9. 标签页面：generateTagPages()<a class="headerlink" href="#9-generatetagpages" title="Permanent link">&para;</a></h2>
+<h3 id="91">9.1 标签映射构建<a class="headerlink" href="#91" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">var</span><span class="w"> </span><span class="n">tag_map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">StringHashMap</span><span class="p">(</span><span class="n">std</span><span class="p">.</span><span class="n">ArrayListUnmanaged</span><span class="p">(</span><span class="n">Post</span><span class="p">)).</span><span class="n">init</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="k">defer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tag_map</span><span class="p">.</span><span class="n">iterator</span><span class="p">();</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">next</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="n">entry</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">entry</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">tag_map</span><span class="p">.</span><span class="n">deinit</span><span class="p">();</span>
+<span class="p">}</span>
 
-// 构建 tag → posts 映射
-for (posts) |post| {
-    var tag_iter = std.mem.tokenizeScalar(u8, post.tags, ' ');
-    while (tag_iter.next()) |tag| {
-        const gop = try tag_map.getOrPut(tag);
-        if (!gop.found_existing) {
-            gop.value_ptr.* = .{};
-        }
-        try gop.value_ptr.append(self.allocator, post);
-    }
-}
-</code></pre>
+<span class="c1">// 构建 tag → posts 映射</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">var</span><span class="w"> </span><span class="n">tag_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">tokenizeScalar</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="s">&#39; &#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">tag_iter</span><span class="p">.</span><span class="n">next</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="n">tag</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">const</span><span class="w"> </span><span class="n">gop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">tag_map</span><span class="p">.</span><span class="n">getOrPut</span><span class="p">(</span><span class="n">tag</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">gop</span><span class="p">.</span><span class="n">found_existing</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">gop</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.{};</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="n">gop</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>HashMap 结构</strong>：</p>
-<pre><code>tag_map: StringHashMap(ArrayListUnmanaged(Post))
+<div class="highlight"><pre><span></span><code>tag_map: StringHashMap(ArrayListUnmanaged(Post))
     │
     ├─ &quot;zig&quot; → [post1, post2, post3]
     ├─ &quot;blog&quot; → [post1, post4]
     └─ &quot;tutorial&quot; → [post2, post3]
-</code></pre>
+</code></pre></div>
 <hr />
-<h2 id="10-sortpostsbydatedesc">10. 排序函数：sortPostsByDateDesc</h2>
-<h3 id="101">10.1 函数签名</h3>
-<pre><code class="language-zig">fn sortPostsByDateDesc(_: void, a: Post, b: Post) bool
-</code></pre>
-<h3 id="102">10.2 比较逻辑</h3>
-<pre><code class="language-zig">fn sortPostsByDateDesc(_: void, a: Post, b: Post) bool {
-    return std.mem.order(u8, a.date_time, b.date_time).compare(.gt);
-}
-</code></pre>
+<h2 id="10-sortpostsbydatedesc">10. 排序函数：sortPostsByDateDesc<a class="headerlink" href="#10-sortpostsbydatedesc" title="Permanent link">&para;</a></h2>
+<h3 id="101">10.1 函数签名<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">sortPostsByDateDesc</span><span class="p">(</span><span class="n">_</span><span class="o">:</span><span class="w"> </span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">:</span><span class="w"> </span><span class="n">Post</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span>
+</code></pre></div>
+<h3 id="102">10.2 比较逻辑<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="n">sortPostsByDateDesc</span><span class="p">(</span><span class="n">_</span><span class="o">:</span><span class="w"> </span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">:</span><span class="w"> </span><span class="n">Post</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="p">.</span><span class="n">mem</span><span class="p">.</span><span class="n">order</span><span class="p">(</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">date_time</span><span class="p">).</span><span class="n">compare</span><span class="p">(.</span><span class="n">gt</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>排序顺序</strong>：</p>
-<pre><code>输入文章（无序）:
+<div class="highlight"><pre><span></span><code>输入文章（无序）:
   - Post A: 2026-03-15
   - Post B: 2026-03-21
   - Post C: 2026-03-10
@@ -1832,26 +5336,26 @@ for (posts) |post| {
   - Post B: 2026-03-21 (最新)
   - Post A: 2026-03-15
   - Post C: 2026-03-10 (最旧)
-</code></pre>
+</code></pre></div>
 <hr />
-<h2 id="11_1">11. 设计模式总结</h2>
-<h3 id="111">11.1 构造器模式</h3>
-<pre><code class="language-zig">// 清晰的构造语义
-var blogger = Blogger.new(allocator, posts_dir, dest_dir);
-</code></pre>
-<h3 id="112">11.2 外观模式</h3>
-<pre><code class="language-zig">// 单一入口点，隐藏复杂内部逻辑
-try blogger.generate();
-</code></pre>
-<h3 id="113">11.3 资源管理模式</h3>
-<pre><code class="language-zig">// 统一的内存管理
-defer {
-    for (posts.items) |*post| post.deinit(self.allocator);
-    posts.deinit(self.allocator);
-}
-</code></pre>
+<h2 id="11_1">11. 设计模式总结<a class="headerlink" href="#11_1" title="Permanent link">&para;</a></h2>
+<h3 id="111">11.1 构造器模式<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 清晰的构造语义</span>
+<span class="kr">var</span><span class="w"> </span><span class="n">blogger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Blogger</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">posts_dir</span><span class="p">,</span><span class="w"> </span><span class="n">dest_dir</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="112">11.2 外观模式<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 单一入口点，隐藏复杂内部逻辑</span>
+<span class="k">try</span><span class="w"> </span><span class="n">blogger</span><span class="p">.</span><span class="n">generate</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="113">11.3 资源管理模式<a class="headerlink" href="#113" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 统一的内存管理</span>
+<span class="k">defer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">posts</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="o">|*</span><span class="n">post</span><span class="o">|</span><span class="w"> </span><span class="n">post</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="n">posts</span><span class="p">.</span><span class="n">deinit</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">allocator</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
-<h2 id="_1">相关文档</h2>
+<h2 id="_1">相关文档<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../07-2-post-struct/">07-2 Post 结构体</a> - 文章数据结构</li>
 <li><a href="../07-4-filesystem-ops/">07-4 文件系统操作</a> - std.fs API 使用</li>
@@ -1874,8 +5378,16 @@ defer {
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
         
       </main>
       
@@ -1885,10 +5397,35 @@ defer {
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 My Blog Analysis. All rights reserved.
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
       Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/linychuo/my-blog-analysis" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
     </a>
   
 </div>
@@ -1906,10 +5443,12 @@ defer {
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.tabs.link", "content.code.copy", "content.code.annotate", "toc.follow", "toc.sticky"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>
