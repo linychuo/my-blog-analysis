@@ -5,10 +5,6 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
-         <loc>https://linychuo.github.io/my-blog-analysis/SUMMARY/</loc>
-         <lastmod>2026-03-28</lastmod>
-    </url>
-    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/appendix/appendix-a-std-lib-api/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -18,6 +14,10 @@
     </url>
     <url>
          <loc>https://linychuo.github.io/my-blog-analysis/appendix/appendix-c-faq/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-01-project-overview/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
@@ -37,6 +37,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-02-quick-start/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-02-quick-start/02-1-requirements/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -50,6 +54,10 @@
     </url>
     <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-02-quick-start/02-4-output-structure/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-03-zig-basics/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
@@ -69,6 +77,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-04-control-flow/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-04-control-flow/04-1-if-else/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -85,6 +97,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-05-functions/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-05-functions/05-1-function-basics/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -97,6 +113,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-06-build-system/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-06-build-system/06-1-build-zig-structure/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -106,6 +126,10 @@
     </url>
     <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-06-build-system/06-3-package-management/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-07-core-modules/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
@@ -125,6 +149,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-08-memory-management/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-08-memory-management/08-1-allocators/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -137,6 +165,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-09-error-handling/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-09-error-handling/09-1-error-types/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -146,6 +178,10 @@
     </url>
     <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-09-error-handling/09-3-error-handling-patterns/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-10-template-engine/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
@@ -165,6 +201,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-11-markdown-parser/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-11-markdown-parser/11-1-parser-architecture/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -181,6 +221,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-12-styling/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-12-styling/12-1-css-architecture/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -190,6 +234,10 @@
     </url>
     <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-12-styling/12-3-frontend-features/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-13-extension-guides/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
@@ -206,6 +254,10 @@
     </url>
     <url>
          <loc>https://linychuo.github.io/my-blog-analysis/part-13-extension-guides/13-4-performance-optimization/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://linychuo.github.io/my-blog-analysis/part-14-testing/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
