@@ -1,24 +1,187 @@
-site_name: My Blog Analysis
+site_name: My Blog Analysis - Zig 技术文档
+site_description: Zig 博客分析系统的完整技术文档，包含项目概览、快速开始、语言基础等 14 个部分
+site_url: https://linychuo.github.io/my-blog-analysis
+repo_url: https://github.com/linychuo/my-blog-analysis
+repo_name: my-blog-analysis
+edit_uri: edit/main/docs/
 
 theme:
   name: material
+  language: zh
+  logo: img/logo.png
+  favicon: img/favicon.ico
+  
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+    - toc.sticky
+    
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 
-language: zh
+plugins:
+  - search:
+      lang: 
+        - zh
+        - en
+  - minify:
+      minify_html: true
+  - glightbox
+
+markdown_extensions:
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - pymdownx.tasklist
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
 
 nav:
-  - 首页:
-      - 1: 'part1/index.md'
-      - 2: 'part2/index.md'
-      - 3: 'part3/index.md'
-      - 4: 'part4/index.md'
-      - 5: 'part5/index.md'
-      - 6: 'part6/index.md'
-      - 7: 'part7/index.md'
-      - 8: 'part8/index.md'
-      - 9: 'part9/index.md'
-      - 10: 'part10/index.md'
-      - 11: 'part11/index.md'
-      - 12: 'part12/index.md'
-      - 13: 'part13/index.md'
-      - 14: 'part14/index.md'
-      - 附录: 'appendix/index.md'
+  - 🏠 首页: index.md
+  
+  - 📚 第一部分：项目概览:
+      - 项目概览: part-01-project-overview/index.md
+      - 项目背景与目标: part-01-project-overview/01-1-project-background.md
+      - 技术栈选型: part-01-project-overview/01-2-tech-stack.md
+      - 功能特性清单: part-01-project-overview/01-3-features.md
+      - 项目结构说明: part-01-project-overview/01-4-project-structure.md
+  
+  - 🚀 第二部分：快速开始:
+      - 快速开始: part-02-quick-start/index.md
+      - 环境要求: part-02-quick-start/02-1-requirements.md
+      - 构建与运行: part-02-quick-start/02-2-build-and-run.md
+      - 命令行选项: part-02-quick-start/02-3-cli-options.md
+      - 输出结构: part-02-quick-start/02-4-output-structure.md
+  
+  - 🔤 第三部分：Zig 语言基础:
+      - Zig 基础: part-03-zig-basics/index.md
+      - 变量与类型: part-03-zig-basics/03-1-variables-and-types.md
+      - 重要类型详解: part-03-zig-basics/03-2-important-types.md
+      - 可选类型与错误类型: part-03-zig-basics/03-3-optional-and-error.md
+      - 结构体与枚举: part-03-zig-basics/03-4-struct-and-enum.md
+  
+  - 🔄 第四部分：控制流:
+      - 控制流: part-04-control-flow/index.md
+      - 条件语句 (if/else): part-04-control-flow/04-1-if-else.md
+      - 循环 (while/for): part-04-control-flow/04-2-while-for.md
+      - Switch 表达式: part-04-control-flow/04-3-switch.md
+      - 编译时执行 (comptime): part-04-control-flow/04-4-comptime.md
+  
+  - 🔧 第五部分：函数:
+      - 函数: part-05-functions/index.md
+      - 函数基础: part-05-functions/05-1-function-basics.md
+      - 参数与返回值: part-05-functions/05-2-parameters-and-return.md
+      - 泛型编程: part-05-functions/05-3-generics.md
+  
+  - 🏗️ 第六部分：构��系统:
+      - 构建系统: part-06-build-system/index.md
+      - build.zig 结构: part-06-build-system/06-1-build-zig-structure.md
+      - std.Build API: part-06-build-system/06-2-std-build-api.md
+      - 包管理: part-06-build-system/06-3-package-management.md
+  
+  - ⚙️ 第七部分：核心模块分析:
+      - 核心模块: part-07-core-modules/index.md
+      - 入口点分析: part-07-core-modules/07-1-main-entry.md
+      - Post 结构体: part-07-core-modules/07-2-post-struct.md
+      - Blogger 结构体: part-07-core-modules/07-3-blogger-struct.md
+      - 文件系统操作: part-07-core-modules/07-4-filesystem-ops.md
+  
+  - 💾 第八部分：内存管理:
+      - 内存管理: part-08-memory-management/index.md
+      - 内存分配器: part-08-memory-management/08-1-allocators.md
+      - 内存所有权: part-08-memory-management/08-2-memory-ownership.md
+      - defer 模式: part-08-memory-management/08-3-defer-patterns.md
+  
+  - ⚠️ 第九部分：错误处理:
+      - 错误处理: part-09-error-handling/index.md
+      - 错误类型: part-09-error-handling/09-1-error-types.md
+      - 错误传播: part-09-error-handling/09-2-error-propagation.md
+      - 错误处理模式: part-09-error-handling/09-3-error-handling-patterns.md
+  
+  - 🎨 第十部分：模板引擎:
+      - 模板引擎: part-10-template-engine/index.md
+      - 架构设计: part-10-template-engine/10-1-architecture.md
+      - 模板语法: part-10-template-engine/10-2-template-syntax.md
+      - 模板继承: part-10-template-engine/10-3-inheritance.md
+      - 模板详解: part-10-template-engine/10-4-templates-detail.md
+  
+  - 📝 第十一部分：Markdown 解析器:
+      - Markdown 解析器: part-11-markdown-parser/index.md
+      - 解析器架构: part-11-markdown-parser/11-1-parser-architecture.md
+      - 块级元素: part-11-markdown-parser/11-2-block-elements.md
+      - 内联元素: part-11-markdown-parser/11-3-inline-elements.md
+      - HTML 生成: part-11-markdown-parser/11-4-html-generation.md
+  
+  - 🎭 第十二部分：样式与前端:
+      - 样式与前端: part-12-styling/index.md
+      - CSS 架构: part-12-styling/12-1-css-architecture.md
+      - 主题系统: part-12-styling/12-2-theme-system.md
+      - 前端功能: part-12-styling/12-3-frontend-features.md
+  
+  - 🔌 第十三部分：扩展指南:
+      - 扩展指南: part-13-extension-guides/index.md
+      - 编写博客: part-13-extension-guides/13-1-writing-posts.md
+      - 添加 RSS: part-13-extension-guides/13-2-rss-feed.md
+      - 添加搜索: part-13-extension-guides/13-3-search-integration.md
+      - 性能优化: part-13-extension-guides/13-4-performance-optimization.md
+  
+  - 🧪 第十四部分：测试与调试:
+      - 测试与调试: part-14-testing/index.md
+      - 单元测试: part-14-testing/14-1-unit-testing.md
+      - 调试技巧: part-14-testing/14-2-debugging-techniques.md
+      - 内存泄漏检测: part-14-testing/14-3-memory-leak-detection.md
+  
+  - 📖 附录:
+      - 附录首页: appendix/index.md
+      - 标准库 API: appendix/appendix-a-std-lib-api.md
+      - 常用模式: appendix/appendix-b-common-patterns.md
+      - 常见问题: appendix/appendix-c-faq.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/linychuo/my-blog-analysis
+      name: GitHub
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com
+      name: Twitter
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js
+
+copyright: Copyright &copy; 2026 My Blog Analysis. All rights reserved.
