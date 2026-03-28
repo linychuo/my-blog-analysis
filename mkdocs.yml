@@ -1,0 +1,24 @@
+site_name: My Blog Analysis
+
+theme:
+  name: material
+
+language: zh
+
+nav:
+  - 首页:
+      - 1: 'part1/index.md'
+      - 2: 'part2/index.md'
+      - 3: 'part3/index.md'
+      - 4: 'part4/index.md'
+      - 5: 'part5/index.md'
+      - 6: 'part6/index.md'
+      - 7: 'part7/index.md'
+      - 8: 'part8/index.md'
+      - 9: 'part9/index.md'
+      - 10: 'part10/index.md'
+      - 11: 'part11/index.md'
+      - 12: 'part12/index.md'
+      - 13: 'part13/index.md'
+      - 14: 'part14/index.md'
+      - 附录: 'appendix/index.md'
