@@ -30,7 +30,7 @@ fn sortPostsByDateDesc(_: void, a: Post, b: Post) bool {
 
 ```zig
 fn printHelp() void {
-    std.debug.print("Usage: hello-zig [OPTIONS]\n", .{});
+    std.debug.print("Usage: my-blog [OPTIONS]\n", .{});
 }
 ```
 
@@ -39,9 +39,9 @@ fn printHelp() void {
 ```zig
 fn printHelp() void {
     std.debug.print(
-        \\hello-zig - A static blog generator written in Zig
+        \\my-blog - A static blog generator written in Zig
         \\
-        \\Usage: hello-zig [OPTIONS]
+        \\Usage: my-blog [OPTIONS]
         \\
         \\Options:
         \\  -p, --posts     Posts source directory (default: posts)
