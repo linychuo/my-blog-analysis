@@ -408,5 +408,5 @@ const Small = struct {
 ## 相关阅读
 
 - [03-1 变量与类型](./03-1-variables-and-types.md)
-- [07-2 Blogger 结构体](../part-07-core-modules/07-2-blogger-struct.md) - 核心模块分析
-- [07-3 Post 结构体](../part-07-core-modules/07-3-post-struct.md) - 详细解析
+- [07-2 Post 结构体](../part-07-core-modules/07-2-post-struct.md) - 详细解析
+- [07-3 Blogger 结构体](../part-07-core-modules/07-3-blogger-struct.md) - 核心模块分析

@@ -465,4 +465,4 @@ const templates = comptime blk: {
 
 - [04-1 条件语句 (if/else)](./04-1-if-else.md) - 条件控制流
 - [04-3 switch 表达式](./04-3-switch.md) - 多分支选择
-- [06-1 构建系统](../part-06-build-system/06-1-build-zig.md) - build.zig 中的 comptime 使用
+- [06-1 build.zig 结构](../part-06-build-system/06-1-build-zig-structure.md) - build.zig 中的 comptime 使用

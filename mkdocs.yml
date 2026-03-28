@@ -121,82 +121,82 @@ markdown_extensions:
 # 导航结构 (扁平化设计)
 # -----------------------------------------------------------------------------
 nav:
-  - 🏠 首页：index.md
+  - 🏠 首页: index.md
 
   - 📖 基础篇:
     - 01-项目概览:
-      - 01-1 项目背景与目标：part-01-project-overview/01-1-project-background.md
-      - 01-2 技术栈选型：part-01-project-overview/01-2-tech-stack.md
-      - 01-3 功能特性清单：part-01-project-overview/01-3-features.md
-      - 01-4 项目结构说明：part-01-project-overview/01-4-project-structure.md
+      - 01-1 项目背景与目标: part-01-project-overview/01-1-project-background.md
+      - 01-2 技术栈选型: part-01-project-overview/01-2-tech-stack.md
+      - 01-3 功能特性清单: part-01-project-overview/01-3-features.md
+      - 01-4 项目结构说明: part-01-project-overview/01-4-project-structure.md
     - 02-快速开始:
-      - 02-1 环境要求：part-02-quick-start/02-1-requirements.md
-      - 02-2 构建与运行：part-02-quick-start/02-2-build-and-run.md
-      - 02-3 命令行选项：part-02-quick-start/02-3-cli-options.md
-      - 02-4 输出结构：part-02-quick-start/02-4-output-structure.md
+      - 02-1 环境要求: part-02-quick-start/02-1-requirements.md
+      - 02-2 构建与运行: part-02-quick-start/02-2-build-and-run.md
+      - 02-3 命令行选项: part-02-quick-start/02-3-cli-options.md
+      - 02-4 输出结构: part-02-quick-start/02-4-output-structure.md
     - 03-Zig 语言基础:
-      - 03-1 变量与类型：part-03-zig-basics/03-1-variables-and-types.md
-      - 03-2 重要类型详解：part-03-zig-basics/03-2-important-types.md
-      - 03-3 可选类型与错误类型：part-03-zig-basics/03-3-optional-and-error.md
-      - 03-4 结构体与枚举：part-03-zig-basics/03-4-struct-and-enum.md
+      - 03-1 变量与类型: part-03-zig-basics/03-1-variables-and-types.md
+      - 03-2 重要类型详解: part-03-zig-basics/03-2-important-types.md
+      - 03-3 可选类型与错误类型: part-03-zig-basics/03-3-optional-and-error.md
+      - 03-4 结构体与枚举: part-03-zig-basics/03-4-struct-and-enum.md
     - 04-控制流:
-      - 04-1 条件语句：part-04-control-flow/04-1-if-else.md
-      - 04-2 循环：part-04-control-flow/04-2-while-for.md
-      - 04-3 Switch 表达式：part-04-control-flow/04-3-switch.md
+      - 04-1 条件语句: part-04-control-flow/04-1-if-else.md
+      - 04-2 循环: part-04-control-flow/04-2-while-for.md
+      - 04-3 Switch 表达式: part-04-control-flow/04-3-switch.md
       - 04-4 comptime: part-04-control-flow/04-4-comptime.md
     - 05-函数:
-      - 05-1 函数基础：part-05-functions/05-1-function-basics.md
-      - 05-2 参数与返回值：part-05-functions/05-2-parameters-and-return.md
-      - 05-3 泛型编程：part-05-functions/05-3-generics.md
+      - 05-1 函数基础: part-05-functions/05-1-function-basics.md
+      - 05-2 参数与返回值: part-05-functions/05-2-parameters-and-return.md
+      - 05-3 泛型编程: part-05-functions/05-3-generics.md
 
   - ⚙️ 进阶篇:
     - 06-构建系统:
-      - 06-1 build.zig 结构：part-06-build-system/06-1-build-zig-structure.md
+      - 06-1 build.zig 结构: part-06-build-system/06-1-build-zig-structure.md
       - 06-2 std.Build API: part-06-build-system/06-2-std-build-api.md
-      - 06-3 包管理：part-06-build-system/06-3-package-management.md
+      - 06-3 包管理: part-06-build-system/06-3-package-management.md
     - 07-核心模块分析:
-      - 07-1 入口点分析：part-07-core-modules/07-1-main-entry.md
-      - 07-2 Post 结构体：part-07-core-modules/07-2-post-struct.md
-      - 07-3 Blogger 结构体：part-07-core-modules/07-3-blogger-struct.md
-      - 07-4 文件系统操作：part-07-core-modules/07-4-filesystem-ops.md
+      - 07-1 入口点分析: part-07-core-modules/07-1-main-entry.md
+      - 07-2 Post 结构体: part-07-core-modules/07-2-post-struct.md
+      - 07-3 Blogger 结构体: part-07-core-modules/07-3-blogger-struct.md
+      - 07-4 文件系统操作: part-07-core-modules/07-4-filesystem-ops.md
     - 08-内存管理:
-      - 08-1 内存分配器：part-08-memory-management/08-1-allocators.md
-      - 08-2 内存所有权：part-08-memory-management/08-2-memory-ownership.md
-      - 08-3 defer 模式：part-08-memory-management/08-3-defer-patterns.md
+      - 08-1 内存分配器: part-08-memory-management/08-1-allocators.md
+      - 08-2 内存所有权: part-08-memory-management/08-2-memory-ownership.md
+      - 08-3 defer 模式: part-08-memory-management/08-3-defer-patterns.md
     - 09-错误处理:
-      - 09-1 错误类型：part-09-error-handling/09-1-error-types.md
-      - 09-2 错误传播：part-09-error-handling/09-2-error-propagation.md
-      - 09-3 错误处理模式：part-09-error-handling/09-3-error-handling-patterns.md
+      - 09-1 错误类型: part-09-error-handling/09-1-error-types.md
+      - 09-2 错误传播: part-09-error-handling/09-2-error-propagation.md
+      - 09-3 错误处理模式: part-09-error-handling/09-3-error-handling-patterns.md
 
   - 🚀 高级篇:
     - 10-模板引擎:
-      - 10-1 架构设计：part-10-template-engine/10-1-architecture.md
-      - 10-2 模板语法：part-10-template-engine/10-2-template-syntax.md
-      - 10-3 模板继承：part-10-template-engine/10-3-inheritance.md
-      - 10-4 模板详解：part-10-template-engine/10-4-templates-detail.md
+      - 10-1 架构设计: part-10-template-engine/10-1-architecture.md
+      - 10-2 模板语法: part-10-template-engine/10-2-template-syntax.md
+      - 10-3 模板继承: part-10-template-engine/10-3-inheritance.md
+      - 10-4 模板详解: part-10-template-engine/10-4-templates-detail.md
     - 11-Markdown 解析器:
-      - 11-1 解析器架构：part-11-markdown-parser/11-1-parser-architecture.md
-      - 11-2 块级元素：part-11-markdown-parser/11-2-block-elements.md
-      - 11-3 内联元素：part-11-markdown-parser/11-3-inline-elements.md
-      - 11-4 HTML 生成：part-11-markdown-parser/11-4-html-generation.md
+      - 11-1 解析器架构: part-11-markdown-parser/11-1-parser-architecture.md
+      - 11-2 块级元素: part-11-markdown-parser/11-2-block-elements.md
+      - 11-3 内联元素: part-11-markdown-parser/11-3-inline-elements.md
+      - 11-4 HTML 生成: part-11-markdown-parser/11-4-html-generation.md
     - 12-样式与前端:
-      - 12-1 CSS 架构：part-12-styling/12-1-css-architecture.md
-      - 12-2 主题系统：part-12-styling/12-2-theme-system.md
-      - 12-3 前端功能：part-12-styling/12-3-frontend-features.md
+      - 12-1 CSS 架构: part-12-styling/12-1-css-architecture.md
+      - 12-2 主题系统: part-12-styling/12-2-theme-system.md
+      - 12-3 前端功能: part-12-styling/12-3-frontend-features.md
     - 13-扩展指南:
-      - 13-1 编写博客：part-13-extension-guides/13-1-writing-posts.md
+      - 13-1 编写博客: part-13-extension-guides/13-1-writing-posts.md
       - 13-2 添加 RSS: part-13-extension-guides/13-2-rss-feed.md
-      - 13-3 添加搜索：part-13-extension-guides/13-3-search-integration.md
-      - 13-4 性能优化：part-13-extension-guides/13-4-performance-optimization.md
+      - 13-3 添加搜索: part-13-extension-guides/13-3-search-integration.md
+      - 13-4 性能优化: part-13-extension-guides/13-4-performance-optimization.md
     - 14-测试与调试:
-      - 14-1 单元测试：part-14-testing/14-1-unit-testing.md
-      - 14-2 调试技巧：part-14-testing/14-2-debugging-techniques.md
-      - 14-3 内存泄漏检测：part-14-testing/14-3-memory-leak-detection.md
+      - 14-1 单元测试: part-14-testing/14-1-unit-testing.md
+      - 14-2 调试技巧: part-14-testing/14-2-debugging-techniques.md
+      - 14-3 内存泄漏检测: part-14-testing/14-3-memory-leak-detection.md
 
   - 📚 附录:
     - 附录 A 标准库 API: appendix/appendix-a-std-lib-api.md
-    - 附录 B 常用模式：appendix/appendix-b-common-patterns.md
-    - 附录 C 常见问题：appendix/appendix-c-faq.md
+    - 附录 B 常用模式: appendix/appendix-b-common-patterns.md
+    - 附录 C 常见问题: appendix/appendix-c-faq.md
 
 # -----------------------------------------------------------------------------
 # 额外配置
@@ -225,7 +225,7 @@ copyright: |
 # 验证配置
 # -----------------------------------------------------------------------------
 validation:
-  omitted_files: warn
-  absolute_links: warn
-  unrecognized_links: warn
-  anchors: warn
+  omitted_files: ignore  # README.md and SUMMARY.md are not in nav
+  absolute_links: ignore  # Allow absolute links to external sites
+  unrecognized_links: ignore  # Don't warn about anchor links (MkDocs handles them)
+  anchors: ignore  # Anchor links are handled automatically

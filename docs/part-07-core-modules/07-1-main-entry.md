@@ -540,6 +540,7 @@ std.process.exit(0);  // 成功退出
 
 ## 相关文档
 
-- [07-2 Blogger 结构体](./07-2-blogger-struct.md) - 核心生成逻辑
+- [07-2 Post 结构体](./07-2-post-struct.md) - 文章数据结构
+- [07-3 Blogger 结构体](./07-3-blogger-struct.md) - 核心生成逻辑
 - [06-1 build.zig 结构](../part-06-build-system/06-1-build-zig-structure.md) - 构建配置
 - [05-1 函数基础](../part-05-functions/05-1-function-basics.md) - main() 函数签名

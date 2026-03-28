@@ -348,8 +348,8 @@ tags:
 
 ## 参考资料
 
-- [链接 1](url)
-- [链接 2](url)
+- [Zig 官方文档](https://ziglang.org/documentation)
+- [Zig 标准库参考](https://ziglang.org/documentation/master/std)
 ```
 
 ### 项目展示模板
@@ -391,8 +391,8 @@ tags:
 
 ## 项目链接
 
-- [GitHub 仓库](url)
-- [在线演示](url)
+- [GitHub 仓库](https://github.com/linychuo/my-blog)
+- [在线演示](https://linychuo.github.io/my-blog)
 ```
 
 ## 13.1.8 常见问题
