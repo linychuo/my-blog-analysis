@@ -1,0 +1,1398 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>04-1 条件语句 (if/else) - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04-1-ifelse" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04-1 条件语句 (if/else)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. if 语句基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. if 语句基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 基本语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 if 表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ifelse-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. if/else if 链
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. if/else if 链">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 多条件分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ifelse-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 项目中的 if/else if 模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-if-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. if 与 orelse 组合
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. if 与 orelse 组合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 orelse 运算符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 orelse 返回错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 orelse 代码块
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 文件类型检查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 文件类型检查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 目录遍历中的条件判断
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 多条件组合
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ifelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 错误恢复中的 if/else
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 错误恢复中的 if/else">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 优雅降级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 错误捕获与继续处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 字符串比较与条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 字符串比较与条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-stdmemeql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 使用 std.mem.eql 进行比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 检查字符串前缀和后缀
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 完整实例分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 完整实例分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-writehtmlfilewithdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 writeHtmlFileWithDate 中的条件逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 常见模式总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 if 不是语句是表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 条件必须是布尔值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 else 是必需的（对于可选类型）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="04-1-ifelse">04-1 条件语句 (if/else)</h1>
+<blockquote>
+<p>Zig 语言的条件控制流与项目实例分析</p>
+</blockquote>
+<hr />
+<h2 id="1-if">1. if 语句基础</h2>
+<h3 id="11">1.1 基本语法</h3>
+<p>Zig 的 <code>if</code> 语句用于根据条件执行不同的代码分支：</p>
+<pre><code class="language-zig">if (condition) {
+    // 条件为真时执行
+} else {
+    // 条件为假时执行
+}
+</code></pre>
+<p><strong>项目实例</strong> - <code>Blogger.zig</code> 中验证 frontmatter 格式：</p>
+<pre><code class="language-zig">const first_line = lines.next() orelse return error.InvalidFormat;
+if (!std.mem.eql(u8, std.mem.trim(u8, first_line, &quot; \r\n\t&quot;), &quot;---&quot;)) {
+    return error.InvalidFormat;
+}
+</code></pre>
+<h3 id="12-if">1.2 if 表达式</h3>
+<p>在 Zig 中，<code>if</code> 是一个<strong>表达式</strong>，可以返回值：</p>
+<pre><code class="language-zig">const value = if (x &gt; 0) 1 else -1;
+</code></pre>
+<p><strong>项目实例</strong> - <code>writeHtmlFileWithDate</code> 中处理月份填充：</p>
+<pre><code class="language-zig">const month = if (month_end - pos == 1) blk: {
+    month_buf[0] = '0';
+    month_buf[1] = date_time[pos];
+    break :blk month_buf[0..2];
+} else date_time[pos..month_end];
+</code></pre>
+<hr />
+<h2 id="2-ifelse-if">2. if/else if 链</h2>
+<h3 id="21">2.1 多条件分支</h3>
+<p>当需要处理多个条件时，使用 <code>if/else if</code> 链：</p>
+<pre><code class="language-zig">if (condition1) {
+    // 条件 1 为真
+} else if (condition2) {
+    // 条件 2 为真
+} else if (condition3) {
+    // 条件 3 为真
+} else {
+    // 所有条件都为假
+}
+</code></pre>
+<p><strong>项目实例</strong> - <code>main.zig</code> 中解析命令行参数：</p>
+<pre><code class="language-zig">while (args.next()) |arg| {
+    if (std.mem.eql(u8, arg, &quot;--posts&quot;) or std.mem.eql(u8, arg, &quot;-p&quot;)) {
+        posts_dir = args.next() orelse {
+            std.debug.print(&quot;Error: --posts requires a directory argument\n&quot;, .{});
+            std.process.exit(1);
+        };
+    } else if (std.mem.eql(u8, arg, &quot;--output&quot;) or std.mem.eql(u8, arg, &quot;-o&quot;)) {
+        dest_dir = args.next() orelse {
+            std.debug.print(&quot;Error: --output requires a directory argument\n&quot;, .{});
+            std.process.exit(1);
+        };
+    } else if (std.mem.eql(u8, arg, &quot;--help&quot;) or std.mem.eql(u8, arg, &quot;-h&quot;)) {
+        printHelp();
+        return;
+    }
+}
+</code></pre>
+<h3 id="22-ifelse-if">2.2 项目中的 if/else if 模式</h3>
+<p><strong>项目实例</strong> - <code>Post.parse()</code> 解析 frontmatter 字段：</p>
+<pre><code class="language-zig">while (lines.next()) |line| {
+    const trimmed = std.mem.trim(u8, line, &quot; \r\n\t&quot;);
+    if (std.mem.eql(u8, trimmed, &quot;---&quot;)) {
+        frontmatter_end += 1;
+        break;
+    }
+    if (std.mem.startsWith(u8, trimmed, &quot;title:&quot;)) {
+        title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+    } else if (std.mem.startsWith(u8, trimmed, &quot;date_time:&quot;)) {
+        date_time = try extractValue(allocator, trimmed, &quot;date_time:&quot;);
+    } else if (std.mem.startsWith(u8, trimmed, &quot;tags:&quot;)) {
+        tags = try extractValue(allocator, trimmed, &quot;tags:&quot;);
+    }
+    frontmatter_end += 1;
+}
+</code></pre>
+<hr />
+<h2 id="3-if-orelse">3. if 与 orelse 组合</h2>
+<h3 id="31-orelse">3.1 orelse 运算符</h3>
+<p><code>orelse</code> 用于处理可选类型 (<code>?T</code>)，当值为 <code>null</code> 时提供备选方案：</p>
+<pre><code class="language-zig">const value: ?u32 = null;
+const result = value orelse 0;  // 如果 value 为 null，则 result = 0
+</code></pre>
+<h3 id="32-orelse">3.2 orelse 返回错误</h3>
+<p><strong>项目实例</strong> - <code>Post.parse()</code> 中验证必需字段：</p>
+<pre><code class="language-zig">return Post{
+    .title = title orelse return error.MissingTitle,
+    .date_time = date_time orelse return error.MissingDateTime,
+    .tags = tags orelse &quot;&quot;,  // tags 可选，提供空字符串默认值
+};
+</code></pre>
+<h3 id="33-orelse">3.3 orelse 代码块</h3>
+<p><code>orelse</code> 后面可以跟一个代码块，用于复杂逻辑：</p>
+<p><strong>项目实例</strong> - <code>main.zig</code> 中处理参数缺失：</p>
+<pre><code class="language-zig">posts_dir = args.next() orelse {
+    std.debug.print(&quot;Error: --posts requires a directory argument\n&quot;, .{});
+    std.process.exit(1);
+};
+</code></pre>
+<hr />
+<h2 id="4">4. 文件类型检查</h2>
+<h3 id="41">4.1 目录遍历中的条件判断</h3>
+<p><strong>项目实例</strong> - <code>copyStaticFiles()</code> 中检查文件类型：</p>
+<pre><code class="language-zig">while (try walker.next()) |entry| {
+    if (entry.kind == .file) {
+        const src_path = try std.fs.path.join(self.allocator, &amp;.{ static_dir, entry.path });
+        defer self.allocator.free(src_path);
+        // ... 复制文件逻辑
+    }
+}
+</code></pre>
+<h3 id="42">4.2 多条件组合</h3>
+<p><strong>项目实例</strong> - <code>loadPosts()</code> 中筛选 Markdown 文件：</p>
+<pre><code class="language-zig">while (try walker.next()) |entry| {
+    if (entry.kind == .file and std.mem.endsWith(u8, entry.path, &quot;.markdown&quot;)) {
+        // 排除 about.markdown，它单独处理
+        if (std.mem.eql(u8, std.fs.path.basename(entry.path), &quot;about.markdown&quot;)) {
+            continue;
+        }
+        // ... 加载文章逻辑
+    }
+}
+</code></pre>
+<hr />
+<h2 id="5-ifelse">5. 错误恢复中的 if/else</h2>
+<h3 id="51">5.1 优雅降级</h3>
+<p><strong>项目实例</strong> - <code>copyStaticFiles()</code> 处理缺失的静态目录：</p>
+<pre><code class="language-zig">fn copyStaticFiles(self: *Blogger) !void {
+    const static_dir = &quot;static&quot;;
+    var dir = std.fs.cwd().openDir(static_dir, .{ .iterate = true }) catch {
+        std.debug.print(&quot; Warning: static directory not found, skipping static files\n&quot;, .{});
+        return;  // 优雅降级，不生成静态文件但继续运行
+    };
+    defer dir.close();
+    // ...
+}
+</code></pre>
+<h3 id="52">5.2 错误捕获与继续处理</h3>
+<p><strong>项目实例</strong> - <code>loadPosts()</code> 跳过解析失败的文章：</p>
+<pre><code class="language-zig">const post = Post.parse(self.allocator, content, std.fs.path.basename(entry.path)) catch |err| {
+    std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ @errorName(err), entry.path });
+    continue;  // 跳过坏文章，继续处理其他文章
+};
+
+try posts.append(post);
+</code></pre>
+<hr />
+<h2 id="6">6. 字符串比较与条件</h2>
+<h3 id="61-stdmemeql">6.1 使用 std.mem.eql 进行比较</h3>
+<p>在 Zig 中，字符串比较不能直接用 <code>==</code>，需要使用 <code>std.mem.eql</code>：</p>
+<pre><code class="language-zig">// 错误写法
+if (arg == &quot;--help&quot;) { }
+
+// 正确写法
+if (std.mem.eql(u8, arg, &quot;--help&quot;)) { }
+</code></pre>
+<p><strong>项目实例</strong> - <code>main.zig</code> 中多处使用：</p>
+<pre><code class="language-zig">if (std.mem.eql(u8, arg, &quot;--posts&quot;) or std.mem.eql(u8, arg, &quot;-p&quot;)) {
+    // ...
+} else if (std.mem.eql(u8, arg, &quot;--help&quot;) or std.mem.eql(u8, arg, &quot;-h&quot;)) {
+    printHelp();
+    return;
+}
+</code></pre>
+<h3 id="62">6.2 检查字符串前缀和后缀</h3>
+<p><strong>项目实例</strong> - 使用 <code>startsWith</code> 和 <code>endsWith</code>：</p>
+<pre><code class="language-zig">// 检查前缀
+if (std.mem.startsWith(u8, trimmed, &quot;title:&quot;)) {
+    title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+}
+
+// 检查后缀
+if (entry.kind == .file and std.mem.endsWith(u8, entry.path, &quot;.markdown&quot;)) {
+    // 处理 Markdown 文件
+}
+</code></pre>
+<hr />
+<h2 id="7">7. 完整实例分析</h2>
+<h3 id="71-writehtmlfilewithdate">7.1 writeHtmlFileWithDate 中的条件逻辑</h3>
+<p>这个函数展示了复杂的条件判断，用于解析日期字符串并创建目录结构：</p>
+<pre><code class="language-zig">fn writeHtmlFileWithDate(self: *Blogger, markdown_filename: []const u8, date_time: []const u8, html: []const u8) !void {
+    // [1] 验证日期长度
+    if (date_time.len &lt; 8) return;
+
+    // [2] 提取年份
+    const year = date_time[0..4];
+
+    // [3] 提取月份（处理前导零）
+    var pos: usize = 5;
+    var month_end = pos;
+    while (month_end &lt; date_time.len and date_time[month_end] != '-') : (month_end += 1) {}
+    var month_buf: [2]u8 = undefined;
+    const month = if (month_end - pos == 1) blk: {
+        month_buf[0] = '0';
+        month_buf[1] = date_time[pos];
+        break :blk month_buf[0..2];
+    } else date_time[pos..month_end];
+
+    // [4] 提取日期（处理前导零）
+    pos = month_end + 1;
+    var day_end = pos;
+    while (day_end &lt; date_time.len and date_time[day_end] != ' ' and date_time[day_end] != '-') : (day_end += 1) {}
+    var day_buf: [2]u8 = undefined;
+    const day = if (day_end - pos == 1) blk: {
+        day_buf[0] = '0';
+        day_buf[1] = date_time[pos];
+        break :blk day_buf[0..2];
+    } else date_time[pos..day_end];
+
+    // [5] 构建输出路径
+    // ...
+}
+</code></pre>
+<hr />
+<h2 id="8">8. 常见模式总结</h2>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>代码示例</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>验证输入</td>
+<td><code>if (input.len == 0) return error.EmptyInput;</code></td>
+<td>参数验证</td>
+</tr>
+<tr>
+<td>可选字段</td>
+<td><code>field orelse return error.MissingField</code></td>
+<td>必需字段检查</td>
+</tr>
+<tr>
+<td>默认值</td>
+<td><code>field orelse ""</code></td>
+<td>可选字段默认值</td>
+</tr>
+<tr>
+<td>多条件</td>
+<td><code>if (cond1) {...} else if (cond2) {...} else {...}</code></td>
+<td>多分支选择</td>
+</tr>
+<tr>
+<td>错误恢复</td>
+<td><code>operation() catch |err| { log(err); continue; }</code></td>
+<td>容错处理</td>
+</tr>
+<tr>
+<td>类型检查</td>
+<td><code>if (entry.kind == .file)</code></td>
+<td>文件系统操作</td>
+</tr>
+<tr>
+<td>字符串比较</td>
+<td><code>if (std.mem.eql(u8, str, "value"))</code></td>
+<td>字符串匹配</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9">9. 注意事项</h2>
+<h3 id="91-if">9.1 if 不是语句是表达式</h3>
+<p>Zig 的 <code>if</code> 可以返回值，因此以下代码是合法的：</p>
+<pre><code class="language-zig">const x: u32 = if (true) 1 else 2;
+</code></pre>
+<h3 id="92">9.2 条件必须是布尔值</h3>
+<p>与 C 语言不同，Zig 不允许将整数作为条件：</p>
+<pre><code class="language-zig">// 错误
+if (x) { }  // x 必须是 bool 类型
+
+// 正确
+if (x != 0) { }
+</code></pre>
+<h3 id="93-else">9.3 else 是必需的（对于可选类型）</h3>
+<p>当处理可选类型时，必须处理 <code>null</code> 情况：</p>
+<pre><code class="language-zig">const opt: ?u32 = null;
+const val = opt orelse 0;  // 必须提供 orelse
+</code></pre>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../../part-03-zig-basics/03-3-optional-and-error/">03-3 可选类型与错误处理</a> - orelse 运算符详解</li>
+<li><a href="../04-2-while-for/">04-2 循环 (while/for)</a> - 循环控制流</li>
+<li><a href="../04-3-switch/">04-3 switch 表达式</a> - 多分支选择</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

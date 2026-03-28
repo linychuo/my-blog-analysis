@@ -1,0 +1,1754 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>10-3 模板继承 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#10-3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10-3 模板继承
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 模板继承概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 模板继承概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是模板继承
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 项目中的继承层次
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-layouthbs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 父模板：layout.hbs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 父模板：layout.hbs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 完整代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 结构分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 占位块
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 子模板继承模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 子模板继承模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 标准子模板结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 继承语法详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 各子模板继承分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 各子模板继承分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-indexhbs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 index.hbs - 首页
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-posthbs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 post.hbs - 文章页
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-abouthbs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 about.hbs - 关于页
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-taghbs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 tag.hbs - 标签页
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 继承机制实现
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 继承机制实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-zig-handlebars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 zig-handlebars 工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 项目中的渲染流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 块的作用域
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 块的作用域">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 块名称匹配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 块的可选性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 继承模式变体
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 继承模式变体">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 单层继承
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 多层继承（项目未使用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 与其他模式对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 与其他模式对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 模板组合 vs 模板继承
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 包含模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 保持一致性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 命名清晰
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 最小化子模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 空白处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 变量作用域
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 循环引用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="10-3">10-3 模板继承</h1>
+<blockquote>
+<p>Handlebars 模板继承机制与项目实例分析</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 模板继承概念</h2>
+<h3 id="11">1.1 什么是模板继承</h3>
+<p>模板继承是一种设计模式，允许子模板继承父模板的结构，并注入特定内容。</p>
+<p><strong>优势</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRY 原则</td>
+<td>避免重复的 HTML 结构代码</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>所有页面共享相同的布局</td>
+</tr>
+<tr>
+<td>易维护</td>
+<td>修改布局只需改父模板</td>
+</tr>
+<tr>
+<td>关注点分离</td>
+<td>父模板管结构，子模板管内容</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">1.2 项目中的继承层次</h3>
+<pre><code>layout.hbs (父模板/主布局)
+    │
+    ├─────────────┬─────────────┬─────────────┐
+    │             │             │             │
+index.hbs     post.hbs     about.hbs     tag.hbs
+(首页)        (文章页)       (关于页)       (标签页)
+</code></pre>
+<hr />
+<h2 id="2-layouthbs">2. 父模板：layout.hbs</h2>
+<h3 id="21">2.1 完整代码</h3>
+<pre><code class="language-handlebars">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;{{title}}&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;&lt;a href=&quot;/&quot;&gt;{{siteTitle}}&lt;/a&gt;&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;
+            &lt;a href=&quot;/about.html&quot;&gt;About&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        {{~&gt; page}}
+    &lt;/main&gt;
+
+    &lt;aside&gt;
+        {{~&gt; sidebar}}
+    &lt;/aside&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;Generated with &lt;a href=&quot;https://ziglang.org&quot;&gt;Zig&lt;/a&gt; · © {{year}}&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="22">2.2 结构分析</h3>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>内容</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;head&gt;</code></td>
+<td>元数据、标题、样式</td>
+<td>父模板</td>
+</tr>
+<tr>
+<td><code>&lt;header&gt;</code></td>
+<td>站点标题、导航</td>
+<td>父模板</td>
+</tr>
+<tr>
+<td><code>&lt;main&gt;</code></td>
+<td>主内容</td>
+<td><code>{{~&gt; page}}</code> 注入</td>
+</tr>
+<tr>
+<td><code>&lt;aside&gt;</code></td>
+<td>侧边栏</td>
+<td><code>{{~&gt; sidebar}}</code> 注入</td>
+</tr>
+<tr>
+<td><code>&lt;footer&gt;</code></td>
+<td>版权信息</td>
+<td>父模板</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23">2.3 占位块</h3>
+<pre><code class="language-handlebars">&lt;main&gt;
+    {{~&gt; page}}
+    &lt;!-- ^^^^^^
+         占位符：page 块
+         子模板定义此块的内容
+    --&gt;
+&lt;/main&gt;
+
+&lt;aside&gt;
+    {{~&gt; sidebar}}
+    &lt;!-- ^^^^^^^^^
+         占位符：sidebar 块
+         子模板定义此块的内容（可选）
+    --&gt;
+&lt;/aside&gt;
+</code></pre>
+<hr />
+<h2 id="3">3. 子模板继承模式</h2>
+<h3 id="31">3.1 标准子模板结构</h3>
+<p>所有子模板都遵循相同模式：</p>
+<pre><code class="language-handlebars">{{#*inline &quot;page&quot;}}
+&lt;!-- 主内容区域 --&gt;
+{{/inline}}
+
+{{#*inline &quot;sidebar&quot;}}
+&lt;!-- 侧边栏内容（可选） --&gt;
+{{/inline}}
+
+{{~&gt; (parent)~}}
+</code></pre>
+<h3 id="32">3.2 继承语法详解</h3>
+<p><strong><code>{{#*inline "name"}}</code></strong> - 定义内联块</p>
+<pre><code class="language-handlebars">{{#*inline &quot;page&quot;}}
+{{{posts}}}
+{{/inline}}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{#*</code></td>
+<td>块开始标记</td>
+</tr>
+<tr>
+<td><code>inline</code></td>
+<td>内联块关键字</td>
+</tr>
+<tr>
+<td><code>"page"</code></td>
+<td>块名称（必须与父模板占位符匹配）</td>
+</tr>
+<tr>
+<td><code>...</code></td>
+<td>块内容</td>
+</tr>
+<tr>
+<td><code>{{/inline}}</code></td>
+<td>块结束标记</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>{{~&gt; (parent)~}}</code></strong> - 继承父模板</p>
+<pre><code class="language-handlebars">{{~&gt; (parent)~}}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>~</code></td>
+<td>修剪空白</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>部分模板调用</td>
+</tr>
+<tr>
+<td><code>(parent)</code></td>
+<td>父模板引用</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 各子模板继承分析</h2>
+<h3 id="41-indexhbs-">4.1 index.hbs - 首页</h3>
+<pre><code class="language-handlebars">{{#*inline &quot;page&quot;}}
+{{{posts}}}
+{{/inline}}
+
+{{#*inline &quot;sidebar&quot;}}{{/inline}}
+
+{{~&gt; (parent)~}}
+</code></pre>
+<p><strong>继承效果</strong>：</p>
+<pre><code>layout.hbs                    index.hbs 注入
+    │                              │
+    ├─ &lt;header&gt;...&lt;/header&gt;        │
+    │                              │
+    ├─ &lt;main&gt;                      │
+    │     └─ {{~&gt; page}} ←─────────┼── {{{posts}}}
+    │                              │
+    ├─ &lt;aside&gt;                     │
+    │     └─ {{~&gt; sidebar}} ←──────┼── (空)
+    │                              │
+    └─ &lt;footer&gt;...&lt;/footer&gt;        │
+</code></pre>
+<p><strong>最终 HTML</strong>：</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;...&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;&lt;a href=&quot;/&quot;&gt;My Blog&lt;/a&gt;&lt;/h1&gt;
+        &lt;nav&gt;...&lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;!-- index.hbs 的 page 块内容 --&gt;
+        &lt;article class=&quot;post-preview&quot;&gt;
+            &lt;h2&gt;&lt;a href=&quot;...&quot;&gt;Post Title&lt;/a&gt;&lt;/h2&gt;
+            ...
+        &lt;/article&gt;
+    &lt;/main&gt;
+
+    &lt;aside&gt;
+        &lt;!-- sidebar 为空 --&gt;
+    &lt;/aside&gt;
+
+    &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="42-posthbs-">4.2 post.hbs - 文章页</h3>
+<pre><code class="language-handlebars">{{TITLE}}
+{{date_time}}
+{{{tags}}}
+{{{content}}}
+</code></pre>
+<p><strong>特殊性</strong>：post.hbs 不使用内联块，直接输出变量，依赖 layout.hbs 的结构。</p>
+<p><strong>渲染流程</strong>：</p>
+<pre><code>[1] 渲染 post.hbs
+    │
+    ├─ {{TITLE}} → &quot;My Post&quot;
+    ├─ {{date_time}} → &quot;2026-03-21&quot;
+    ├─ {{{tags}}} → &quot;&lt;a&gt;zig&lt;/a&gt;&quot;
+    └─ {{{content}}} → &quot;&lt;p&gt;...&lt;/p&gt;&quot;
+    │
+    ▼
+[2] setPageContent() 设置渲染结果
+    │
+    ▼
+[3] 渲染 layout.hbs
+    │
+    └─ 注入 page 块（post.hbs 的内容）
+</code></pre>
+<h3 id="43-abouthbs-">4.3 about.hbs - 关于页</h3>
+<pre><code class="language-handlebars">{{#*inline &quot;page&quot;}}
+{{{content}}}
+{{/inline}}
+
+{{#*inline &quot;sidebar&quot;}}{{/inline}}
+
+{{~&gt; (parent)~}}
+</code></pre>
+<p><strong>特点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>简单</td>
+<td>只输出 content</td>
+</tr>
+<tr>
+<td>空 sidebar</td>
+<td>关于页不需要侧边栏</td>
+</tr>
+<tr>
+<td>无 frontmatter</td>
+<td>about.markdown 没有 frontmatter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="44-taghbs-">4.4 tag.hbs - 标签页</h3>
+<pre><code class="language-handlebars">{{#*inline &quot;page&quot;}}
+
+POSTS TAGGED WITH &quot;{{TAG_NAME}}&quot;
+
+{{post_count}} post(s) found
+
+{{{posts}}}
+
+{{/inline}}
+
+{{#*inline &quot;sidebar&quot;}}{{/inline}}
+
+{{~&gt; (parent)~}}
+</code></pre>
+<p><strong>特点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td>显示标签名称</td>
+</tr>
+<tr>
+<td>统计</td>
+<td>显示文章数量</td>
+</tr>
+<tr>
+<td>文章列表</td>
+<td>显示该标签下的所有文章</td>
+</tr>
+<tr>
+<td>空 sidebar</td>
+<td>标签页不需要侧边栏</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 继承机制实现</h2>
+<h3 id="51-zig-handlebars">5.1 zig-handlebars 工作原理</h3>
+<pre><code>[1] 加载子模板 (如 index.hbs)
+    │
+    ▼
+[2] 解析 {{#*inline}} 定义
+    │
+    ├─ 注册 &quot;page&quot; 块内容
+    ├─ 注册 &quot;sidebar&quot; 块内容
+    │
+    ▼
+[3] 遇到 {{~&gt; (parent)~}}
+    │
+    ▼
+[4] 加载父模板 (layout.hbs)
+    │
+    ▼
+[5] 渲染父模板
+    │
+    ├─ 遇到 {{~&gt; page}} → 注入步骤 2 注册的 page 内容
+    ├─ 遇到 {{~&gt; sidebar}} → 注入步骤 2 注册的 sidebar 内容
+    │
+    ▼
+[6] 返回完整 HTML
+</code></pre>
+<h3 id="52">5.2 项目中的渲染流程</h3>
+<pre><code class="language-zig">// generatePostPage() 中的模板渲染
+fn generatePostPage(self: *Blogger, post: Post) !void {
+    // [1] 准备上下文
+    var ctx = Context.init(self.allocator);
+    defer ctx.deinit();
+    try ctx.set(&quot;title&quot;, post.title);
+    try ctx.set(&quot;content&quot;, html_content);
+    // ...
+
+    // [2] 渲染 post.hbs（子模板）
+    const page_html = try self.template_engine.render(&quot;post.hbs&quot;, &amp;ctx);
+    defer self.allocator.free(page_html);
+
+    // [3] 设置页面内容
+    self.template_engine.setPageContent(page_html);
+
+    // [4] 渲染 layout.hbs（父模板）
+    const html = try self.template_engine.render(&quot;layout.hbs&quot;, &amp;ctx);
+    defer self.allocator.free(html);
+
+    // [5] 写入文件
+    try self.writeHtmlFileWithDate(post.filename, post.date_time, html);
+}
+</code></pre>
+<hr />
+<h2 id="6">6. 块的作用域</h2>
+<h3 id="61">6.1 块名称匹配</h3>
+<pre><code class="language-handlebars">&lt;!-- layout.hbs 定义占位符 --&gt;
+&lt;main&gt;{{~&gt; page}}&lt;/main&gt;
+&lt;aside&gt;{{~&gt; sidebar}}&lt;/aside&gt;
+
+&lt;!-- index.hbs 定义块 --&gt;
+{{#*inline &quot;page&quot;}}...{{/inline}}
+{{#*inline &quot;sidebar&quot;}}...{{/inline}}
+</code></pre>
+<p><strong>名称必须匹配</strong>：</p>
+<pre><code class="language-handlebars">&lt;!-- 错误：名称不匹配 --&gt;
+{{#*inline &quot;content&quot;}}...{{/inline}}
+&lt;!-- layout.hbs 中没有 {{~&gt; content}} 占位符 --&gt;
+
+&lt;!-- 正确 --&gt;
+{{#*inline &quot;page&quot;}}...{{/inline}}
+&lt;!-- 匹配 layout.hbs 中的 {{~&gt; page}} --&gt;
+</code></pre>
+<h3 id="62">6.2 块的可选性</h3>
+<pre><code class="language-handlebars">&lt;!-- sidebar 块是可选的 --&gt;
+{{#*inline &quot;sidebar&quot;}}{{/inline}}
+&lt;!-- 空块也是有效的 --&gt;
+</code></pre>
+<p><strong>如果未定义块</strong>：</p>
+<pre><code class="language-handlebars">&lt;!-- 如果子模板未定义 sidebar --&gt;
+&lt;aside&gt;
+    {{~&gt; sidebar}}
+    &lt;!-- 输出为空 --&gt;
+&lt;/aside&gt;
+</code></pre>
+<hr />
+<h2 id="7">7. 继承模式变体</h2>
+<h3 id="71">7.1 单层继承</h3>
+<pre><code>layout.hbs
+    │
+    └─ index.hbs
+</code></pre>
+<p><strong>项目使用</strong>：所有子模板直接继承 layout.hbs</p>
+<h3 id="72">7.2 多层继承（项目未使用）</h3>
+<pre><code>base.hbs
+    │
+    └─ layout.hbs
+            │
+            └─ index.hbs
+</code></pre>
+<p><strong>zig-handlebars 限制</strong>：当前实现可能不支持多层继承。</p>
+<hr />
+<h2 id="8">8. 与其他模式对比</h2>
+<h3 id="81-vs">8.1 模板组合 vs 模板继承</h3>
+<p><strong>模板组合</strong>：</p>
+<pre><code class="language-handlebars">{{&gt; header}}
+{{&gt; content}}
+{{&gt; footer}}
+</code></pre>
+<p><strong>模板继承</strong>：</p>
+<pre><code class="language-handlebars">{{#*inline &quot;page&quot;}}...{{/inline}}
+{{~&gt; (parent)~}}
+</code></pre>
+<p><strong>项目选择</strong>：使用继承模式，更简洁</p>
+<h3 id="82">8.2 包含模式</h3>
+<pre><code class="language-handlebars">&lt;!-- 包含其他模板 --&gt;
+{{&gt; navigation}}
+{{&gt; footer}}
+</code></pre>
+<p><strong>项目未使用</strong>：项目使用继承而非包含</p>
+<hr />
+<h2 id="9">9. 最佳实践</h2>
+<h3 id="91">9.1 保持一致性</h3>
+<pre><code class="language-handlebars">&lt;!-- 所有子模板使用相同结构 --&gt;
+{{#*inline &quot;page&quot;}}
+&lt;!-- 内容 --&gt;
+{{/inline}}
+
+{{#*inline &quot;sidebar&quot;}}{{/inline}}
+
+{{~&gt; (parent)~}}
+</code></pre>
+<h3 id="92">9.2 命名清晰</h3>
+<pre><code class="language-handlebars">&lt;!-- 好的命名 --&gt;
+{{#*inline &quot;page&quot;}}
+{{#*inline &quot;sidebar&quot;}}
+
+&lt;!-- 避免模糊命名 --&gt;
+{{#*inline &quot;content&quot;}}
+{{#*inline &quot;stuff&quot;}}
+</code></pre>
+<h3 id="93">9.3 最小化子模板</h3>
+<pre><code class="language-handlebars">&lt;!-- 子模板只定义必要内容 --&gt;
+{{#*inline &quot;page&quot;}}
+{{{posts}}}
+{{/inline}}
+
+&lt;!-- 布局细节留给父模板 --&gt;
+</code></pre>
+<hr />
+<h2 id="10">10. 注意事项</h2>
+<h3 id="101">10.1 空白处理</h3>
+<pre><code class="language-handlebars">&lt;!-- 使用 ~ 修剪空白 --&gt;
+{{~&gt; page}}
+{{~&gt; (parent)~}}
+
+&lt;!-- 否则可能产生多余空白 --&gt;
+{{&gt; page}}
+</code></pre>
+<h3 id="102">10.2 变量作用域</h3>
+<pre><code class="language-handlebars">&lt;!-- 父模板和子模板共享上下文变量 --&gt;
+&lt;!-- layout.hbs --&gt;
+&lt;title&gt;{{title}}&lt;/title&gt;
+
+&lt;!-- index.hbs --&gt;
+{{#*inline &quot;page&quot;}}
+{{{posts}}}
+{{/inline}}
+&lt;!-- 都可以访问 ctx.set() 设置的变量 --&gt;
+</code></pre>
+<h3 id="103">10.3 循环引用</h3>
+<pre><code class="language-handlebars">&lt;!-- 错误：循环引用 --&gt;
+&lt;!-- layout.hbs --&gt;
+{{~&gt; (child)~}}
+
+&lt;!-- index.hbs --&gt;
+{{~&gt; (parent)~}}
+&lt;!-- 会导致无限循环 --&gt;
+</code></pre>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../10-1-architecture/">10-1 架构设计</a> - 模板引擎架构</li>
+<li><a href="../10-2-template-syntax/">10-2 模板语法</a> - Handlebars 语法</li>
+<li><a href="../10-4-templates-detail/">10-4 模板详解</a> - 每个模板详细分析</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1448 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>1.2 技术栈选型 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#12" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.2 技术栈选型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心技术栈
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心技术栈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        语言与工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zig-0152" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么选择 Zig 0.15.2？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        依赖库详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="依赖库详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目依赖结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zig-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zig-markdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zig-handlebars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zig-handlebars
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        外部 CDN 资源
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="外部 CDN 资源">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cdn_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        前端资源（通过 CDN 加载）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layouthbs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        layout.hbs 中的引用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdn_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么使用 CDN？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术选型原因
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="技术选型原因">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么不用现成的 Markdown 库？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么不用现有模板引擎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么选择这些字体？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        依赖关系图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buildzigzon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build.zig.zon 配置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关阅读
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="12">1.2 技术栈选型</h1>
+<blockquote>
+<p>深入了解 my-blog 项目的技术选型和依赖关系</p>
+</blockquote>
+<hr />
+<h2 id="_1">目录</h2>
+<ul>
+<li><a href="#核心技术栈">核心技术栈</a></li>
+<li><a href="#依赖库详解">依赖库详解</a></li>
+<li><a href="#外部-cdn-资源">外部 CDN 资源</a></li>
+<li><a href="#技术选型原因">技术选型原因</a></li>
+</ul>
+<hr />
+<h2 id="_2">核心技术栈</h2>
+<h3 id="_3">语言与工具</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>版本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Zig</strong></td>
+<td>0.15.2</td>
+<td>主编程语言</td>
+</tr>
+<tr>
+<td><strong>Zig Build System</strong></td>
+<td>内置</td>
+<td>构建配置</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>-</td>
+<td>版本控制</td>
+</tr>
+</tbody>
+</table>
+<h3 id="zig-0152">为什么选择 Zig 0.15.2？</h3>
+<pre><code class="language-zig">// Zig 0.15.2 的关键特性
+const std = @import(&quot;std&quot;);
+
+// 1. 编译时执行
+comptime {
+    std.debug.print(&quot;编译时计算\n&quot;, .{});
+}
+
+// 2. 错误处理
+fn riskyOperation() !u8 {
+    return error.SomethingWentWrong;
+}
+
+// 3. 泛型编程
+fn ArrayList(comptime T: type) type {
+    return struct {
+        items: []T,
+        // ...
+    };
+}
+</code></pre>
+<hr />
+<h2 id="_4">依赖库详解</h2>
+<h3 id="_5">项目依赖结构</h3>
+<pre><code>my-blog/
+├── libs/
+│   ├── zig-markdown/     # Markdown → HTML 转换器
+│   └── zig-handlebars/   # 模板引擎
+├── build.zig.zon         # 依赖配置
+└── build.zig             # 构建脚本
+</code></pre>
+<h3 id="zig-markdown">zig-markdown</h3>
+<p><strong>位置</strong>: <code>libs/zig-markdown/</code></p>
+<p><strong>功能</strong>: Markdown 到 HTML 转换器</p>
+<p><strong>支持的特性</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>语法</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td><code>#</code> ~ <code>######</code></td>
+<td><code># H1</code></td>
+</tr>
+<tr>
+<td>粗体</td>
+<td><code>**text**</code></td>
+<td><code>**bold**</code></td>
+</tr>
+<tr>
+<td>斜体</td>
+<td><code>*text*</code></td>
+<td><code>*italic*</code></td>
+</tr>
+<tr>
+<td>删除线</td>
+<td><code>~~text~~</code></td>
+<td><code>~~deleted~~</code></td>
+</tr>
+<tr>
+<td>行内代码</td>
+<td><code>`code`</code></td>
+<td><code>`SELECT`</code></td>
+</tr>
+<tr>
+<td>代码块</td>
+<td><code>\</code>``lang<code>|</code>```zig`</td>
+<td></td>
+</tr>
+<tr>
+<td>表格</td>
+<td><code>\| col \|</code></td>
+<td><code>\| A \| B \|</code></td>
+</tr>
+<tr>
+<td>引用</td>
+<td><code>&gt; text</code></td>
+<td><code>&gt; quote</code></td>
+</tr>
+<tr>
+<td>链接</td>
+<td><code>[text](url)</code></td>
+<td><code>[link](url)</code></td>
+</tr>
+<tr>
+<td>图片</td>
+<td><code>![alt](src)</code></td>
+<td><code>![img](a.png)</code></td>
+</tr>
+<tr>
+<td>数学公式</td>
+<td><code>$$...$$</code></td>
+<td><code>$$E=mc^2$$</code></td>
+</tr>
+<tr>
+<td>换行</td>
+<td><code>\</code> (行尾)</td>
+<td><code>line1\</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心 API</strong>:</p>
+<pre><code class="language-zig">const markdown = @import(&quot;zig-markdown&quot;);
+
+// 转换 Markdown 为 HTML
+const html = try markdown.toHtml(allocator, markdown_text);
+defer allocator.free(html);
+</code></pre>
+<p><strong>架构</strong>:</p>
+<pre><code>┌─────────────────────────────────────────┐
+│              markdown.zig               │
+│            (toHtml 入口函数)             │
+└───────────────────┬─────────────────────┘
+                    │
+        ┌───────────┼───────────┐
+        ▼           ▼           ▼
+┌──────────────┐ ┌──────────┐ ┌───────────┐
+│  parser.zig  │ │ inline.zig│ │ blocks/   │
+│  (状态管理)   │ │(内联处理) │ │ table.zig │
+└──────────────┘ └──────────┘ └───────────┘
+</code></pre>
+<h3 id="zig-handlebars">zig-handlebars</h3>
+<p><strong>位置</strong>: <code>libs/zig-handlebars/</code></p>
+<p><strong>功能</strong>: Handlebars 风格的模板引擎</p>
+<p><strong>模板语法</strong>:</p>
+<pre><code class="language-handlebars">{! 变量（HTML 转义）!}
+{{ title }}
+
+{! 未转义的 HTML !}
+{{{ content }}}
+
+{! 定义内联块 !}
+{{#*inline &quot;page&quot;}}
+  &lt;div&gt;{{{content}}}&lt;/div&gt;
+{{/inline}}
+
+{! 模板继承 !}
+{{~&gt; (parent)~}}
+</code></pre>
+<p><strong>核心 API</strong>:</p>
+<pre><code class="language-zig">const TemplateEngine = @import(&quot;zig-handlebars&quot;).TemplateEngine;
+const Context = @import(&quot;zig-handlebars&quot;).Context;
+
+// 初始化引擎
+const engine = TemplateEngine.init(allocator, &quot;templates&quot;);
+defer engine.deinit();
+
+// 创建上下文
+var ctx = Context.init(allocator);
+defer ctx.deinit();
+try ctx.set(&quot;title&quot;, &quot;My Post&quot;);
+
+// 渲染模板
+const html = try engine.render(&quot;post.hbs&quot;, &amp;ctx);
+</code></pre>
+<p><strong>模块结构</strong>:</p>
+<pre><code>zig-handlebars/
+├── src/
+│   ├── root.zig          # 模块导出
+│   ├── engine.zig        # 模板引擎核心
+│   ├── context.zig       # 上下文管理
+│   ├── partials.zig      # 部分模板
+│   ├── error.zig         # 错误定义
+│   └── html_escape.zig   # HTML 转义
+└── templates/
+    └── test_partial.hbs  # 测试模板
+</code></pre>
+<hr />
+<h2 id="cdn">外部 CDN 资源</h2>
+<h3 id="cdn_1">前端资源（通过 CDN 加载）</h3>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>版本</th>
+<th>用途</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inter Font</strong></td>
+<td>-</td>
+<td>正文字体</td>
+<td>fonts.googleapis.com</td>
+</tr>
+<tr>
+<td><strong>JetBrains Mono</strong></td>
+<td>-</td>
+<td>代码字体</td>
+<td>fonts.googleapis.com</td>
+</tr>
+<tr>
+<td><strong>highlight.js</strong></td>
+<td>11.9.0</td>
+<td>代码高亮</td>
+<td>cdnjs.cloudflare.com</td>
+</tr>
+<tr>
+<td><strong>KaTeX</strong></td>
+<td>0.12.0</td>
+<td>数学公式</td>
+<td>cdn.jsdelivr.net</td>
+</tr>
+</tbody>
+</table>
+<h3 id="layouthbs">layout.hbs 中的引用</h3>
+<pre><code class="language-html">&lt;!-- 字体 --&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;!-- 代码高亮 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css&quot;&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- 数学公式 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css&quot;&gt;
+&lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="cdn_2">为什么使用 CDN？</h3>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>缓存共享</strong></td>
+<td>用户可能已缓存这些资源</td>
+</tr>
+<tr>
+<td><strong>加载速度</strong></td>
+<td>CDN 节点就近访问</td>
+</tr>
+<tr>
+<td><strong>减少体积</strong></td>
+<td>无需打包到项目</td>
+</tr>
+<tr>
+<td><strong>自动更新</strong></td>
+<td>可使用最新版</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_6">技术选型原因</h2>
+<h3 id="markdown">为什么不用现成的 Markdown 库？</h3>
+<p><strong>选项考虑过</strong>:
+- [x] cmark (C)
+- [x] pulldown-cmark (Rust)
+- [x] commonmark.js (JavaScript)</p>
+<p><strong>选择自定义实现的原因</strong>:</p>
+<ol>
+<li><strong>学习目的</strong> - 深入理解 Markdown 解析原理</li>
+<li><strong>零依赖</strong> - 无需绑定 C 库</li>
+<li><strong>定制化</strong> - 可添加特殊语法（如数学公式）</li>
+<li><strong>代码量小</strong> - 约 1000 行，易于维护</li>
+</ol>
+<h3 id="_7">为什么不用现有模板引擎？</h3>
+<p><strong>考虑因素</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>引擎</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Terminator</strong></td>
+<td>过于复杂</td>
+</tr>
+<tr>
+<td><strong>Ziggy</strong></td>
+<td>功能过多</td>
+</tr>
+<tr>
+<td><strong>自定义</strong></td>
+<td>刚好满足需求</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自定义模板引擎优势</strong>:</p>
+<pre><code>1. 代码量少（~300 行）
+2. 学习 Handlebars 设计思想
+3. 完全控制渲染逻辑
+4. 无多余功能
+</code></pre>
+<h3 id="_8">为什么选择这些字体？</h3>
+<table>
+<thead>
+<tr>
+<th>字体</th>
+<th>用途</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inter</strong></td>
+<td>正文</td>
+<td>清晰、现代、开源</td>
+</tr>
+<tr>
+<td><strong>JetBrains Mono</strong></td>
+<td>代码</td>
+<td>专为编程设计、连字支持</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_9">依赖关系图</h2>
+<pre><code>                    ┌─────────────────┐
+                    │    main.zig     │
+                    │  (应用程序入口)  │
+                    └────────┬────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              │              │              │
+              ▼              ▼              ▼
+     ┌────────────────┐ ┌─────────┐ ┌──────────────┐
+     │  Blogger.zig   │ │  std    │ │  第三方依赖   │
+     │  (核心逻辑)    │ │  标准库  │ │              │
+     └───────┬────────┘ └─────────┘ └──────┬───────┘
+             │                             │
+             │              ┌──────────────┼──────────────┐
+             │              │              │              │
+             ▼              ▼              ▼              ▼
+    ┌────────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
+    │ zig-markdown   │ │zig-      │ │ highlight│ │  KaTeX   │
+    │ (Markdown 解析) │ │handlebars│ │  .js     │ │ (数学公式)│
+    │                │ │(模板引擎) │ │(代码高亮) │ │          │
+    └────────────────┘ └──────────┘ └──────────┘ └──────────┘
+</code></pre>
+<hr />
+<h2 id="buildzigzon">build.zig.zon 配置</h2>
+<pre><code class="language-zig">.{
+    .name = .my_blog,
+    .version = &quot;0.1.0&quot;,
+    .minimum_zig_version = &quot;0.15.2&quot;,
+    .dependencies = .{
+        .zig_markdown = .{
+            .path = &quot;libs/zig-markdown&quot;,
+        },
+        .zig_handlebars = .{
+            .path = &quot;libs/zig-handlebars&quot;,
+        },
+    },
+    .paths = .{
+        &quot;build.zig&quot;,
+        &quot;build.zig.zon&quot;,
+        &quot;src&quot;,
+        &quot;templates&quot;,
+        &quot;static&quot;,
+        &quot;libs/zig-markdown&quot;,
+        &quot;libs/zig-handlebars&quot;,
+    },
+}
+</code></pre>
+<hr />
+<h2 id="_10">小结</h2>
+<p>my-blog 的技术栈设计原则：</p>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>体现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>简洁</strong></td>
+<td>最小依赖，自定义核心组件</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>Zig 编译型语言，无运行时</td>
+</tr>
+<tr>
+<td><strong>可控</strong></td>
+<td>关键组件自研，完全掌握</td>
+</tr>
+<tr>
+<td><strong>现代</strong></td>
+<td>CDN 资源，最新前端技术</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_11">相关阅读</h2>
+<ul>
+<li><a href="../01-1-project-background/">项目背景</a> - 项目起源</li>
+<li><a href="../01-3-features/">功能特性</a> - 完整功能列表</li>
+<li><a href="../../part-06-build-system/06-1-build-zig-structure/">构建系统</a> - build.zig 详解</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

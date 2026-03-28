@@ -1,0 +1,1588 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>04-3 switch 表达式 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04-3-switch" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04-3 switch 表达式
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. switch 基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. switch 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 基本语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 switch 是表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 else 分支的强制性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 项目中的 switch 使用分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 项目中的 switch 使用分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 项目现状
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 潜在的 switch 使用场景
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 潜在的 switch 使用场景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景 1：文章状态处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景 2：错误类型处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-switch-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. switch 与 enum 配合
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. switch 与 enum 配合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 枚举类型定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 switch 处理枚举
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 项目中的 enum 使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. switch 的高级用法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. switch 的高级用法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 多值匹配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 值范围匹配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 带代码块的分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. switch 与错误集
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. switch 与错误集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 错误捕获 switch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 项目中的错误处理对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ifelse-if-vs-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. if/else if vs switch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. if/else if vs switch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-ifelse-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 何时使用 if/else if
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 何时使用 switch
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 完整实例：配置文件解析器
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-anytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 模式匹配与 anytype
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 模式匹配与 anytype">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-switch-union" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 使用 switch 处理联合 (Union)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 项目中的潜在应用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 switch 必须穷尽
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 switch 不支持字符串
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-switch-fallthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 switch 分支不能有 fallthrough
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 总结对比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="04-3-switch">04-3 switch 表达式</h1>
+<blockquote>
+<p>Zig 语言的多分支选择与项目实例分析</p>
+</blockquote>
+<hr />
+<h2 id="1-switch">1. switch 基础</h2>
+<h3 id="11">1.1 基本语法</h3>
+<p>Zig 的 <code>switch</code> 是一个<strong>表达式</strong>，用于根据值选择多个分支之一：</p>
+<pre><code class="language-zig">const value: u32 = 2;
+const result = switch (value) {
+    1 =&gt; &quot;one&quot;,
+    2 =&gt; &quot;two&quot;,
+    3 =&gt; &quot;three&quot;,
+    else =&gt; &quot;other&quot;,
+};
+</code></pre>
+<h3 id="12-switch">1.2 switch 是表达式</h3>
+<p>与 C 语言不同，Zig 的 <code>switch</code> 是表达式而不是语句，它<strong>返回值</strong>：</p>
+<pre><code class="language-zig">// switch 必须覆盖所有可能的值
+const x = switch (day) {
+    1 =&gt; &quot;Monday&quot;,
+    2 =&gt; &quot;Tuesday&quot;,
+    else =&gt; &quot;Other day&quot;,
+};
+</code></pre>
+<h3 id="13-else">1.3 else 分支的强制性</h3>
+<p>除非 <code>switch</code> 覆盖了所有可能的值，否则必须包含 <code>else</code> 分支：</p>
+<pre><code class="language-zig">// 错误 - 未覆盖所有情况
+const result = switch (x) {
+    1 =&gt; &quot;one&quot;,
+    2 =&gt; &quot;two&quot;,
+    // 缺少 else 或其他分支
+};
+
+// 正确
+const result = switch (x) {
+    1 =&gt; &quot;one&quot;,
+    2 =&gt; &quot;two&quot;,
+    else =&gt; &quot;other&quot;,
+};
+</code></pre>
+<hr />
+<h2 id="2-switch">2. 项目中的 switch 使用分析</h2>
+<h3 id="21">2.1 项目现状</h3>
+<p>在 my-blog 项目中，<code>switch</code> 表达式的使用相对较少。项目主要使用 <code>if/else if</code> 链来处理多分支逻辑。</p>
+<p><strong>原因分析</strong>：</p>
+<ol>
+<li><strong>命令行参数解析</strong> - 使用字符串比较，适合 <code>if/else if</code> 链</li>
+<li><strong>文件类型检查</strong> - 使用简单的 <code>if (entry.kind == .file)</code></li>
+<li><strong>frontmatter 解析</strong> - 使用 <code>if/else if</code> 检查字段名</li>
+</ol>
+<h3 id="22-switch">2.2 潜在的 switch 使用场景</h3>
+<p>虽然项目当前未使用 <code>switch</code>，但以下场景适合使用：</p>
+<h4 id="1">场景 1：文章状态处理</h4>
+<pre><code class="language-zig">pub const PostStatus = enum {
+    draft,
+    published,
+    archived,
+};
+
+const status: PostStatus = .published;
+
+switch (status) {
+    .draft =&gt; std.debug.print(&quot;Draft post\n&quot;, .{}),
+    .published =&gt; std.debug.print(&quot;Published post\n&quot;, .{}),
+    .archived =&gt; std.debug.print(&quot;Archived post\n&quot;, .{}),
+}
+</code></pre>
+<h4 id="2">场景 2：错误类型处理</h4>
+<pre><code class="language-zig">someOperation() catch |err| switch (err) {
+    error.FileNotFound =&gt; std.debug.print(&quot;File not found\n&quot;, .{}),
+    error.InvalidFormat =&gt; std.debug.print(&quot;Invalid format\n&quot;, .{}),
+    else =&gt; |e| std.debug.print(&quot;Other error: {}\n&quot;, .{e}),
+};
+</code></pre>
+<hr />
+<h2 id="3-switch-enum">3. switch 与 enum 配合</h2>
+<h3 id="31">3.1 枚举类型定义</h3>
+<pre><code class="language-zig">pub const FileKind = enum {
+    file,
+    directory,
+    symlink,
+};
+</code></pre>
+<h3 id="32-switch">3.2 switch 处理枚举</h3>
+<pre><code class="language-zig">fn handleFile(kind: FileKind) void {
+    switch (kind) {
+        .file =&gt; std.debug.print(&quot;Regular file\n&quot;, .{}),
+        .directory =&gt; std.debug.print(&quot;Directory\n&quot;, .{}),
+        .symlink =&gt; std.debug.print(&quot;Symbolic link\n&quot;, .{}),
+    }
+}
+</code></pre>
+<h3 id="33-enum">3.3 项目中的 enum 使用</h3>
+<p><strong>项目实例</strong> - 虽然项目未显式定义 enum，但标准库的 <code>std.fs.Dir.Entry.Kind</code> 是枚举类型：</p>
+<pre><code class="language-zig">// std.fs.Dir.Entry.Kind 是一个枚举
+if (entry.kind == .file) {
+    // 处理文件
+} else if (entry.kind == .directory) {
+    // 处理目录
+}
+
+// 使用 switch 的等价写法
+switch (entry.kind) {
+    .file =&gt; {
+        // 处理文件
+    },
+    .directory =&gt; {
+        // 处理目录
+    },
+    else =&gt; {
+        // 其他类型（symlink 等）
+    },
+}
+</code></pre>
+<hr />
+<h2 id="4-switch">4. switch 的高级用法</h2>
+<h3 id="41">4.1 多值匹配</h3>
+<p>一个分支可以匹配多个值：</p>
+<pre><code class="language-zig">const result = switch (x) {
+    1, 2, 3 =&gt; &quot;small&quot;,
+    4, 5, 6 =&gt; &quot;medium&quot;,
+    else =&gt; &quot;large&quot;,
+};
+</code></pre>
+<h3 id="42">4.2 值范围匹配</h3>
+<pre><code class="language-zig">const grade = switch (score) {
+    90..100 =&gt; &quot;A&quot;,
+    80..89 =&gt; &quot;B&quot;,
+    70..79 =&gt; &quot;C&quot;,
+    60..69 =&gt; &quot;D&quot;,
+    else =&gt; &quot;F&quot;,
+};
+</code></pre>
+<h3 id="43">4.3 带代码块的分支</h3>
+<p>分支可以包含代码块，返回最后一个表达式的值：</p>
+<pre><code class="language-zig">const result = switch (option) {
+    1 =&gt; blk: {
+        const temp = computeValue();
+        break :blk temp * 2;
+    },
+    else =&gt; 0,
+};
+</code></pre>
+<hr />
+<h2 id="5-switch">5. switch 与错误集</h2>
+<h3 id="51-switch">5.1 错误捕获 switch</h3>
+<p>Zig 允许在 <code>catch</code> 表达式中使用 <code>switch</code> 处理不同类型的错误：</p>
+<pre><code class="language-zig">operation() catch |err| switch (err) {
+    error.FileNotFound =&gt; {
+        std.debug.print(&quot;File not found\n&quot;, .{});
+        return error.MissingFile;
+    },
+    error.InvalidFormat =&gt; {
+        std.debug.print(&quot;Invalid format\n&quot;, .{});
+        return error.BadData;
+    },
+    else =&gt; |e| {
+        std.debug.print(&quot;Unknown error: {}\n&quot;, .{e});
+        return e;
+    },
+};
+</code></pre>
+<h3 id="52">5.2 项目中的错误处理对比</h3>
+<p><strong>项目实例</strong> - <code>loadPosts()</code> 使用简单的 <code>catch |err|</code>：</p>
+<pre><code class="language-zig">const post = Post.parse(self.allocator, content, std.fs.path.basename(entry.path)) catch |err| {
+    std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ @errorName(err), entry.path });
+    continue;  // 统一处理所有错误：跳过并继续
+};
+</code></pre>
+<p><strong>使用 switch 的改进版本</strong>：</p>
+<pre><code class="language-zig">const post = Post.parse(self.allocator, content, std.fs.path.basename(entry.path)) catch |err| switch (err) {
+    error.InvalidFormat =&gt; {
+        std.debug.print(&quot; Skipped (invalid format): {s}\n&quot;, .{entry.path});
+        continue;
+    },
+    error.MissingTitle =&gt; {
+        std.debug.print(&quot; Skipped (missing title): {s}\n&quot;, .{entry.path});
+        continue;
+    },
+    error.MissingDateTime =&gt; {
+        std.debug.print(&quot; Skipped (missing date): {s}\n&quot;, .{entry.path});
+        continue;
+    },
+    else =&gt; |e| {
+        std.debug.print(&quot; Skipped (unknown error {s}): {s}\n&quot;, .{ @errorName(e), entry.path });
+        continue;
+    },
+};
+</code></pre>
+<hr />
+<h2 id="6-ifelse-if-vs-switch">6. if/else if vs switch</h2>
+<h3 id="61-ifelse-if">6.1 何时使用 if/else if</h3>
+<p><strong>项目实例</strong> - 字符串比较场景：</p>
+<pre><code class="language-zig">// 适合 if/else if - 字符串比较
+if (std.mem.eql(u8, arg, &quot;--posts&quot;) or std.mem.eql(u8, arg, &quot;-p&quot;)) {
+    posts_dir = args.next() orelse return;
+} else if (std.mem.eql(u8, arg, &quot;--output&quot;) or std.mem.eql(u8, arg, &quot;-o&quot;)) {
+    dest_dir = args.next() orelse return;
+} else if (std.mem.eql(u8, arg, &quot;--help&quot;) or std.mem.eql(u8, arg, &quot;-h&quot;)) {
+    printHelp();
+    return;
+}
+</code></pre>
+<p><strong>原因</strong>：
+- <code>switch</code> 不支持字符串直接匹配
+- <code>switch</code> 要求编译时已知的值
+- 字符串比较需要运行时计算</p>
+<h3 id="62-switch">6.2 何时使用 switch</h3>
+<p><strong>适合 switch 的场景</strong>：</p>
+<pre><code class="language-zig">// 1. 枚举值匹配
+pub const BuildMode = enum { debug, release, fast };
+const mode: BuildMode = .release;
+switch (mode) {
+    .debug =&gt; { },
+    .release =&gt; { },
+    .fast =&gt; { },
+}
+
+// 2. 整数状态码
+switch (status_code) {
+    200 =&gt; &quot;OK&quot;,
+    404 =&gt; &quot;Not Found&quot;,
+    500 =&gt; &quot;Server Error&quot;,
+    else =&gt; &quot;Unknown&quot;,
+}
+
+// 3. 错误类型分类
+catch |err| switch (err) {
+    error.FileNotFound =&gt; { },
+    error.PermissionDenied =&gt; { },
+    else =&gt; |e| { },
+}
+</code></pre>
+<hr />
+<h2 id="7">7. 完整实例：配置文件解析器</h2>
+<p>虽然 my-blog 项目未使用 <code>switch</code>，但以下是一个完整的使用实例：</p>
+<pre><code class="language-zig">pub const ConfigKey = enum {
+    title,
+    author,
+    posts_dir,
+    output_dir,
+    theme,
+};
+
+pub const ConfigValue = union(enum) {
+    string: []const u8,
+    number: u32,
+    boolean: bool,
+};
+
+fn parseConfig(key: ConfigKey, value: ConfigValue) void {
+    switch (key) {
+        .title, .author =&gt; {
+            if (value == .string) {
+                std.debug.print(&quot;{s}: {s}\n&quot;, .{ @tagName(key), value.string });
+            }
+        },
+        .posts_dir, .output_dir =&gt; {
+            if (value == .string) {
+                std.debug.print(&quot;Directory: {s}\n&quot;, .{value.string});
+            }
+        },
+        .theme =&gt; {
+            switch (value) {
+                .string =&gt; |theme| {
+                    if (std.mem.eql(u8, theme, &quot;dark&quot;) or std.mem.eql(u8, theme, &quot;light&quot;)) {
+                        std.debug.print(&quot;Theme: {s}\n&quot;, .{theme});
+                    } else {
+                        std.debug.print(&quot;Invalid theme: {s}\n&quot;, .{theme});
+                    }
+                },
+                else =&gt; std.debug.print(&quot;Theme must be a string\n&quot;, .{}),
+            }
+        },
+    }
+}
+</code></pre>
+<hr />
+<h2 id="8-anytype">8. 模式匹配与 anytype</h2>
+<h3 id="81-switch-union">8.1 使用 switch 处理联合 (Union)</h3>
+<pre><code class="language-zig">const Value = union(enum) {
+    int: i32,
+    float: f64,
+    text: []const u8,
+};
+
+fn printValue(v: Value) void {
+    switch (v) {
+        .int =&gt; |n| std.debug.print(&quot;Integer: {d}\n&quot;, .{n}),
+        .float =&gt; |f| std.debug.print(&quot;Float: {d}\n&quot;, .{f}),
+        .text =&gt; |s| std.debug.print(&quot;Text: {s}\n&quot;, .{s}),
+    }
+}
+</code></pre>
+<h3 id="82">8.2 项目中的潜在应用</h3>
+<p>如果项目扩展支持多种内容类型：</p>
+<pre><code class="language-zig">pub const Content = union(enum) {
+    markdown: []const u8,
+    html: []const u8,
+    json: []const u8,
+};
+
+fn renderContent(content: Content) ![]const u8 {
+    return switch (content) {
+        .markdown =&gt; |md| try markdown.toHtml(allocator, md),
+        .html =&gt; |html| html,
+        .json =&gt; |json| try jsonToHtml(allocator, json),
+    };
+}
+</code></pre>
+<hr />
+<h2 id="9">9. 注意事项</h2>
+<h3 id="91-switch">9.1 switch 必须穷尽</h3>
+<pre><code class="language-zig">// 错误 - 未覆盖所有情况
+const x: u8 = 5;
+switch (x) {
+    1 =&gt; &quot;one&quot;,
+    2 =&gt; &quot;two&quot;,
+    // 编译错误：未覆盖 0, 3-255
+}
+
+// 正确
+switch (x) {
+    1 =&gt; &quot;one&quot;,
+    2 =&gt; &quot;two&quot;,
+    else =&gt; &quot;other&quot;,
+}
+</code></pre>
+<h3 id="92-switch">9.2 switch 不支持字符串</h3>
+<pre><code class="language-zig">// 错误
+const s = &quot;hello&quot;;
+switch (s) {
+    &quot;hello&quot; =&gt; &quot;greeting&quot;,  // 不支持
+    else =&gt; &quot;unknown&quot;,
+}
+
+// 正确 - 使用 if/else if
+if (std.mem.eql(u8, s, &quot;hello&quot;)) {
+    // ...
+} else if (std.mem.eql(u8, s, &quot;world&quot;)) {
+    // ...
+}
+</code></pre>
+<h3 id="93-switch-fallthrough">9.3 switch 分支不能有 fallthrough</h3>
+<p>与 C 不同，Zig 的 <code>switch</code> 每个分支自动 <code>break</code>：</p>
+<pre><code class="language-zig">// 错误 - Zig 不支持 fallthrough
+switch (x) {
+    1 =&gt; {
+        std.debug.print(&quot;one\n&quot;, .{});
+        // 不能 fallthrough 到下一个分支
+    },
+    2 =&gt; { },
+}
+</code></pre>
+<hr />
+<h2 id="10">10. 总结对比</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>if/else if</th>
+<th>switch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符串比较</td>
+<td>✓ 支持</td>
+<td>✗ 不支持</td>
+</tr>
+<tr>
+<td>范围匹配</td>
+<td>✓ 支持</td>
+<td>✓ 支持 (<code>..</code>)</td>
+</tr>
+<tr>
+<td>枚举匹配</td>
+<td>✓ 支持</td>
+<td>✓ 支持（更简洁）</td>
+</tr>
+<tr>
+<td>错误处理</td>
+<td>✓ <code>catch \|err\|</code></td>
+<td>✓ <code>catch\|err\| switch</code></td>
+</tr>
+<tr>
+<td>返回值</td>
+<td>✓ 表达式</td>
+<td>✓ 表达式</td>
+</tr>
+<tr>
+<td>多值匹配</td>
+<td>✗ 需要 <code>or</code></td>
+<td>✓ 支持 (<code>1, 2, 3 =&gt;</code>)</td>
+</tr>
+<tr>
+<td>编译时检查</td>
+<td>✗ 运行时</td>
+<td>✓ 穷尽性检查</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../04-1-if-else/">04-1 条件语句 (if/else)</a> - 条件控制流基础</li>
+<li><a href="../04-4-comptime/">04-4 comptime</a> - 编译时执行</li>
+<li><a href="../../part-03-zig-basics/03-2-important-types/">03-2 重要类型</a> - 枚举类型详解</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

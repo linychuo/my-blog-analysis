@@ -1,0 +1,1817 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>09-3 错误处理模式 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#09-3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              09-3 错误处理模式
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 错误处理模式概览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 错误处理模式概览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 常见模式分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 模式选择指南
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 传播模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 传播模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 直接传播
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 传播的优缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 恢复模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 恢复模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 循环中的恢复
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 批量操作中的恢复
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 降级模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 降级模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 使用默认值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 可选功能降级
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 转换模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 转换模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 错误类型转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 添加错误上下文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 组合模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 组合模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-try-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 try + catch 组合
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 分层错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 项目中的错误处理分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 项目中的错误处理分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-mainzig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 main.zig 错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-bloggergenerate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Blogger.generate() 错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-postparse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Post.parse() 错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 错误处理最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 错误处理最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 选择合适的模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 错误信息清晰
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 资源管理配合
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 常见错误处理反模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 常见错误处理反模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 静默失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 过度包装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 错误吞没
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 模式对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 项目中的模式应用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="09-3">09-3 错误处理模式</h1>
+<blockquote>
+<p>Zig 高级错误处理技巧与项目实例分析</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 错误处理模式概览</h2>
+<h3 id="11">1.1 常见模式分类</h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>用途</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传播模式</td>
+<td>将错误传递给调用者</td>
+<td><code>try</code></td>
+</tr>
+<tr>
+<td>恢复模式</td>
+<td>从错误中恢复继续执行</td>
+<td><code>catch</code> + <code>continue</code></td>
+</tr>
+<tr>
+<td>降级模式</td>
+<td>使用默认值替代</td>
+<td><code>catch</code> default</td>
+</tr>
+<tr>
+<td>转换模式</td>
+<td>转换错误类型</td>
+<td><code>catch switch</code></td>
+</tr>
+<tr>
+<td>包装模式</td>
+<td>添加错误上下文</td>
+<td><code>catch |err|</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">1.2 模式选择指南</h3>
+<pre><code>操作失败
+    │
+    ├─ 致命错误？ → 传播 (try)
+    │
+    ├─ 可恢复？ → 恢复 (catch + continue)
+    │
+    ├─ 有默认值？ → 降级 (catch default)
+    │
+    └─ 需要转换？ → 转换 (catch switch)
+</code></pre>
+<hr />
+<h2 id="2">2. 传播模式</h2>
+<h3 id="21">2.1 直接传播</h3>
+<pre><code class="language-zig">// 最简单的模式：让调用者处理
+fn parse(allocator: Allocator, content: []const u8) !Post {
+    // 任何错误都传播给调用者
+    const title = try extractTitle(content);
+    const date = try extractDate(content);
+
+    return Post{
+        .title = title,
+        .date_time = date,
+    };
+}
+</code></pre>
+<p><strong>项目实例</strong>：</p>
+<pre><code class="language-zig">pub fn generate(self: *Blogger) !void {
+    // 所有错误都传播给 main()
+    try std.fs.cwd().makePath(self.dest_dir);
+    try self.copyStaticFiles();
+    try self.loadPosts(&amp;posts);
+    // ...
+}
+</code></pre>
+<h3 id="22">2.2 传播的优缺点</h3>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>简单直接</td>
+<td>调用者需要处理所有错误</td>
+</tr>
+<tr>
+<td>不丢失信息</td>
+<td>可能导致调用者负担过重</td>
+</tr>
+<tr>
+<td>适合库函数</td>
+<td>不适合所有场景</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 恢复模式</h2>
+<h3 id="31">3.1 循环中的恢复</h3>
+<pre><code class="language-zig">// 项目实例：loadPosts()
+fn loadPosts(self: *Blogger, posts: *std.ArrayList(Post)) !void {
+    while (try walker.next()) |entry| {
+        if (entry.kind == .file) {
+            // 解析失败不中断整体流程
+            const post = Post.parse(...) catch |err| {
+                std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ 
+                    @errorName(err), entry.path 
+                });
+                continue;  // 恢复：继续处理下一篇
+            };
+            try posts.append(self.allocator, post);
+        }
+    }
+}
+</code></pre>
+<p><strong>恢复流程</strong>：</p>
+<pre><code>遍历文章文件
+    │
+    ├─ 文件 1: 解析成功 → 添加到列表
+    │
+    ├─ 文件 2: 解析失败 → 打印错误，continue
+    │
+    ├─ 文件 3: 解析成功 → 添加到列表
+    │
+    └─ 文件 4: 解析失败 → 打印错误，continue
+            │
+            ▼
+    循环继续，不中断
+</code></pre>
+<h3 id="32">3.2 批量操作中的恢复</h3>
+<pre><code class="language-zig">// 通用模式：批量处理中的错误恢复
+fn processAll(items: []const Item) void {
+    for (items) |item| {
+        processOne(item) catch |err| {
+            std.debug.print(&quot;Failed to process: {}\n&quot;, .{err});
+            continue;  // 继续处理其他项目
+        };
+    }
+}
+</code></pre>
+<hr />
+<h2 id="4">4. 降级模式</h2>
+<h3 id="41">4.1 使用默认值</h3>
+<pre><code class="language-zig">// 静态文件可选：不存在时不报错
+fn copyStaticFiles(self: *Blogger) !void {
+    var dir = std.fs.cwd().openDir(&quot;static&quot;, .{ .iterate = true }) catch {
+        std.debug.print(&quot; Warning: static directory not found\n&quot;, .{});
+        return;  // 降级：没有静态文件也能运行
+    };
+    defer dir.close();
+
+    // ... 复制逻辑
+}
+</code></pre>
+<p><strong>降级策略</strong>：</p>
+<pre><code>尝试打开 static/ 目录
+    │
+    ├─ 成功 → 复制静态文件
+    │
+    └─ 失败 → 打印警告，返回
+            │
+            ▼
+        程序继续运行（无静态文件）
+</code></pre>
+<h3 id="42">4.2 可选功能降级</h3>
+<pre><code class="language-zig">// 关于页面可选
+fn generateAbout(self: *Blogger) !void {
+    const file = std.fs.cwd().openFile(about_path, .{}) catch {
+        std.debug.print(&quot; Skipped: about.markdown not found\n&quot;, .{});
+        return;  // 降级：没有关于页面也能运行
+    };
+    defer file.close();
+
+    // ... 生成关于页面
+}
+</code></pre>
+<hr />
+<h2 id="5">5. 转换模式</h2>
+<h3 id="51">5.1 错误类型转换</h3>
+<pre><code class="language-zig">// 将底层错误转换为业务错误
+fn loadPost(path: []const u8) !Post {
+    const content = std.fs.cwd().readFile(path) catch |err| switch (err) {
+        error.FileNotFound =&gt; return error.PostNotFound,
+        error.PermissionDenied =&gt; return error.CannotReadPost,
+        error.IsDir =&gt; return error.InvalidPath,
+        else =&gt; |e| return e,  // 其他错误原样传播
+    };
+    return Post.parse(..., content, ...);
+}
+</code></pre>
+<p><strong>错误映射</strong>：</p>
+<pre><code>文件系统错误              业务逻辑错误
+    │                          │
+    ├─ FileNotFound      →    PostNotFound
+    ├─ PermissionDenied  →    CannotReadPost
+    ├─ IsDir             →    InvalidPath
+    └─ 其他              →    原样传播
+</code></pre>
+<h3 id="52">5.2 添加错误上下文</h3>
+<pre><code class="language-zig">// 包装错误添加详细信息
+fn processPosts() !void {
+    loadPosts() catch |err| {
+        std.debug.print(&quot;Failed to load posts from '{s}': {}\n&quot;, .{
+            self.posts_dir,
+            err,
+        });
+        return error.LoadFailed;
+    };
+}
+</code></pre>
+<hr />
+<h2 id="6">6. 组合模式</h2>
+<h3 id="61-try-catch">6.1 try + catch 组合</h3>
+<pre><code class="language-zig">// 大部分操作使用 try，特定操作使用 catch
+fn generate(self: *Blogger) !void {
+    // 关键操作：失败则停止
+    try std.fs.cwd().makePath(self.dest_dir);
+    try self.loadPosts(&amp;posts);
+
+    // 可选操作：失败则跳过
+    self.copyStaticFiles() catch {
+        std.debug.print(&quot; Warning: skipping static files\n&quot;, .{});
+    };
+
+    // 继续生成页面
+    for (posts.items) |post| {
+        try self.generatePostPage(post);
+    }
+}
+</code></pre>
+<h3 id="62">6.2 分层错误处理</h3>
+<pre><code class="language-zig">// 不同层次使用不同策略
+fn main() !void {
+    // 顶层：传播所有错误
+    try run();
+}
+
+fn run() !void {
+    // 中间层：部分恢复
+    loadPosts() catch |err| {
+        std.debug.print(&quot;Warning: {s}\n&quot;, .{@errorName(err)});
+        // 但不返回错误，继续执行
+    };
+
+    // 关键操作：传播错误
+    try generatePages();
+}
+
+fn loadPosts() !void {
+    // 底层：详细错误处理
+    while (...) |entry| {
+        Post.parse(...) catch |err| {
+            // 记录并跳过
+            continue;
+        };
+    }
+}
+</code></pre>
+<hr />
+<h2 id="7">7. 项目中的错误处理分析</h2>
+<h3 id="71-mainzig">7.1 main.zig 错误处理</h3>
+<pre><code class="language-zig">pub fn main() !void {
+    // [1] 分配器设置（不处理错误）
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    // [2] 参数解析（部分恢复）
+    var args = try std.process.argsWithAllocator(allocator);
+    defer args.deinit();
+    _ = args.skip();
+
+    var posts_dir: []const u8 = &quot;posts&quot;;
+    var dest_dir: []const u8 = &quot;build&quot;;
+
+    while (args.next()) |arg| {
+        if (std.mem.eql(u8, arg, &quot;--posts&quot;) or std.mem.eql(u8, arg, &quot;-p&quot;)) {
+            posts_dir = args.next() orelse {
+                // 参数缺失：错误退出
+                std.debug.print(&quot;Error: --posts requires a directory argument\n&quot;, .{});
+                std.process.exit(1);
+            };
+        } else if (std.mem.eql(u8, arg, &quot;--help&quot;) or std.mem.eql(u8, arg, &quot;-h&quot;)) {
+            printHelp();
+            return;  // 正常退出
+        }
+    }
+
+    // [3] 博客生成（传播错误）
+    var blogger = Blogger.new(allocator, posts_dir, dest_dir);
+    try blogger.generate();
+    //  ^^^ 任何错误都会导致程序终止
+}
+</code></pre>
+<p><strong>错误处理策略</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>策略</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分配器</td>
+<td>无处理</td>
+<td>分配失败应终止</td>
+</tr>
+<tr>
+<td>参数解析</td>
+<td>orelse 退出</td>
+<td>参数错误无法继续</td>
+</tr>
+<tr>
+<td>博客生成</td>
+<td>try 传播</td>
+<td>生成失败应报告</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-bloggergenerate">7.2 Blogger.generate() 错误处理</h3>
+<pre><code class="language-zig">pub fn generate(self: *Blogger) !void {
+    std.debug.print(&quot;Generating blog...\n&quot;, .{});
+
+    // [1] 创建目录（传播）
+    try std.fs.cwd().makePath(self.dest_dir);
+
+    // [2] 复制静态文件（传播，但内部有降级）
+    try self.copyStaticFiles();
+    // copyStaticFiles 内部 catch 处理目录不存在
+
+    // [3] 初始化文章列表
+    var posts = std.ArrayList(Post){};
+    defer {
+        for (posts.items) |*post| post.deinit(self.allocator);
+        posts.deinit(self.allocator);
+    }
+
+    // [4] 加载文章（传播，但内部有恢复）
+    try self.loadPosts(&amp;posts);
+    // loadPosts 内部 catch 跳过错文
+
+    // [5] 排序（不失败）
+    std.mem.sort(Post, posts.items, {}, sortPostsByDateDesc);
+
+    // [6] 生成页面（传播）
+    for (posts.items) |post| try self.generatePostPage(post);
+    try self.generateIndex(posts.items);
+    try self.generateAbout();
+    try self.generateTagPages(posts.items);
+}
+</code></pre>
+<p><strong>分层错误处理</strong>：</p>
+<pre><code>generate()
+    │
+    ├─ copyStaticFiles()
+    │   └─ catch: 目录不存在 → 警告并返回
+    │
+    ├─ loadPosts()
+    │   └─ catch: 解析失败 → 跳过文章
+    │
+    └─ generatePostPage()
+        └─ try: 失败 → 传播并停止
+</code></pre>
+<h3 id="73-postparse">7.3 Post.parse() 错误处理</h3>
+<pre><code class="language-zig">pub fn parse(allocator: Allocator, content: []const u8, filename: []const u8) !Post {
+    // [1] 验证输入
+    var lines = std.mem.splitScalar(u8, content, '\n');
+    const first_line = lines.next() orelse return error.InvalidFormat;
+    //                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //                  空文件 → 错误
+
+    // [2] 验证 frontmatter
+    if (!std.mem.eql(u8, std.mem.trim(u8, first_line, &quot; \r\n\t&quot;), &quot;---&quot;)) {
+        return error.InvalidFormat;
+        //     ^^^^^^^^^^^^^^^^^^^
+        //         格式错误 → 错误
+    }
+
+    // [3] 解析字段
+    var title: ?[]const u8 = null;
+    var date_time: ?[]const u8 = null;
+    var tags: ?[]const u8 = null;
+
+    while (lines.next()) |line| {
+        const trimmed = std.mem.trim(u8, line, &quot; \r\n\t&quot;);
+        if (std.mem.eql(u8, trimmed, &quot;---&quot;)) break;
+
+        if (std.mem.startsWith(u8, trimmed, &quot;title:&quot;)) {
+            title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+            //    ^^^ 内存分配失败 → 传播
+        } else if (std.mem.startsWith(u8, trimmed, &quot;date_time:&quot;)) {
+            date_time = try extractValue(allocator, trimmed, &quot;date_time:&quot;);
+        } else if (std.mem.startsWith(u8, trimmed, &quot;tags:&quot;)) {
+            tags = try extractValue(allocator, trimmed, &quot;tags:&quot;);
+        }
+    }
+
+    // [4] 验证必需字段
+    return Post{
+        .title = title orelse return error.MissingTitle,
+        //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //     缺少 title → 错误
+        .date_time = date_time orelse return error.MissingDateTime,
+        //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //         缺少 date_time → 错误
+        .tags = tags orelse &quot;&quot;,
+        //   ^^^^^^^^^^^^^^^^
+        //   缺少 tags → 使用默认值
+        .content = try allocator.dupe(u8, content[content_start..]),
+        .filename = try allocator.dupe(u8, filename),
+    };
+}
+</code></pre>
+<p><strong>错误分类</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>错误类型</th>
+<th>处理方式</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空文件</td>
+<td>orelse 返回</td>
+<td>无法解析</td>
+</tr>
+<tr>
+<td>格式错误</td>
+<td>return error</td>
+<td>无效输入</td>
+</tr>
+<tr>
+<td>内存失败</td>
+<td>try 传播</td>
+<td>系统问题</td>
+</tr>
+<tr>
+<td>缺少 title</td>
+<td>orelse 返回</td>
+<td>必需字段</td>
+</tr>
+<tr>
+<td>缺少 tags</td>
+<td>orelse 默认</td>
+<td>可选字段</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 错误处理最佳实践</h2>
+<h3 id="81">8.1 选择合适的模式</h3>
+<pre><code>决策树:
+    │
+    ├─ 错误是否致命？
+    │   ├─ 是 → try 传播
+    │   └─ 否 → 继续判断
+    │
+    ├─ 是否有默认值？
+    │   ├─ 是 → catch default
+    │   └─ 否 → 继续判断
+    │
+    ├─ 是否可以跳过？
+    │   ├─ 是 → catch + continue
+    │   └─ 否 → 继续判断
+    │
+    └─ 是否需要转换？
+        ├─ 是 → catch switch
+        └─ 否 → try 传播
+</code></pre>
+<h3 id="82">8.2 错误信息清晰</h3>
+<pre><code class="language-zig">// 推荐：清晰的错误信息
+std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ 
+    @errorName(err),  // 错误类型
+    entry.path        // 相关文件
+});
+
+// 不推荐：模糊的错误信息
+std.debug.print(&quot;Error!\n&quot;, .{});
+</code></pre>
+<h3 id="83">8.3 资源管理配合</h3>
+<pre><code class="language-zig">// 确保错误处理时资源正确释放
+fn process() !void {
+    var resource = try acquire();
+    defer release(resource);  // 即使错误也会释放
+
+    try doSomething();  // 失败时 defer 仍执行
+}
+</code></pre>
+<hr />
+<h2 id="9">9. 常见错误处理反模式</h2>
+<h3 id="91">9.1 静默失败</h3>
+<pre><code class="language-zig">// 错误：忽略错误
+operation() catch {};
+
+// 正确：至少记录
+operation() catch |err| {
+    std.debug.print(&quot;Warning: {}\n&quot;, .{err});
+};
+</code></pre>
+<h3 id="92">9.2 过度包装</h3>
+<pre><code class="language-zig">// 不推荐：层层包装
+fn a() !void {
+    b() catch |err| return error.Wrap1;
+}
+fn b() !void {
+    c() catch |err| return error.Wrap2;
+}
+fn c() !void {
+    return error.Original;
+}
+
+// 推荐：直接传播
+fn a() !void {
+    try b();
+}
+fn b() !void {
+    try c();
+}
+fn c() !void {
+    return error.Original;
+}
+</code></pre>
+<h3 id="93">9.3 错误吞没</h3>
+<pre><code class="language-zig">// 错误：吞没关键错误
+try mayFail() catch {};  // 语法允许，但逻辑错误
+
+// 正确：根据情况选择
+try mayFail();           // 传播
+mayFail() catch handle(); // 处理
+</code></pre>
+<hr />
+<h2 id="10">10. 总结</h2>
+<h3 id="101">10.1 模式对比</h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>适用场景</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传播</td>
+<td>致命错误</td>
+<td>简单</td>
+<td>调用者负担</td>
+</tr>
+<tr>
+<td>恢复</td>
+<td>可跳过错误</td>
+<td>健壮</td>
+<td>可能丢失数据</td>
+</tr>
+<tr>
+<td>降级</td>
+<td>可选功能</td>
+<td>灵活</td>
+<td>功能不完整</td>
+</tr>
+<tr>
+<td>转换</td>
+<td>抽象边界</td>
+<td>清晰接口</td>
+<td>额外代码</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102">10.2 项目中的模式应用</h3>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>模式</th>
+<th>实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main()</code></td>
+<td>传播</td>
+<td><code>try blogger.generate()</code></td>
+</tr>
+<tr>
+<td><code>copyStaticFiles()</code></td>
+<td>降级</td>
+<td><code>catch { return; }</code></td>
+</tr>
+<tr>
+<td><code>loadPosts()</code></td>
+<td>恢复</td>
+<td><code>catch |err| continue</code></td>
+</tr>
+<tr>
+<td><code>generateAbout()</code></td>
+<td>降级</td>
+<td><code>catch { return; }</code></td>
+</tr>
+<tr>
+<td><code>Post.parse()</code></td>
+<td>传播</td>
+<td><code>try</code>, <code>orelse return</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../09-1-error-types/">09-1 错误类型</a> - 错误类型基础</li>
+<li><a href="../09-2-error-propagation/">09-2 错误传播</a> - try/catch 详解</li>
+<li><a href="../../part-08-memory-management/08-3-defer-patterns/">08-3 defer 模式</a> - 错误与资源管理</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1517 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>14.1 Zig 单元测试 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#141-zig" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              14.1 Zig 单元测试
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1411-zig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1.1 Zig 测试基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1.1 Zig 测试基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试块语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试断言函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整测试示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1412-my-blog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1.2 在 my-blog 中编写测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1.2 在 my-blog 中编写测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试 Post 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontmatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试 Frontmatter 解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试 Markdown 转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1413" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1.3 测试组织
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1.3 测试组织">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件内测试组织
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        独立测试文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1414" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1.4 测试运行
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1.4 测试运行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行所有测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行特定测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1415" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1.5 测试最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1.5 测试最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 测试命名规范
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 测试隔离
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 测试边界条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 测试错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1416" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1.6 表格驱动测试
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1417" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1.7 测试覆盖率
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1.7 测试覆盖率">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        启用覆盖率检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        手动覆盖率检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="141-zig">14.1 Zig 单元测试</h1>
+<blockquote>
+<p><strong>测试框架</strong>: Zig 内置测试框架<br />
+<strong>运行命令</strong>: <code>zig build test</code><br />
+<strong>测试语法</strong>: <code>test "description" { }</code></p>
+</blockquote>
+<h2 id="1411-zig">14.1.1 Zig 测试基础</h2>
+<h3 id="_1">测试块语法</h3>
+<pre><code class="language-zig">// 基本测试块
+test &quot;addition works&quot; {
+    const result = 2 + 2;
+    try std.testing.expectEqual(@as(u32, 4), result);
+}
+
+// 多个测试块
+test &quot;string concatenation&quot; {
+    const allocator = std.testing.allocator;
+    const str = try std.fmt.allocPrint(allocator, &quot;{s} {s}&quot;, .{ &quot;Hello&quot;, &quot;World&quot; });
+    defer allocator.free(str);
+
+    try std.testing.expectEqualStrings(&quot;Hello World&quot;, str);
+}
+
+test &quot;empty test (will pass)&quot; {
+    // 空测试也会通过
+}
+</code></pre>
+<h3 id="_2">测试断言函数</h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用途</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>expectEqual</code></td>
+<td>值相等</td>
+<td><code>try expectEqual(4, 2 + 2)</code></td>
+</tr>
+<tr>
+<td><code>expectEqualStrings</code></td>
+<td>字符串相等</td>
+<td><code>try expectEqualStrings("abc", str)</code></td>
+</tr>
+<tr>
+<td><code>expect</code></td>
+<td>布尔条件</td>
+<td><code>try expect(x &gt; 0)</code></td>
+</tr>
+<tr>
+<td><code>expectError</code></td>
+<td>期望错误</td>
+<td><code>try expectError(error.Overflow, fn())</code></td>
+</tr>
+<tr>
+<td><code>expectApproxEqAbs</code></td>
+<td>浮点近似</td>
+<td><code>try expectApproxEqAbs(0.3, a + b, 0.001)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">完整测试示例</h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+const testing = std.testing;
+
+// 被测试的函数
+fn add(a: i32, b: i32) i32 {
+    return a + b;
+}
+
+fn divide(a: f64, b: f64) !f64 {
+    if (b == 0) return error.DivisionByZero;
+    return a / b;
+}
+
+// 测试
+test &quot;add positive numbers&quot; {
+    try testing.expectEqual(@as(i32, 5), add(2, 3));
+}
+
+test &quot;add negative numbers&quot; {
+    try testing.expectEqual(@as(i32, -5), add(-2, -3));
+}
+
+test &quot;divide normally&quot; {
+    const result = try divide(10.0, 2.0);
+    try testing.expectApproxEqAbs(@as(f64, 5.0), result, 0.001);
+}
+
+test &quot;divide by zero returns error&quot; {
+    try testing.expectError(error.DivisionByZero, divide(10.0, 0.0));
+}
+</code></pre>
+<h2 id="1412-my-blog">14.1.2 在 my-blog 中编写测试</h2>
+<h3 id="post">测试 Post 结构</h3>
+<pre><code class="language-zig">// 在 Blogger.zig 中添加测试
+const Post = struct {
+    title: []const u8,
+    date_time: []const u8,
+    tags: []const u8,
+    content: []const u8,
+    filename: []const u8,
+
+    pub fn deinit(self: *Post, allocator: Allocator) void {
+        allocator.free(self.title);
+        allocator.free(self.date_time);
+        allocator.free(self.tags);
+        allocator.free(self.content);
+        allocator.free(self.filename);
+    }
+};
+
+test &quot;Post creation and cleanup&quot; {
+    const allocator = std.testing.allocator;
+
+    var post = Post{
+        .title = try allocator.dupe(u8, &quot;Test Post&quot;),
+        .date_time = try allocator.dupe(u8, &quot;2024-01-15 10:00&quot;),
+        .tags = try allocator.dupe(u8, &quot;zig,test&quot;),
+        .content = try allocator.dupe(u8, &quot;Test content&quot;),
+        .filename = try allocator.dupe(u8, &quot;test-post.markdown&quot;),
+    };
+    defer post.deinit(allocator);
+
+    try std.testing.expectEqualStrings(&quot;Test Post&quot;, post.title);
+    try std.testing.expectEqualStrings(&quot;2024-01-15 10:00&quot;, post.date_time);
+}
+</code></pre>
+<h3 id="frontmatter">测试 Frontmatter 解析</h3>
+<pre><code class="language-zig">// Frontmatter 解析函数
+fn parseFrontmatter(content: []const u8, allocator: Allocator) !Frontmatter {
+    // 查找分隔符
+    if (!std.mem.startsWith(u8, content, &quot;---&quot;)) {
+        return error.MissingFrontmatterDelimiter;
+    }
+
+    const end_index = std.mem.indexOf(u8, content[3..], &quot;---&quot;) orelse 
+        return error.UnclosedFrontmatter;
+
+    const frontmatter_text = content[3..end_index + 3];
+
+    // 解析字段
+    var fm = Frontmatter.init(allocator);
+
+    // 解析 title
+    if (std.mem.indexOf(u8, frontmatter_text, &quot;title:&quot;)) |title_pos| {
+        const title_line = std.mem.trim(u8, frontmatter_text[title_pos + 6..], &quot; \n\r&quot;);
+        const newline = std.mem.indexOf(u8, title_line, &quot;\n&quot;) orelse title_line.len;
+        fm.title = try allocator.dupe(u8, title_line[0..newline]);
+    }
+
+    return fm;
+}
+
+// 测试
+test &quot;parse frontmatter with title&quot; {
+    const allocator = std.testing.allocator;
+    const content = 
+        \\---
+        \\title: My Test Post
+        \\date_time: 2024-01-15 10:00
+        \\---
+        \\Content starts here
+    ;
+
+    const fm = try parseFrontmatter(content, allocator);
+    defer {
+        allocator.free(fm.title);
+        allocator.free(fm.date_time);
+    }
+
+    try std.testing.expectEqualStrings(&quot;My Test Post&quot;, fm.title);
+    try std.testing.expectEqualStrings(&quot;2024-01-15 10:00&quot;, fm.date_time);
+}
+
+test &quot;parse frontmatter missing delimiter&quot; {
+    const allocator = std.testing.allocator;
+    const content = &quot;No frontmatter here&quot;;
+
+    try std.testing.expectError(
+        error.MissingFrontmatterDelimiter,
+        parseFrontmatter(content, allocator)
+    );
+}
+</code></pre>
+<h3 id="markdown">测试 Markdown 转换</h3>
+<pre><code class="language-zig">// Markdown 转 HTML
+fn markdownToHtml(markdown: []const u8, allocator: Allocator) ![]u8 {
+    var html = std.ArrayList(u8).init(allocator);
+
+    var iter = std.mem.split(u8, markdown, &quot;\n&quot;);
+    while (iter.next()) |line| {
+        if (std.mem.startsWith(u8, line, &quot;# &quot;)) {
+            // H1 标题
+            try html.writer().writeAll(&quot;&lt;h1&gt;&quot;);
+            try html.writer().writeAll(line[2..]);
+            try html.writer().writeAll(&quot;&lt;/h1&gt;\n&quot;);
+        } else if (std.mem.startsWith(u8, line, &quot;## &quot;)) {
+            // H2 标题
+            try html.writer().writeAll(&quot;&lt;h2&gt;&quot;);
+            try html.writer().writeAll(line[3..]);
+            try html.writer().writeAll(&quot;&lt;/h2&gt;\n&quot;);
+        } else if (line.len &gt; 0) {
+            // 普通段落
+            try html.writer().writeAll(&quot;&lt;p&gt;&quot;);
+            try html.writer().writeAll(line);
+            try html.writer().writeAll(&quot;&lt;/p&gt;\n&quot;);
+        }
+    }
+
+    return html.toOwnedSlice();
+}
+
+test &quot;markdown heading conversion&quot; {
+    const allocator = std.testing.allocator;
+    const markdown = &quot;# Hello World&quot;;
+
+    const html = try markdownToHtml(markdown, allocator);
+    defer allocator.free(html);
+
+    try std.testing.expectEqualStrings(&quot;&lt;h1&gt;Hello World&lt;/h1&gt;\n&quot;, html);
+}
+
+test &quot;markdown paragraph conversion&quot; {
+    const allocator = std.testing.allocator;
+    const markdown = &quot;This is a paragraph.&quot;;
+
+    const html = try markdownToHtml(markdown, allocator);
+    defer allocator.free(html);
+
+    try std.testing.expectEqualStrings(&quot;&lt;p&gt;This is a paragraph.&lt;/p&gt;\n&quot;, html);
+}
+</code></pre>
+<h2 id="1413">14.1.3 测试组织</h2>
+<h3 id="_4">文件内测试组织</h3>
+<pre><code class="language-zig">// Blogger.zig
+const std = @import(&quot;std&quot;);
+const Allocator = std.mem.Allocator;
+
+// ===== 类型定义 =====
+pub const Post = struct {
+    // ...
+};
+
+pub const Blogger = struct {
+    // ...
+};
+
+// ===== 公共函数 =====
+pub fn generateBlog() void {
+    // ...
+}
+
+// ===== 内部函数 =====
+fn parseFrontmatter() void {
+    // ...
+}
+
+// ===== 测试（放在文件末尾） =====
+test &quot;Blogger.postCount&quot; {
+    // ...
+}
+
+test &quot;Blogger.generateIndex&quot; {
+    // ...
+}
+</code></pre>
+<h3 id="_5">独立测试文件</h3>
+<pre><code>src/
+├── Blogger.zig          # 源代码
+├── Blogger_test.zig     # 独立测试文件
+└── utils.zig
+└── utils_test.zig
+</code></pre>
+<pre><code class="language-zig">// Blogger_test.zig
+const std = @import(&quot;std&quot;);
+const Blogger = @import(&quot;Blogger.zig&quot;).Blogger;
+
+test &quot;Blogger initialization&quot; {
+    const allocator = std.testing.allocator;
+    const blogger = try Blogger.init(allocator, &quot;./posts&quot;, &quot;./output&quot;);
+    defer blogger.deinit();
+
+    try std.testing.expectEqualStrings(&quot;./posts&quot;, blogger.posts_dir);
+    try std.testing.expectEqualStrings(&quot;./output&quot;, blogger.dest_dir);
+}
+</code></pre>
+<h2 id="1414">14.1.4 测试运行</h2>
+<h3 id="_6">运行所有测试</h3>
+<pre><code class="language-bash"># 运行项目中的所有测试
+zig build test
+
+# 带详细输出
+zig build test -- --verbose
+</code></pre>
+<h3 id="_7">运行特定测试</h3>
+<pre><code class="language-bash"># 运行包含特定字符串的测试
+zig test src/Blogger.zig --test-filter &quot;post&quot;
+
+# 运行单个测试文件
+zig test src/Blogger_test.zig
+</code></pre>
+<h3 id="_8">测试输出</h3>
+<pre><code>$ zig build test
+1/5 test &quot;Post creation and cleanup&quot;... OK
+2/5 test &quot;parse frontmatter with title&quot;... OK
+3/5 test &quot;parse frontmatter missing delimiter&quot;... OK
+4/5 test &quot;markdown heading conversion&quot;... OK
+5/5 test &quot;markdown paragraph conversion&quot;... OK
+
+All 5 tests passed.
+</code></pre>
+<h2 id="1415">14.1.5 测试最佳实践</h2>
+<h3 id="1">1. 测试命名规范</h3>
+<pre><code class="language-zig">// ✅ 好的命名：描述行为
+test &quot;parse frontmatter with valid title&quot; { }
+test &quot;parse frontmatter missing required field&quot; { }
+test &quot;generate html with proper escaping&quot; { }
+
+// ❌ 差的命名：太模糊
+test &quot;test1&quot; { }
+test &quot;parser test&quot; { }
+test &quot;should work&quot; { }
+</code></pre>
+<h3 id="2">2. 测试隔离</h3>
+<pre><code class="language-zig">// ✅ 每个测试使用独立的分配器
+test &quot;test with allocator&quot; {
+    const allocator = std.testing.allocator;
+    // 使用 allocator 分配内存
+    // 测试结束后自动释放
+}
+
+// ❌ 避免共享状态
+var shared_state: i32 = 0;  // 不要在测试间共享状态
+
+test &quot;test1&quot; {
+    shared_state = 1;  // 会影响其他测试
+}
+</code></pre>
+<h3 id="3">3. 测试边界条件</h3>
+<pre><code class="language-zig">test &quot;empty input&quot; {
+    const result = try processContent(&quot;&quot;);
+    try std.testing.expectEqualStrings(&quot;&quot;, result);
+}
+
+test &quot;single character&quot; {
+    const result = try processContent(&quot;a&quot;);
+    try std.testing.expectEqualStrings(&quot;A&quot;, result);
+}
+
+test &quot;very long input&quot; {
+    var long_input: [10000]u8 = undefined;
+    @memset(&amp;long_input, 'a');
+    const result = try processContent(&amp;long_input);
+    try std.testing.expect(result.len &gt; 0);
+}
+
+test &quot;special characters&quot; {
+    const result = try processContent(&quot;&lt;&gt;&amp;\&quot;'&quot;);
+    try std.testing.expectEqualStrings(&quot;&amp;lt;&amp;gt;&amp;amp;&amp;quot;&amp;apos;&quot;, result);
+}
+</code></pre>
+<h3 id="4">4. 测试错误处理</h3>
+<pre><code class="language-zig">test &quot;error on invalid input&quot; {
+    try std.testing.expectError(
+        error.InvalidInput,
+        processInvalidContent()
+    );
+}
+
+test &quot;error propagation&quot; {
+    const allocator = std.testing.allocator;
+    try std.testing.expectError(
+        error.OutOfMemory,
+        allocateTooMuch(allocator)
+    );
+}
+</code></pre>
+<h2 id="1416">14.1.6 表格驱动测试</h2>
+<pre><code class="language-zig">// 使用表格驱动测试多个案例
+test &quot;markdown bold conversion&quot; {
+    const TestCase = struct {
+        input: []const u8,
+        expected: []const u8,
+    };
+
+    const test_cases = [_]TestCase{
+        .{ .input = &quot;**bold**&quot;, .expected = &quot;&lt;strong&gt;bold&lt;/strong&gt;&quot; },
+        .{ .input = &quot;**multi word**&quot;, .expected = &quot;&lt;strong&gt;multi word&lt;/strong&gt;&quot; },
+        .{ .input = &quot;**nested *italic***&quot;, .expected = &quot;&lt;strong&gt;nested *italic*&lt;/strong&gt;&quot; },
+    };
+
+    inline for (test_cases) |tc| {
+        const result = try convertBold(tc.input, std.testing.allocator);
+        defer std.testing.allocator.free(result);
+        try std.testing.expectEqualStrings(tc.expected, result);
+    }
+}
+</code></pre>
+<h2 id="1417">14.1.7 测试覆盖率</h2>
+<h3 id="_9">启用覆盖率检查</h3>
+<pre><code class="language-bash"># Zig 目前没有内置覆盖率工具
+# 可以使用第三方工具如 kcov
+
+# 编译测试二进制
+zig test src/Blogger.zig --test-no-exec -femit-bin=test-binary
+
+# 使用 kcov 运行
+kcov coverage/ ./test-binary
+</code></pre>
+<h3 id="_10">手动覆盖率检查</h3>
+<pre><code class="language-zig">// 添加覆盖率标记
+var test_coverage = struct {
+    parse_frontmatter: bool = false,
+    generate_html: bool = false,
+    copy_assets: bool = false,
+}{};
+
+test &quot;parse frontmatter&quot; {
+    test_coverage.parse_frontmatter = true;
+    // ... 测试逻辑
+}
+
+test &quot;generate html&quot; {
+    test_coverage.generate_html = true;
+    // ... 测试逻辑
+}
+
+test &quot;check coverage&quot; {
+    try std.testing.expect(test_coverage.parse_frontmatter);
+    try std.testing.expect(test_coverage.generate_html);
+    try std.testing.expect(test_coverage.copy_assets);
+}
+</code></pre>
+<h2 id="_11">相关文档</h2>
+<ul>
+<li><a href="../14-2-debugging-techniques/">14.2 调试技巧</a> - 调试方法和工具</li>
+<li><a href="../14-3-memory-leak-detection/">14.3 内存泄漏检测</a> - 内存管理测试</li>
+<li><a href="../../part-09-error-handling/09-3-error-handling-patterns/">9.3 错误处理模式</a> - 错误处理测试</li>
+</ul>
+<hr />
+<p><em>本文档介绍了 Zig 单元测试的基础知识，包括测试块语法、断言函数、测试组织和最佳实践，以及如何在 my-blog 项目中编写有效的测试。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

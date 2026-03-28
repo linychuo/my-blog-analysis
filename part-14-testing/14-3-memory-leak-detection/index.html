@@ -1,0 +1,1702 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>14.3 内存泄漏检测 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#143" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              14.3 内存泄漏检测
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1431-zig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.1 Zig 内存管理基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.1 Zig 内存管理基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        内存分配模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分配器对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1432" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.2 内置内存泄漏检测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.2 内置内存泄漏检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generalpurposeallocator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GeneralPurposeAllocator 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        泄漏检测输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修复内存泄漏
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1433" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.3 测试中的内存检测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.3 测试中的内存检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testingallocator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestingAllocator 自动检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检测分配计数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1434" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.4 常见内存泄漏场景
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.4 常见内存泄漏场景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景 1：忘记释放
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景 2：错误路径泄漏
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景 3：循环引用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景 4：字符串泄漏
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1435-valgrind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.5 使用 Valgrind 检测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.5 使用 Valgrind 检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valgrind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valgrind 安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valgrind_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编译用于 Valgrind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valgrind_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行 Valgrind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valgrind_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valgrind 输出解读
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valgrind_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valgrind 选项说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1436" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.6 内存分配器选择
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.6 内存分配器选择">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景推荐
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arenaallocator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ArenaAllocator 使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixedbufferallocator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FixedBufferAllocator 使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1437" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.7 内存调试检查清单
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.7 内存调试检查清单">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        开发阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        发布前
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1438" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3.8 内存性能优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3.8 内存性能优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        减少分配次数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用缓冲区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="143">14.3 内存泄漏检测</h1>
+<blockquote>
+<p><strong>检测工具</strong>: Zig 内置检测器，Valgrind<br />
+<strong>分配器</strong>: GeneralPurposeAllocator, TestingAllocator<br />
+<strong>检测模式</strong>: Debug, ReleaseSafe</p>
+</blockquote>
+<h2 id="1431-zig">14.3.1 Zig 内存管理基础</h2>
+<h3 id="_1">内存分配模式</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│              Zig 内存分配器层次结构                      │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │              GeneralPurposeAllocator             │   │
+│  │  - 完整功能的通用分配器                          │   │
+│  │  - 检测内存泄漏和双重释放                        │   │
+│  │  - 性能较慢，用于 Debug 模式                      │   │
+│  └──────────────────┬──────────────────────────────┘   │
+│                     │                                   │
+│         ┌───────────┼───────────┐                       │
+│         │           │           │                       │
+│         ▼           ▼           ▼                       │
+│  ┌────────────┐ ┌────────┐ ┌──────────────┐            │
+│  │ ArenaAlloc │ │ Fixed  │ │ TestingAlloc │            │
+│  │            │ │ Buffer │ │              │            │
+│  │ 批量分配   │ │ 固定大小│ │ 泄漏检测    │            │
+│  │ 不单独释放 │ │ 高性能  │ │ 测试专用    │            │
+│  └────────────┘ └────────┘ └──────────────┘            │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="_2">分配器对比</h3>
+<table>
+<thead>
+<tr>
+<th>分配器</th>
+<th>用途</th>
+<th>泄漏检测</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GeneralPurposeAllocator</td>
+<td>通用场景</td>
+<td>✅</td>
+<td>慢</td>
+</tr>
+<tr>
+<td>ArenaAllocator</td>
+<td>批量分配</td>
+<td>❌</td>
+<td>快</td>
+</tr>
+<tr>
+<td>FixedBufferAllocator</td>
+<td>固定大小</td>
+<td>❌</td>
+<td>最快</td>
+</tr>
+<tr>
+<td>TestingAllocator</td>
+<td>测试</td>
+<td>✅</td>
+<td>中等</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1432">14.3.2 内置内存泄漏检测</h2>
+<h3 id="generalpurposeallocator">GeneralPurposeAllocator 配置</h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+
+pub fn main() !void {
+    // 配置分配器
+    var gpa = std.heap.GeneralPurposeAllocator(.{
+        .stack_trace_frames = 10,      // 堆栈跟踪帧数
+        .enable_memory_limit = false,  // 不限制内存
+        .safety = true,                // 启用安全检查
+    }){};
+    defer _ = gpa.deinit();  // deinit 时会检查泄漏
+
+    const allocator = gpa.allocator();
+
+    // 使用 allocator 分配内存
+    const ptr = try allocator.create(i32);
+    const slice = try allocator.alloc(u8, 100);
+
+    // 忘记释放会导致泄漏警告
+    // allocator.destroy(ptr);  // ⚠️ 如果忘记调用
+    // allocator.free(slice);   // ⚠️ 如果忘记调用
+}
+</code></pre>
+<h3 id="_3">泄漏检测输出</h3>
+<pre><code>$ zig build run
+
+// 如果有内存泄漏，会输出：
+memory leak detected
+====================
+
+Allocated here:
+    /path/to/src/main.zig:25:42 in main
+        const ptr = try allocator.create(i32);
+
+Allocated 4 bytes
+
+Freed here:
+    (never freed)  // ⚠️ 从未释放
+
+Total leaks: 1
+</code></pre>
+<h3 id="_4">修复内存泄漏</h3>
+<pre><code class="language-zig">// 错误示例：泄漏
+pub fn processData(allocator: Allocator) !void {
+    const buffer = try allocator.alloc(u8, 1024);
+    // 处理数据...
+    // ⚠️ 忘记 free，函数返回时泄漏
+}
+
+// 正确示例：使用 defer
+pub fn processData(allocator: Allocator) !void {
+    const buffer = try allocator.alloc(u8, 1024);
+    defer allocator.free(buffer);  // ✅ 函数返回时自动释放
+
+    // 处理数据...
+}
+
+// 正确示例：错误时也释放
+pub fn loadData(allocator: Allocator) ![]u8 {
+    const data = try allocator.alloc(u8, 1024);
+    errdefer allocator.free(data);  // ✅ 错误时释放
+
+    const file = try std.fs.cwd().openFile(&quot;data.txt&quot;, .{});
+    errdefer file.close();
+
+    try file.readAll(data);
+
+    return data;  // 调用者负责释放
+}
+</code></pre>
+<h2 id="1433">14.3.3 测试中的内存检测</h2>
+<h3 id="testingallocator">TestingAllocator 自动检测</h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+const testing = std.testing;
+
+test &quot;no memory leak&quot; {
+    const allocator = testing.allocator;
+
+    const ptr = try allocator.create(i32);
+    const slice = try allocator.alloc(u8, 100);
+
+    // 测试结束前释放
+    allocator.destroy(ptr);
+    allocator.free(slice);
+
+    // 如果忘记释放，测试会失败并报告泄漏
+}
+
+test &quot;memory leak detected&quot; {
+    const allocator = testing.allocator;
+
+    const ptr = try allocator.create(i32);
+    // ⚠️ 忘记 allocator.destroy(ptr)
+
+    // 测试失败：
+    // Test [fail]: memory leak detected
+    // 1 bytes leaked
+}
+</code></pre>
+<h3 id="_5">检测分配计数</h3>
+<pre><code class="language-zig">test &quot;verify allocation count&quot; {
+    var fixed_buffer = std.heap.FixedBufferAllocator.init(&amp;[_]u8{0} ** 1024);
+    const allocator = fixed_buffer.allocator();
+
+    const ptr1 = try allocator.create(i32);
+    const ptr2 = try allocator.create(i32);
+
+    // 验证只分配了预期的内存
+    try std.testing.expectEqual(@as(usize, 8), fixed_buffer.end_index);
+
+    allocator.destroy(ptr1);
+    allocator.destroy(ptr2);
+}
+</code></pre>
+<h2 id="1434">14.3.4 常见内存泄漏场景</h2>
+<h3 id="1">场景 1：忘记释放</h3>
+<pre><code class="language-zig">// ❌ 泄漏示例
+pub fn loadFile(allocator: Allocator, path: []const u8) ![]u8 {
+    const file = try std.fs.cwd().openFile(path, .{});
+    const content = try file.readToEndAlloc(allocator, 1024 * 1024);
+    return content;  // 调用者需要 free
+}
+
+pub fn process() void {
+    const allocator = std.heap.page_allocator;
+    const content = loadFile(allocator, &quot;data.txt&quot;) catch return;
+    // ⚠️ 忘记 allocator.free(content)
+}
+
+// ✅ 修复
+pub fn process() void {
+    const allocator = std.heap.page_allocator;
+    const content = loadFile(allocator, &quot;data.txt&quot;) catch return;
+    defer allocator.free(content);  // ✅ 自动释放
+
+    // 处理内容...
+}
+</code></pre>
+<h3 id="2">场景 2：错误路径泄漏</h3>
+<pre><code class="language-zig">// ❌ 泄漏示例
+pub fn processMultipleFiles(allocator: Allocator, paths: [][]const u8) !void {
+    var contents = std.ArrayList([]u8).init(allocator);
+
+    for (paths) |path| {
+        const content = try loadFile(allocator, path);
+        try contents.append(content);
+
+        // 如果这里出错，之前分配的内容都会泄漏
+        if (someCondition()) return error.SomethingWentWrong;
+    }
+}
+
+// ✅ 修复
+pub fn processMultipleFiles(allocator: Allocator, paths: [][]const u8) !void {
+    var contents = std.ArrayList([]u8).init(allocator);
+    errdefer {
+        // 错误时释放所有已分配的内容
+        for (contents.items) |content| {
+            allocator.free(content);
+        }
+        contents.deinit();
+    }
+
+    for (paths) |path| {
+        const content = try loadFile(allocator, path);
+        errdefer allocator.free(content);  // 当前内容错误时释放
+
+        try contents.append(content);
+    }
+
+    // 成功后，调用者负责清理
+}
+</code></pre>
+<h3 id="3">场景 3：循环引用</h3>
+<pre><code class="language-zig">// ❌ 泄漏示例（使用 ArenaAllocator 时）
+const Node = struct {
+    value: i32,
+    next: ?*Node = null,
+    prev: ?*Node = null,  // 双向引用
+};
+
+pub fn createLinkedList(allocator: Allocator) !void {
+    var arena = std.heap.ArenaAllocator.init(allocator);
+    defer arena.deinit();  // ⚠️ Arena 会泄漏所有未释放的内存
+
+    const node1 = try arena.allocator().create(Node);
+    const node2 = try arena.allocator().create(Node);
+
+    node1.next = node2;
+    node2.prev = node1;  // 循环引用
+
+    // ArenaAllocator 无法检测单个对象的释放
+}
+
+// ✅ 修复：使用 GeneralPurposeAllocator
+pub fn createLinkedList(allocator: Allocator) !void {
+    const node1 = try allocator.create(Node);
+    errdefer allocator.destroy(node1);
+
+    const node2 = try allocator.create(Node);
+    errdefer allocator.destroy(node2);
+
+    node1.next = node2;
+    node2.prev = node1;
+
+    // 手动管理生命周期
+    allocator.destroy(node2);
+    allocator.destroy(node1);
+}
+</code></pre>
+<h3 id="4">场景 4：字符串泄漏</h3>
+<pre><code class="language-zig">// ❌ 泄漏示例
+pub fn buildString(allocator: Allocator) ![]u8 {
+    var result = std.ArrayList(u8).init(allocator);
+
+    try result.appendSlice(&quot;Hello, &quot;);
+    try result.appendSlice(&quot;World!&quot;);
+
+    return result.toOwnedSlice();  // 调用者需要 free
+}
+
+pub fn useString() void {
+    const allocator = std.heap.page_allocator;
+    const str = buildString(allocator) catch return;
+    // ⚠️ 忘记 allocator.free(str)
+}
+
+// ✅ 修复
+pub fn useString() void {
+    const allocator = std.heap.page_allocator;
+    const str = buildString(allocator) catch return;
+    defer allocator.free(str);  // ✅ 自动释放
+
+    std.debug.print(&quot;{s}\n&quot;, .{str});
+}
+</code></pre>
+<h2 id="1435-valgrind">14.3.5 使用 Valgrind 检测</h2>
+<h3 id="valgrind">Valgrind 安装</h3>
+<pre><code class="language-bash"># Ubuntu/Debian
+sudo apt-get install valgrind
+
+# macOS
+brew install valgrind
+
+# Fedora
+sudo dnf install valgrind
+</code></pre>
+<h3 id="valgrind_1">编译用于 Valgrind</h3>
+<pre><code class="language-bash"># 编译不带优化的 Debug 版本
+zig build-exe src/main.zig -g -ODebug
+
+# 或使用 build 命令
+zig build -g
+</code></pre>
+<h3 id="valgrind_2">运行 Valgrind</h3>
+<pre><code class="language-bash"># 基本内存检查
+valgrind --leak-check=full ./zig-out/bin/my-blog
+
+# 详细输出
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./zig-out/bin/my-blog
+
+# 输出到文件
+valgrind --leak-check=full --log-file=valgrind.log ./zig-out/bin/my-blog
+</code></pre>
+<h3 id="valgrind_3">Valgrind 输出解读</h3>
+<pre><code>==12345== Memcheck, a memory error detector
+==12345== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==12345== Using Valgrind-3.15.0 and LibVEX
+
+==12345== HEAP SUMMARY:
+==12345==     in use at exit: 1,024 bytes in 10 blocks
+==12345==   total heap usage: 100 allocs, 90 frees, 10,240 bytes allocated
+==12345== 
+==12345== 1,024 bytes in 10 blocks are definitely lost in loss record 1 of 1
+==12345==    at 0x4C3089F: malloc (in valgrind)
+==12345==    by 0x123456: std.heap.GeneralPurposeAllocator.alloc (main.zig:25)
+==12345==    by 0x234567: loadData (Blogger.zig:100)
+==12345==    by 0x345678: main (main.zig:10)
+==12345== 
+==12345== LEAK SUMMARY:
+==12345==    definitely lost: 1,024 bytes in 10 blocks
+==12345==    indirectly lost: 0 bytes in 0 blocks
+==12345==      possibly lost: 0 bytes in 0 blocks
+==12345==    still reachable: 0 bytes in 0 blocks
+==12345==         suppressed: 0 bytes in 0 blocks
+</code></pre>
+<h3 id="valgrind_4">Valgrind 选项说明</h3>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--leak-check=full</code></td>
+<td>完整泄漏检查</td>
+</tr>
+<tr>
+<td><code>--show-leak-kinds=all</code></td>
+<td>显示所有泄漏类型</td>
+</tr>
+<tr>
+<td><code>--track-origins=yes</code></td>
+<td>跟踪未初始化值来源</td>
+</tr>
+<tr>
+<td><code>--error-exitcode=1</code></td>
+<td>有错误时返回非零退出码</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1436">14.3.6 内存分配器选择</h2>
+<h3 id="_6">场景推荐</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐分配器</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开发调试</td>
+<td>GeneralPurposeAllocator</td>
+<td>完整泄漏检测</td>
+</tr>
+<tr>
+<td>单元测试</td>
+<td>TestingAllocator</td>
+<td>自动检测泄漏</td>
+</tr>
+<tr>
+<td>批量临时分配</td>
+<td>ArenaAllocator</td>
+<td>高性能，批量释放</td>
+</tr>
+<tr>
+<td>固定大小缓冲</td>
+<td>FixedBufferAllocator</td>
+<td>最快，无系统调用</td>
+</tr>
+<tr>
+<td>生产环境</td>
+<td>GeneralPurposeAllocator</td>
+<td>安全性和性能平衡</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arenaallocator">ArenaAllocator 使用</h3>
+<pre><code class="language-zig">pub fn processDocument(allocator: Allocator) !void {
+    // 使用 Arena 管理临时内存
+    var arena = std.heap.ArenaAllocator.init(allocator);
+    defer arena.deinit();  // 一次性释放所有内存
+
+    const temp_allocator = arena.allocator();
+
+    // 大量临时分配
+    var strings = std.ArrayList([]u8).init(temp_allocator);
+    for (0..1000) |i| {
+        const str = try temp_allocator.alloc(u8, 100);
+        try strings.append(str);
+    }
+
+    // 处理...
+
+    // arena.deinit() 会释放所有临时内存
+    // 无需手动管理每个分配
+}
+</code></pre>
+<h3 id="fixedbufferallocator">FixedBufferAllocator 使用</h3>
+<pre><code class="language-zig">pub fn parseHeader(buffer: []const u8) !Header {
+    // 使用固定缓冲分配器
+    var fixed_buffer = std.heap.FixedBufferAllocator.init(&amp;[_]u8{0} ** 1024);
+    const allocator = fixed_buffer.allocator();
+
+    // 在固定缓冲内分配
+    const title = try allocator.alloc(u8, 100);
+    const content = try allocator.alloc(u8, 500);
+
+    // 如果超出缓冲大小，会返回 OutOfMemory 错误
+    // 无需担心泄漏，缓冲是栈上的
+}
+</code></pre>
+<h2 id="1437">14.3.7 内存调试检查清单</h2>
+<h3 id="_7">开发阶段</h3>
+<ul>
+<li>[ ] 使用 GeneralPurposeAllocator</li>
+<li>[ ] 启用 Debug 模式（<code>zig build -g</code>）</li>
+<li>[ ] 运行测试检查泄漏（<code>zig build test</code>）</li>
+<li>[ ] 检查所有 <code>errdefer</code> 是否正确放置</li>
+</ul>
+<h3 id="_8">测试阶段</h3>
+<ul>
+<li>[ ] 使用 TestingAllocator 运行所有测试</li>
+<li>[ ] 运行 Valgrind 检查（<code>valgrind --leak-check=full</code>）</li>
+<li>[ ] 长时间运行测试（检测累积泄漏）</li>
+<li>[ ] 边界条件测试（空输入、大输入）</li>
+</ul>
+<h3 id="_9">发布前</h3>
+<ul>
+<li>[ ] 切换到 ReleaseSafe 模式测试</li>
+<li>[ ] 性能测试（确保无过度分配）</li>
+<li>[ ] 内存使用监控（RSS 稳定）</li>
+<li>[ ] 压力测试（高负载下无泄漏）</li>
+</ul>
+<h2 id="1438">14.3.8 内存性能优化</h2>
+<h3 id="_10">减少分配次数</h3>
+<pre><code class="language-zig">// ❌ 多次分配
+pub fn buildPath(allocator: Allocator, parts: [][]const u8) ![]u8 {
+    var result = try allocator.alloc(u8, 0);
+
+    for (parts) |part| {
+        result = try allocator.realloc(result, result.len + part.len + 1);
+        // ⚠️ 每次都重新分配
+    }
+
+    return result;
+}
+
+// ✅ 预计算大小，一次分配
+pub fn buildPath(allocator: Allocator, parts: [][]const u8) ![]u8 {
+    // 计算总大小
+    var total_size: usize = 0;
+    for (parts) |part| {
+        total_size += part.len + 1;
+    }
+
+    // 一次分配
+    var result = try allocator.alloc(u8, total_size);
+    var offset: usize = 0;
+
+    for (parts) |part| {
+        @memcpy(result[offset..offset + part.len], part);
+        offset += part.len;
+        result[offset] = '/';
+        offset += 1;
+    }
+
+    return result;
+}
+</code></pre>
+<h3 id="_11">使用缓冲区</h3>
+<pre><code class="language-zig">// 使用栈上缓冲区避免分配
+pub fn formatPostTitle(post: Post) [256]u8 {
+    var buffer: [256]u8 = undefined;
+    const result = std.fmt.bufPrint(&amp;buffer, &quot;[{s}] {s}&quot;, .{post.date_time, post.title}) catch 
+        return undefined;
+    return buffer;  // 返回数组（不是切片），无泄漏风险
+}
+</code></pre>
+<h2 id="_12">相关文档</h2>
+<ul>
+<li><a href="../14-1-unit-testing/">14.1 单元测试</a> - 测试基础</li>
+<li><a href="../14-2-debugging-techniques/">14.2 调试技巧</a> - 调试方法</li>
+<li><a href="../../part-08-memory-management/08-2-memory-ownership/">8.2 所有权模式</a> - 内存所有权</li>
+</ul>
+<hr />
+<p><em>本文档介绍了 Zig 程序中的内存泄漏检测方法，包括内置检测器使用、Valgrind 工具、常见泄漏场景和预防技巧。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

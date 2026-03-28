@@ -1,0 +1,1839 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>13.4 性能优化指南 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#134" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              13.4 性能优化指南
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1341" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.1 性能优化层次
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.1 性能优化层次">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化层次说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1342" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.2 构建性能优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.2 构建性能优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 增量构建
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 并行处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 缓存模板解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1343" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.3 页面加载性能优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.3 页面加载性能优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 资源压缩
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 资源压缩">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSS 压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buildzig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 build.zig 中集成压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 图片优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 图片优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        响应式图片
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        现代图片格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图片压缩工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 懒加载
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 懒加载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图片懒加载
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码分割
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 预加载关键资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1344" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.4 运行时性能优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.4 运行时性能优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 防抖和节流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 虚拟滚动（长列表优化）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-web-workers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Web Workers（后台计算）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1345" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.5 性能监控
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.5 性能监控">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-core-web-vitals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Core Web Vitals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指标说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 构建时间监控
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 性能预算
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1346" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.6 性能检查清单
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.6 性能检查清单">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        构建时优化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        加载时优化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行时优化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        监控与测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1347-lighthouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.7 Lighthouse 优化建议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.7 Lighthouse 优化建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见审计项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lighthouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lighthouse 运行命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1348" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4.8 性能优化案例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4.8 性能优化案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-10s-2s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        案例 1：构建时间从 10s 降至 2s
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3s-1s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        案例 2：首屏加载从 3s 降至 1s
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="134">13.4 性能优化指南</h1>
+<blockquote>
+<p><strong>优化目标</strong>: 构建速度、页面加载速度、运行时性能<br />
+<strong>关键指标</strong>: FCP &lt; 1s, LCP &lt; 2.5s, TTI &lt; 3s</p>
+</blockquote>
+<h2 id="1341">13.4.1 性能优化层次</h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  性能优化金字塔                          │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│                    ╱╲                                   │
+│                   ╱  ╲                                  │
+│                  ╱ 第 ╲                                 │
+│                 ╱ 三  ╲        运行时优化               │
+│                ╱ 层   ╲       - 懒加载                  │
+│               ╱────────╲      - 防抖节流                │
+│              ╱  第二   ╲     - 虚拟滚动                │
+│             ╱   层     ╲    构建优化                   │
+│            ╱───────────╲   - 增量构建                 │
+│           ╱   第一      ╲  - 并行处理                 │
+│          ╱   层         ╲ - 缓存复用                 │
+│         ╱───────────────╲                            │
+│        ╱   架构优化      ╲                           │
+│       ╱   - 资源压缩      ╲                          │
+│      ╱   - CDN 分发        ╲                         │
+│     ╱─────────────────────╲                          │
+│    ╱                       ╲                         │
+│   ╱═════════════════════════╲                        │
+│  基础优化 → 中级优化 → 高级优化                       │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="_1">优化层次说明</h3>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>优化项</th>
+<th>影响范围</th>
+<th>实施难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一层（基础）</td>
+<td>资源压缩、图片优化</td>
+<td>所有页面</td>
+<td>⭐</td>
+</tr>
+<tr>
+<td>第二层（中级）</td>
+<td>增量构建、缓存</td>
+<td>构建流程</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>第三层（高级）</td>
+<td>并行处理、预渲染</td>
+<td>架构层面</td>
+<td>⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1342">13.4.2 构建性能优化</h2>
+<h3 id="1">1. 增量构建</h3>
+<pre><code class="language-zig">// 在 Blogger.zig 中实现增量构建
+pub fn generateIncremental(self: *Blogger) !void {
+    const manifest_path = try std.fs.path.join(self.allocator, &amp;.{ self.dest_dir, &quot;.build-manifest.json&quot; });
+    defer self.allocator.free(manifest_path);
+
+    // 读取旧的构建清单
+    var old_manifest = try self.loadBuildManifest(manifest_path);
+    defer old_manifest.deinit();
+
+    // 检测变更的文件
+    const changed_posts = try self.detectChangedPosts(old_manifest);
+    defer self.allocator.free(changed_posts);
+
+    if (changed_posts.len == 0) {
+        std.debug.print(&quot;No changes detected. Skipping build.\n&quot;, .{});
+        return;
+    }
+
+    std.debug.print(&quot;Detected {d} changed posts. Rebuilding...\n&quot;, .{changed_posts.len});
+
+    // 只重新生成变更的文章
+    for (changed_posts) |post| {
+        try self.generatePostPage(post);
+    }
+
+    // 更新清单
+    try self.saveBuildManifest(manifest_path);
+}
+
+// 检测变更
+fn detectChangedPosts(self: *Blogger, old_manifest: *BuildManifest) ![]Post {
+    var changed = std.ArrayList(Post).init(self.allocator);
+
+    const posts = try self.loadPosts();
+    for (posts) |post| {
+        const old_hash = old_manifest.getHash(post.filename);
+        const new_hash = try self.computeFileHash(post.filename);
+
+        if (old_hash == null or old_hash.? != new_hash) {
+            try changed.append(post);
+        }
+    }
+
+    return changed.toOwnedSlice();
+}
+
+// 计算文件哈希
+fn computeFileHash(self: *Blogger, path: []const u8) !u64 {
+    const file = try std.fs.cwd().openFile(path, .{});
+    defer file.close();
+
+    var hasher = std.hash.Wyhash.init(0);
+    try std.io.copy(std.io.AnyWriter, std.io.AnyReader, hasher.writer(), file.reader());
+    return hasher.final();
+}
+</code></pre>
+<h3 id="2">2. 并行处理</h3>
+<pre><code class="language-zig">// 使用 Zig 的线程池并行生成页面
+pub fn generateParallel(self: *Blogger, posts: []Post) !void {
+    var thread_pool = try std.Thread.Pool.init(.{
+        .allocator = self.allocator,
+        .n_jobs = 4,  // 4 个工作线程
+    });
+    defer thread_pool.deinit();
+
+    var wait_group = std.Thread.WaitGroup.init();
+    defer wait_group.wait();
+
+    // 并行生成文章页面
+    for (posts) |post| {
+        wait_group.start();
+        try thread_pool.spawn(generatePostPageTask, .{ self, post, &amp;wait_group });
+    }
+
+    wait_group.wait();
+}
+
+fn generatePostPageTask(self: *Blogger, post: Post, wg: *std.Thread.WaitGroup) void {
+    defer wg.finish();
+    self.generatePostPage(post) catch |err| {
+        std.debug.print(&quot;Failed to generate {s}: {}\n&quot;, .{ post.filename, err });
+    };
+}
+</code></pre>
+<h3 id="3">3. 缓存模板解析</h3>
+<pre><code class="language-zig">// 缓存已解析的模板
+const TemplateCache = std.StringHashMap(Template);
+
+pub const Blogger = struct {
+    template_cache: TemplateCache,
+
+    pub fn init(allocator: Allocator) Blogger {
+        return Blogger{
+            .template_cache = TemplateCache.init(allocator),
+        };
+    }
+
+    pub fn loadTemplate(self: *Blogger, name: []const u8) !Template {
+        // 先查缓存
+        if (self.template_cache.get(name)) |cached| {
+            return cached;
+        }
+
+        // 缓存未命中，从文件加载
+        const template = try self.loadTemplateFromFile(name);
+
+        // 存入缓存
+        try self.template_cache.put(name, template);
+
+        return template;
+    }
+};
+</code></pre>
+<h2 id="1343">13.4.3 页面加载性能优化</h2>
+<h3 id="1_1">1. 资源压缩</h3>
+<h4 id="css">CSS 压缩</h4>
+<pre><code class="language-bash"># 使用 esbuild 压缩 CSS
+esbuild style.css --minify --outfile=style.min.css
+
+# 或使用 clean-css
+cleancss -o style.min.css style.css
+</code></pre>
+<h4 id="buildzig">在 build.zig 中集成压缩</h4>
+<pre><code class="language-zig">// 在 build.zig 中添加压缩步骤
+const minify_css = b.addSystemCommand(&amp;.{ &quot;esbuild&quot;, &quot;--minify&quot;, &quot;static/style.css&quot;, &quot;--outfile=style.min.css&quot; });
+minify_css.step.dependOn(&amp;copy_static.step);
+
+const install_minified = b.addInstallFile(minify_css.getOutput(), &quot;blog/style.min.css&quot;);
+install_minified.step.dependOn(&amp;minify_css.step);
+</code></pre>
+<h3 id="2_1">2. 图片优化</h3>
+<h4 id="_2">响应式图片</h4>
+<pre><code class="language-html">&lt;!-- 使用 srcset 提供多种尺寸 --&gt;
+&lt;img srcset=&quot;
+    image-480w.jpg 480w,
+    image-768w.jpg 768w,
+    image-1200w.jpg 1200w
+&quot; sizes=&quot;
+    (max-width: 600px) 480px,
+    (max-width: 900px) 768px,
+    1200px
+&quot; src=&quot;image-1200w.jpg&quot; alt=&quot;描述&quot; loading=&quot;lazy&quot;&gt;
+</code></pre>
+<h4 id="_3">现代图片格式</h4>
+<pre><code class="language-markdown">&lt;!-- 在 Markdown 中使用 AVIF/WebP --&gt;
+![描述](image.avif)
+
+&lt;!-- 回退方案 --&gt;
+&lt;picture&gt;
+    &lt;source srcset=&quot;image.avif&quot; type=&quot;image/avif&quot;&gt;
+    &lt;source srcset=&quot;image.webp&quot; type=&quot;image/webp&quot;&gt;
+    &lt;img src=&quot;image.jpg&quot; alt=&quot;描述&quot;&gt;
+&lt;/picture&gt;
+</code></pre>
+<h4 id="_4">图片压缩工具</h4>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>格式</th>
+<th>压缩率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>squoosh.app</td>
+<td>AVIF/WebP</td>
+<td>50-80%</td>
+</tr>
+<tr>
+<td>imagemin</td>
+<td>JPEG/PNG</td>
+<td>30-50%</td>
+</tr>
+<tr>
+<td>tinypng</td>
+<td>PNG</td>
+<td>50-70%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3_1">3. 懒加载</h3>
+<h4 id="_5">图片懒加载</h4>
+<pre><code class="language-html">&lt;!-- 原生懒加载 --&gt;
+&lt;img src=&quot;image.jpg&quot; alt=&quot;描述&quot; loading=&quot;lazy&quot;&gt;
+
+&lt;!-- JavaScript 懒加载（兼容旧浏览器） --&gt;
+&lt;img data-src=&quot;image.jpg&quot; alt=&quot;描述&quot; class=&quot;lazy&quot;&gt;
+
+&lt;script&gt;
+    const lazyImages = document.querySelectorAll('img.lazy');
+    const imageObserver = new IntersectionObserver((entries, observer) =&gt; {
+        entries.forEach(entry =&gt; {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                observer.unobserve(img);
+            }
+        });
+    });
+    lazyImages.forEach(img =&gt; imageObserver.observe(img));
+&lt;/script&gt;
+</code></pre>
+<h4 id="_6">代码分割</h4>
+<pre><code class="language-javascript">// 按需加载 highlight.js
+if (document.querySelector('pre code')) {
+    const hljs = await import('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js');
+    hljs.highlightAll();
+}
+
+// 按需加载 KaTeX
+if (document.querySelector('.math-block')) {
+    const katex = await import('https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js');
+    // 渲染数学公式
+}
+</code></pre>
+<h3 id="4">4. 预加载关键资源</h3>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;!-- 预加载字体 --&gt;
+    &lt;link rel=&quot;preload&quot; href=&quot;https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2&quot; as=&quot;font&quot; crossorigin&gt;
+
+    &lt;!-- 预加载关键 CSS --&gt;
+    &lt;link rel=&quot;preload&quot; href=&quot;/style.css&quot; as=&quot;style&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+
+    &lt;!-- 预加载关键 JS --&gt;
+    &lt;link rel=&quot;modulepreload&quot; href=&quot;/app.js&quot;&gt;
+
+    &lt;!-- DNS 预解析 --&gt;
+    &lt;link rel=&quot;dns-prefetch&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;dns-prefetch&quot; href=&quot;https://cdnjs.cloudflare.com&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<h2 id="1344">13.4.4 运行时性能优化</h2>
+<h3 id="1_2">1. 防抖和节流</h3>
+<pre><code class="language-javascript">// 防抖（debounce）- 用于搜索框
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () =&gt; {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// 节流（throttle）- 用于滚动事件
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() =&gt; inThrottle = false, limit);
+        }
+    };
+}
+
+// 使用示例
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', debounce((e) =&gt; {
+    search(e.target.value);
+}, 300));
+
+window.addEventListener('scroll', throttle(() =&gt; {
+    updateBackToTopButton();
+}, 100));
+</code></pre>
+<h3 id="2_2">2. 虚拟滚动（长列表优化）</h3>
+<pre><code class="language-javascript">// 虚拟滚动实现
+class VirtualList {
+    constructor(container, items, itemHeight) {
+        this.container = container;
+        this.items = items;
+        this.itemHeight = itemHeight;
+        this.visibleCount = Math.ceil(container.clientHeight / itemHeight) + 2;
+
+        this.container.style.height = `${items.length * itemHeight}px`;
+        this.container.addEventListener('scroll', () =&gt; this.render());
+        this.render();
+    }
+
+    render() {
+        const scrollTop = this.container.scrollTop;
+        const startIndex = Math.floor(scrollTop / this.itemHeight);
+        const endIndex = Math.min(startIndex + this.visibleCount, this.items.length);
+
+        // 只渲染可见区域的项目
+        const visibleItems = this.items.slice(startIndex, endIndex);
+        // ... 渲染逻辑
+    }
+}
+</code></pre>
+<h3 id="3-web-workers">3. Web Workers（后台计算）</h3>
+<pre><code class="language-javascript">// 将搜索索引加载移到 Web Worker
+// worker.js
+self.onmessage = function(e) {
+    const { articles, query } = e.data;
+    const fuse = new Fuse(articles, { keys: ['title', 'content'] });
+    const results = fuse.search(query);
+    self.postMessage(results);
+};
+
+// 主线程
+const worker = new Worker('worker.js');
+worker.postMessage({ articles: allArticles, query: 'zig' });
+worker.onmessage = (e) =&gt; {
+    displayResults(e.data);
+};
+</code></pre>
+<h2 id="1345">13.4.5 性能监控</h2>
+<h3 id="1-core-web-vitals">1. Core Web Vitals</h3>
+<pre><code class="language-javascript">// 使用 web-vitals 库监控核心指标
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+getCLS(console.log);
+getFID(console.log);
+getFCP(console.log);
+getLCP(console.log);
+getTTFB(console.log);
+</code></pre>
+<h3 id="_7">指标说明</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>全称</th>
+<th>目标值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FCP</td>
+<td>First Contentful Paint</td>
+<td>&lt; 1.8s</td>
+<td>首次内容绘制</td>
+</tr>
+<tr>
+<td>LCP</td>
+<td>Largest Contentful Paint</td>
+<td>&lt; 2.5s</td>
+<td>最大内容绘制</td>
+</tr>
+<tr>
+<td>FID</td>
+<td>First Input Delay</td>
+<td>&lt; 100ms</td>
+<td>首次输入延迟</td>
+</tr>
+<tr>
+<td>TTI</td>
+<td>Time to Interactive</td>
+<td>&lt; 3.8s</td>
+<td>可交互时间</td>
+</tr>
+<tr>
+<td>CLS</td>
+<td>Cumulative Layout Shift</td>
+<td>&lt; 0.1</td>
+<td>累积布局偏移</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_3">2. 构建时间监控</h3>
+<pre><code class="language-zig">// 在 build.zig 中添加性能监控
+const start_time = std.time.milliTimestamp();
+
+// ... 构建逻辑 ...
+
+const end_time = std.time.milliTimestamp();
+const duration = end_time - start_time;
+
+std.debug.print(&quot;Build completed in {d}ms\n&quot;, .{duration});
+
+// 按阶段统计
+const load_posts_time = std.time.milliTimestamp() - start_time;
+std.debug.print(&quot;  - Load posts: {d}ms\n&quot;, .{load_posts_time});
+</code></pre>
+<h3 id="3_2">3. 性能预算</h3>
+<pre><code class="language-json">// performance-budget.json
+{
+    &quot;budget&quot;: [
+        {
+            &quot;resourceType&quot;: &quot;document&quot;,
+            &quot;maximumSize&quot;: 50
+        },
+        {
+            &quot;resourceType&quot;: &quot;stylesheet&quot;,
+            &quot;maximumSize&quot;: 30
+        },
+        {
+            &quot;resourceType&quot;: &quot;image&quot;,
+            &quot;maximumSize&quot;: 200
+        },
+        {
+            &quot;resourceType&quot;: &quot;script&quot;,
+            &quot;maximumSize&quot;: 100
+        },
+        {
+            &quot;resourceType&quot;: &quot;total&quot;,
+            &quot;maximumSize&quot;: 500
+        }
+    ]
+}
+</code></pre>
+<h2 id="1346">13.4.6 性能检查清单</h2>
+<h3 id="_8">构建时优化</h3>
+<ul>
+<li>[ ] 启用增量构建</li>
+<li>[ ] 并行处理独立任务</li>
+<li>[ ] 缓存模板解析结果</li>
+<li>[ ] 压缩 CSS 和 JS</li>
+<li>[ ] 优化图片格式和大小</li>
+</ul>
+<h3 id="_9">加载时优化</h3>
+<ul>
+<li>[ ] 使用 CDN 分发资源</li>
+<li>[ ] 预加载关键资源</li>
+<li>[ ] 懒加载非关键资源</li>
+<li>[ ] 启用 Gzip/Brotli 压缩</li>
+<li>[ ] 设置合理的缓存头</li>
+</ul>
+<h3 id="_10">运行时优化</h3>
+<ul>
+<li>[ ] 防抖/节流频繁事件</li>
+<li>[ ] 虚拟滚动长列表</li>
+<li>[ ] 后台计算使用 Web Workers</li>
+<li>[ ] 避免强制同步布局</li>
+<li>[ ] 使用 requestAnimationFrame 动画</li>
+</ul>
+<h3 id="_11">监控与测试</h3>
+<ul>
+<li>[ ] 监控 Core Web Vitals</li>
+<li>[ ] 使用 Lighthouse 审计</li>
+<li>[ ] 设置性能预算</li>
+<li>[ ] 定期性能回归测试</li>
+</ul>
+<h2 id="1347-lighthouse">13.4.7 Lighthouse 优化建议</h2>
+<h3 id="_12">常见审计项</h3>
+<table>
+<thead>
+<tr>
+<th>审计项</th>
+<th>优化方法</th>
+<th>预期提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未压缩图片</td>
+<td>使用 WebP/AVIF 格式</td>
+<td>-50% 图片大小</td>
+</tr>
+<tr>
+<td>未使用 CSS</td>
+<td>移除未使用样式</td>
+<td>-30% CSS 大小</td>
+</tr>
+<tr>
+<td>渲染阻塞资源</td>
+<td>异步加载 CSS/JS</td>
+<td>+20% FCP</td>
+</tr>
+<tr>
+<td>服务器响应慢</td>
+<td>启用缓存、CDN</td>
+<td>-50% TTFB</td>
+</tr>
+<tr>
+<td>主线程工作过长</td>
+<td>代码分割、Web Workers</td>
+<td>-40% TTI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lighthouse">Lighthouse 运行命令</h3>
+<pre><code class="language-bash"># 使用 Chrome DevTools CLI
+lighthouse http://localhost:8000 --output=html --output-path=report.html
+
+# 使用 GitHub Actions
+# .github/workflows/lighthouse.yml
+</code></pre>
+<h2 id="1348">13.4.8 性能优化案例</h2>
+<h3 id="1-10s-2s">案例 1：构建时间从 10s 降至 2s</h3>
+<pre><code class="language-zig">// 优化前：串行处理
+for (posts) |post| {
+    try self.generatePostPage(post);  // 每篇 100ms，100 篇 = 10s
+}
+
+// 优化后：并行处理
+var thread_pool = try std.Thread.Pool.init(.{ .n_jobs = 8 });
+for (posts) |post| {
+    try thread_pool.spawn(generatePostPageTask, .{post});
+}
+// 8 个线程并行，100 篇 ≈ 1.25s
+</code></pre>
+<h3 id="2-3s-1s">案例 2：首屏加载从 3s 降至 1s</h3>
+<pre><code class="language-html">&lt;!-- 优化前：阻塞渲染 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;script src=&quot;app.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- 优化后：非阻塞加载 --&gt;
+&lt;link rel=&quot;preload&quot; href=&quot;style.css&quot; as=&quot;style&quot; onload=&quot;this.onload=null;this.rel='stylesheet'&quot;&gt;
+&lt;script src=&quot;app.js&quot; defer&gt;&lt;/script&gt;
+&lt;noscript&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;&lt;/noscript&gt;
+</code></pre>
+<h2 id="_13">相关文档</h2>
+<ul>
+<li><a href="../13-1-writing-posts/">13.1 编写博客文章指南</a> - 文章格式优化</li>
+<li><a href="../13-3-search-integration/">13.3 集成搜索功能</a> - 搜索性能优化</li>
+<li><a href="../../part-06-build-system/06-2-std-build-api/">6.2 std.Build API</a> - 构建系统基础</li>
+</ul>
+<hr />
+<p><em>本文档介绍了 my-blog 的性能优化指南，包括构建性能优化（增量构建、并行处理）、页面加载优化（资源压缩、懒加载）和运行时优化（防抖节流、虚拟滚动）。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

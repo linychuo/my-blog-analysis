@@ -1,0 +1,1706 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>05-3 泛型编程 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#05-3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              05-3 泛型编程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-zig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Zig 的泛型理念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Zig 的泛型理念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 编译时多态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 项目中的泛型使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-comptime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. comptime 类型参数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. comptime 类型参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 类型作为参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 类型推断
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-anytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. anytype 参数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. anytype 参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-anytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 anytype 基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 项目中的潜在应用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 泛型结构体
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 泛型结构体">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 标准库中的泛型结构体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-hashmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 HashMap 泛型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 泛型函数模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 泛型函数模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 比较函数模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 可选的 context 参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 类型反射与泛型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 类型反射与泛型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-typeof-typename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 @TypeOf 和 @typeName
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-typeinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 @typeInfo 反射
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 完整实例：通用 HTML 生成器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 完整实例：通用 HTML 生成器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-anytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 使用 anytype 的通用渲染
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 使用类型特征的泛型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 项目中的泛型扩展建议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 项目中的泛型扩展建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 通用的页面生成器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 通用的缓存机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 编译时计算与泛型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 编译时计算与泛型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-comptime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 comptime 循环生成代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 条件编译
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-anytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 anytype 的使用限制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-comptime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 comptime 参数的要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 代码膨胀
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. 总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-zig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Zig 泛型特点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 项目中的泛型使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="05-3">05-3 泛型编程</h1>
+<blockquote>
+<p>Zig 语言的泛型与编译时多态</p>
+</blockquote>
+<hr />
+<h2 id="1-zig">1. Zig 的泛型理念</h2>
+<h3 id="11">1.1 编译时多态</h3>
+<p>Zig 不使用传统的泛型语法（如 <code>&lt;T&gt;</code>），而是通过 <strong>编译时参数</strong> 和 <strong>类型推断</strong> 实现泛型：</p>
+<pre><code class="language-zig">// 传统泛型（C++/Java 风格）
+// fn max&lt;T&gt;(a: T, b: T) T
+
+// Zig 风格 - 使用 comptime 类型参数
+fn max(comptime T: type, a: T, b: T) T {
+    return if (a &gt; b) a else b;
+}
+
+// 调用
+const a = max(i32, 5, 10);
+const b = max(f64, 3.14, 2.71);
+</code></pre>
+<h3 id="12">1.2 项目中的泛型使用</h3>
+<p>在 my-blog 项目中，泛型使用相对简单，主要通过标准库间接使用：</p>
+<pre><code class="language-zig">// 项目中使用标准库的泛型函数
+var posts = std.ArrayList(Post){};  // ArrayList 是泛型结构体
+var tag_map = std.StringHashMap(std.ArrayListUnmanaged(Post)).init(self.allocator);
+
+// 泛型排序
+std.mem.sort(Post, posts.items, {}, sortPostsByDateDesc);
+</code></pre>
+<hr />
+<h2 id="2-comptime">2. comptime 类型参数</h2>
+<h3 id="21">2.1 类型作为参数</h3>
+<pre><code class="language-zig">// 函数接收类型作为 comptime 参数
+fn process(comptime T: type, value: T) void {
+    std.debug.print(&quot;Type: {s}\n&quot;, .{@typeName(T)});
+}
+
+// 调用
+process(i32, 42);
+process([]const u8, &quot;hello&quot;);
+process(Post, my_post);
+</code></pre>
+<h3 id="22">2.2 类型推断</h3>
+<p>Zig 可以推断类型参数，无需显式指定：</p>
+<pre><code class="language-zig">// 标准库中的泛型函数
+pub fn ArrayList(comptime T: type) type {
+    return struct {
+        items: []T,
+        // ...
+    };
+}
+
+// 调用时指定类型
+const IntList = ArrayList(i32);
+const PostList = ArrayList(Post);
+
+// 或使用变量
+var list = ArrayList(Post).init(allocator);
+</code></pre>
+<hr />
+<h2 id="3-anytype">3. anytype 参数</h2>
+<h3 id="31-anytype">3.1 anytype 基础</h3>
+<p><code>anytype</code> 允许函数接受任何类型的参数：</p>
+<pre><code class="language-zig">// 接收任何类型的参数
+fn printValue(value: anytype) void {
+    const T = @TypeOf(value);
+    std.debug.print(&quot;Value: {}\n&quot;, .{value});
+}
+
+// 调用
+printValue(42);
+printValue(&quot;hello&quot;);
+printValue(my_struct);
+</code></pre>
+<h3 id="32">3.2 项目中的潜在应用</h3>
+<p>虽然项目当前未使用 <code>anytype</code>，但以下场景适合：</p>
+<pre><code class="language-zig">// 通用的 HTML 渲染器
+fn renderHtml(item: anytype) ![]const u8 {
+    const T = @TypeOf(item);
+    return switch (T) {
+        Post =&gt; renderPost(item),
+        Page =&gt; renderPage(item),
+        else =&gt; @compileError(&quot;Unsupported type: &quot; ++ @typeName(T)),
+    };
+}
+
+// 通用的日志函数
+fn log(comptime level: []const u8, message: anytype) void {
+    std.debug.print(&quot;[{s}] {}\n&quot;, .{ level, message });
+}
+</code></pre>
+<hr />
+<h2 id="4">4. 泛型结构体</h2>
+<h3 id="41">4.1 标准库中的泛型结构体</h3>
+<p><strong>项目实例</strong> - <code>std.ArrayList</code> 和 <code>std.StringHashMap</code>：</p>
+<pre><code class="language-zig">// ArrayList 是泛型结构体
+pub fn ArrayList(comptime T: type) type {
+    return struct {
+        items: []T,
+        capacity: usize,
+        allocator: Allocator,
+
+        pub fn init(allocator: Allocator) ArrayList(T) {
+            return .{
+                .items = &amp;.{},
+                .capacity = 0,
+                .allocator = allocator,
+            };
+        }
+
+        pub fn append(self: *ArrayList(T), item: T) !void {
+            // ...
+        }
+    };
+}
+
+// 项目中使用
+var posts = std.ArrayList(Post){};  // Post 类型的 ArrayList
+var tag_posts = std.ArrayListUnmanaged(Post){};  // 无托管版本
+</code></pre>
+<h3 id="42-hashmap">4.2 HashMap 泛型</h3>
+<p><strong>项目实例</strong> - <code>generateTagPages()</code> 中的标签映射：</p>
+<pre><code class="language-zig">fn generateTagPages(self: *Blogger, posts: []const Post) !void {
+    // StringHashMap 是泛型，值是 ArrayListUnmanaged(Post)
+    var tag_map = std.StringHashMap(std.ArrayListUnmanaged(Post)).init(self.allocator);
+    defer {
+        var it = tag_map.iterator();
+        while (it.next()) |entry| {
+            entry.value_ptr.deinit(self.allocator);
+        }
+        tag_map.deinit();
+    }
+
+    // 构建标签 -&gt; 文章列表的映射
+    for (posts) |post| {
+        var tag_iter = std.mem.tokenizeScalar(u8, post.tags, ' ');
+        while (tag_iter.next()) |tag| {
+            const gop = try tag_map.getOrPut(tag);
+            if (!gop.found_existing) {
+                gop.value_ptr.* = .{};
+            }
+            try gop.value_ptr.append(self.allocator, post);
+        }
+    }
+    // ...
+}
+</code></pre>
+<p><strong>类型分析</strong>：</p>
+<pre><code>std.StringHashMap(std.ArrayListUnmanaged(Post))
+├── Key:   []const u8 (字符串)
+└── Value: std.ArrayListUnmanaged(Post)
+    └── 元素：Post
+</code></pre>
+<hr />
+<h2 id="5">5. 泛型函数模式</h2>
+<h3 id="51">5.1 比较函数模式</h3>
+<p><strong>项目实例</strong> - <code>sortPostsByDateDesc</code> 配合 <code>std.mem.sort</code>：</p>
+<pre><code class="language-zig">// std.mem.sort 是泛型函数
+pub fn sort(comptime T: type, items: []T, context: anytype, 
+            comptime lessThan: fn (@TypeOf(context), T, T) bool) void {
+    // ...
+}
+
+// 项目使用
+std.mem.sort(Post, posts.items, {}, sortPostsByDateDesc);
+
+// 比较函数
+fn sortPostsByDateDesc(_: void, a: Post, b: Post) bool {
+    return std.mem.order(u8, a.date_time, b.date_time).compare(.gt);
+}
+</code></pre>
+<p><strong>类型匹配</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>std.mem.sort 参数</th>
+<th>项目实际值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>T</code></td>
+<td><code>Post</code></td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td><code>posts.items</code> (<code>[]Post</code>)</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td><code>{}</code> (void)</td>
+</tr>
+<tr>
+<td><code>lessThan</code></td>
+<td><code>sortPostsByDateDesc</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-context">5.2 可选的 context 参数</h3>
+<pre><code class="language-zig">// 简单比较 - 不需要 context
+fn sortPostsByDateDesc(_: void, a: Post, b: Post) bool {
+    return std.mem.order(u8, a.date_time, b.date_time).compare(.gt);
+}
+
+// 复杂比较 - 需要 context
+fn sortByTag(context: struct { tag: []const u8 }, a: Post, b: Post) bool {
+    const a_has_tag = std.mem.indexOfScalar(u8, a.tags, context.tag) != null;
+    const b_has_tag = std.mem.indexOfScalar(u8, b.tags, context.tag) != null;
+    return a_has_tag and !b_has_tag;
+}
+
+// 使用
+const ctx = .{ .tag = &quot;zig&quot; };
+std.mem.sort(Post, posts.items, ctx, sortByTag);
+</code></pre>
+<hr />
+<h2 id="6">6. 类型反射与泛型</h2>
+<h3 id="61-typeof-typename">6.1 @TypeOf 和 @typeName</h3>
+<pre><code class="language-zig">// 获取变量类型
+const x = 42;
+const T = @TypeOf(x);  // T = comptime_int
+
+// 获取类型名称
+const name = @typeName(T);  // &quot;comptime_int&quot;
+</code></pre>
+<p><strong>项目实例</strong> - 错误名称：</p>
+<pre><code class="language-zig">const post = Post.parse(allocator, content, filename) catch |err| {
+    std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ 
+        @errorName(err),  // 将错误类型转换为字符串
+        entry.path 
+    });
+    continue;
+};
+</code></pre>
+<h3 id="62-typeinfo">6.2 @typeInfo 反射</h3>
+<pre><code class="language-zig">// 获取结构体字段信息
+comptime {
+    const info = @typeInfo(Post);
+    std.debug.print(&quot;Post has {d} fields\n&quot;, .{info.Struct.fields.len});
+
+    for (info.Struct.fields) |field| {
+        std.debug.print(&quot;  Field: {s} ({s})\n&quot;, .{ 
+            field.name, 
+            @typeName(field.type) 
+        });
+    }
+}
+</code></pre>
+<p><strong>Post 结构体的字段信息</strong>：</p>
+<pre><code>Post has 5 fields
+  Field: title ([]const u8)
+  Field: date_time ([]const u8)
+  Field: tags ([]const u8)
+  Field: content ([]const u8)
+  Field: filename ([]const u8)
+</code></pre>
+<hr />
+<h2 id="7-html">7. 完整实例：通用 HTML 生成器</h2>
+<h3 id="71-anytype">7.1 使用 anytype 的通用渲染</h3>
+<pre><code class="language-zig">// 通用 HTML 标签生成
+pub fn tag(comptime tag_name: []const u8, content: []const u8, 
+           allocator: Allocator) ![]const u8 {
+    var buffer = std.ArrayList(u8).init(allocator);
+    errdefer buffer.deinit();
+
+    try buffer.appendSlice(&quot;&lt;&quot;);
+    try buffer.appendSlice(tag_name);
+    try buffer.appendSlice(&quot;&gt;&quot;);
+    try buffer.appendSlice(content);
+    try buffer.appendSlice(&quot;&lt;/&quot;);
+    try buffer.appendSlice(tag_name);
+    try buffer.appendSlice(&quot;&gt;&quot;);
+
+    return buffer.toOwnedSlice();
+}
+
+// 专用函数
+pub fn div(content: []const u8, allocator: Allocator) ![]const u8 {
+    return tag(&quot;div&quot;, content, allocator);
+}
+
+pub fn article(content: []const u8, allocator: Allocator) ![]const u8 {
+    return tag(&quot;article&quot;, content, allocator);
+}
+</code></pre>
+<h3 id="72">7.2 使用类型特征的泛型</h3>
+<pre><code class="language-zig">// 检查类型是否有特定字段
+fn hasTitleField(comptime T: type) bool {
+    const info = @typeInfo(T);
+    if (info != .Struct) return false;
+
+    for (info.Struct.fields) |field| {
+        if (std.mem.eql(u8, field.name, &quot;title&quot;)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 条件编译
+fn render(comptime T: type, item: T) !void {
+    if (comptime hasTitleField(T)) {
+        std.debug.print(&quot;Rendering with title: {s}\n&quot;, .{item.title});
+    } else {
+        std.debug.print(&quot;Rendering without title\n&quot;, .{});
+    }
+}
+</code></pre>
+<hr />
+<h2 id="8">8. 项目中的泛型扩展建议</h2>
+<h3 id="81">8.1 通用的页面生成器</h3>
+<pre><code class="language-zig">// 当前：每个页面类型有独立函数
+fn generateIndex(self: *Blogger, posts: []const Post) !void { }
+fn generateAbout(self: *Blogger) !void { }
+fn generateTagPages(self: *Blogger, posts: []const Post) !void { }
+
+// 扩展：通用页面生成器
+pub fn PageType = enum {
+    index,
+    about,
+    tag,
+    post,
+};
+
+fn generatePage(self: *Blogger, comptime page_type: PageType, 
+                context: anytype) !void {
+    switch (page_type) {
+        .index =&gt; try renderIndex(self, context),
+        .about =&gt; try renderAbout(self),
+        .tag =&gt; try renderTag(self, context),
+        .post =&gt; try renderPost(self, context),
+    }
+}
+</code></pre>
+<h3 id="82">8.2 通用的缓存机制</h3>
+<pre><code class="language-zig">// 通用缓存结构体
+fn Cache(comptime V: type) type {
+    return struct {
+        map: std.StringHashMap(V),
+
+        pub fn init(allocator: Allocator) Cache(V) {
+            return .{
+                .map = std.StringHashMap(V).init(allocator),
+            };
+        }
+
+        pub fn getOrPut(self: *Cache(V), key: []const u8) !*V {
+            const gop = try self.map.getOrPut(key);
+            if (!gop.found_existing) {
+                gop.value_ptr.* = try createDefault(V);
+            }
+            return gop.value_ptr;
+        }
+    };
+}
+
+// 使用
+var html_cache = Cache([]const u8).init(allocator);
+</code></pre>
+<hr />
+<h2 id="9">9. 编译时计算与泛型</h2>
+<h3 id="91-comptime">9.1 comptime 循环生成代码</h3>
+<pre><code class="language-zig">// 编译时生成多个标签函数
+const html_tags = [_][]const u8{ &quot;div&quot;, &quot;span&quot;, &quot;article&quot;, &quot;section&quot; };
+
+comptime {
+    for (html_tags) |tag_name| {
+        // 在编译时为每个标签生成函数
+        // 这需要更复杂的元编程技巧
+    }
+}
+</code></pre>
+<h3 id="92">9.2 条件编译</h3>
+<pre><code class="language-zig">// 根据类型特征选择实现
+fn process(item: anytype) !void {
+    const T = @TypeOf(item);
+
+    if (comptime std.mem.startsWith(u8, @typeName(T), &quot;[]&quot;)) {
+        // 处理切片类型
+        std.debug.print(&quot;Processing slice\n&quot;, .{});
+    } else if (comptime @typeInfo(T) == .Struct) {
+        // 处理结构体类型
+        std.debug.print(&quot;Processing struct\n&quot;, .{});
+    }
+}
+</code></pre>
+<hr />
+<h2 id="10">10. 注意事项</h2>
+<h3 id="101-anytype">10.1 anytype 的使用限制</h3>
+<pre><code class="language-zig">// 错误 - anytype 参数不能用于运行时多态
+fn process(value: anytype) void {
+    // value 的类型在编译时确定
+}
+
+var f = process;  // 错误：不能将泛型函数作为值
+f(42);
+f(&quot;hello&quot;);
+
+// 正确 - 每次调用都是不同的函数实例
+process(42);
+process(&quot;hello&quot;);
+</code></pre>
+<h3 id="102-comptime">10.2 comptime 参数的要求</h3>
+<pre><code class="language-zig">// 错误 - comptime 参数必须是编译时已知
+fn process(comptime x: usize) void { }
+
+pub fn main() void {
+    var y: usize = 5;
+    process(y);  // 错误：y 不是 comptime 已知
+}
+
+// 正确
+process(5);  // 字面量是 comptime 已知
+</code></pre>
+<h3 id="103">10.3 代码膨胀</h3>
+<pre><code class="language-zig">// 泛型函数会为每个类型生成独立代码
+fn max(comptime T: type, a: T, b: T) T {
+    return if (a &gt; b) a else b;
+}
+
+// 以下调用会生成多个函数实例
+_ = max(i32, 1, 2);      // 生成 max_i32
+_ = max(f64, 1.0, 2.0);  // 生成 max_f64
+_ = max(Post, a, b);     // 生成 max_Post
+
+// 对于大量类型，考虑使用接口模式
+</code></pre>
+<hr />
+<h2 id="11_1">11. 总结</h2>
+<h3 id="111-zig">11.1 Zig 泛型特点</h3>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编译时多态</td>
+<td>类型在编译时确定</td>
+</tr>
+<tr>
+<td>comptime 参数</td>
+<td>类型作为参数传递</td>
+</tr>
+<tr>
+<td>anytype</td>
+<td>接受任何类型</td>
+</tr>
+<tr>
+<td>类型推断</td>
+<td>自动推断类型参数</td>
+</tr>
+<tr>
+<td>零开销</td>
+<td>无运行时泛型开销</td>
+</tr>
+</tbody>
+</table>
+<h3 id="112">11.2 项目中的泛型使用</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>使用方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ArrayList(Post)</code></td>
+<td>标准库泛型结构体</td>
+</tr>
+<tr>
+<td><code>StringHashMap(T)</code></td>
+<td>标准库泛型 HashMap</td>
+</tr>
+<tr>
+<td><code>std.mem.sort</code></td>
+<td>泛型排序函数</td>
+</tr>
+<tr>
+<td><code>@errorName</code></td>
+<td>编译时内置函数</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../../part-04-control-flow/04-4-comptime/">04-4 comptime</a> - 编译时执行</li>
+<li><a href="../05-1-function-basics/">05-1 函数基础</a> - 函数定义</li>
+<li><a href="../../part-06-build-system/06-2-std-build-api/">06-2 std.Build API</a> - 构建系统中的泛型使用</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

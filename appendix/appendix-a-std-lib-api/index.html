@@ -1,0 +1,1701 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>附录 A: Zig 标准库 API 参考 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-zig-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              附录 A: Zig 标准库 API 参考
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a1-stdmem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.1 内存管理（std.mem）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.1 内存管理（std.mem）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allocator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分配器（Allocator）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用 API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        字符串操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a2-stdfmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.2 格式化输出（std.fmt）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.2 格式化输出（std.fmt）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        打印函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        格式化占位符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        格式化选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a3-stdfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.3 文件系统（std.fs）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.3 文件系统（std.fs）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        路径操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a4-std" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.4 数据结构（std）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.4 数据结构（std）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arraylist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ArrayList
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hashmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HashMap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stringhashmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StringHashMap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a5-stdtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.5 时间相关（std.time）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.5 时间相关（std.time）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间戳
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        睡眠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间常量
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a6-stdlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.6 日志（std.log）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.6 日志（std.log）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        日志级别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自定义日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a7-stdcryptohash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.7 加密哈希（std.crypto.hash）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.7 加密哈希（std.crypto.hash）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用哈希
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a8-stdrandom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.8 随机数（std.random）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.8 随机数（std.random）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成随机数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a9-stdbit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.9 位操作（std.bit）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.9 位操作（std.bit）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        位集
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a10-stddebug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.10 错误处理（std.debug）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A.10 错误处理（std.debug）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        断言和检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="a-zig-api">附录 A: Zig 标准库 API 参考</h1>
+<blockquote>
+<p><strong>Zig 版本</strong>: 0.15.2<br />
+<strong>适用范围</strong>: my-blog 项目中使用的 std 库 API</p>
+</blockquote>
+<h2 id="a1-stdmem">A.1 内存管理（std.mem）</h2>
+<h3 id="allocator">分配器（Allocator）</h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+const Allocator = std.mem.Allocator;
+
+// 获取分配器
+var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+const allocator = gpa.allocator();
+
+// 分配单个对象
+const ptr = try allocator.create(Type);
+allocator.destroy(ptr);
+
+// 分配数组
+const slice = try allocator.alloc(Type, count);
+allocator.free(slice);
+
+// 分配并初始化
+const ptr = try allocator.create(Type);
+ptr.* = Type{ .field = value };
+
+// 重新分配
+const new_slice = try allocator.realloc(old_slice, new_len);
+
+// 复制字符串
+const duped = try allocator.dupe(u8, original_string);
+allocator.free(duped);
+</code></pre>
+<h3 id="api">常用 API</h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>create(T)</code></td>
+<td>分配单个对象</td>
+<td><code>try allocator.create(i32)</code></td>
+</tr>
+<tr>
+<td><code>alloc(T, n)</code></td>
+<td>分配数组</td>
+<td><code>try allocator.alloc(u8, 100)</code></td>
+</tr>
+<tr>
+<td><code>free(ptr)</code></td>
+<td>释放数组</td>
+<td><code>allocator.free(slice)</code></td>
+</tr>
+<tr>
+<td><code>destroy(ptr)</code></td>
+<td>释放单个对象</td>
+<td><code>allocator.destroy(ptr)</code></td>
+</tr>
+<tr>
+<td><code>dupe(T, slice)</code></td>
+<td>复制切片</td>
+<td><code>try allocator.dupe(u8, str)</code></td>
+</tr>
+<tr>
+<td><code>realloc(slice, n)</code></td>
+<td>重新分配</td>
+<td><code>try allocator.realloc(slice, 200)</code></td>
+</tr>
+<tr>
+<td><code>alignedAlloc(T, align, n)</code></td>
+<td>对齐分配</td>
+<td><code>try allocator.alignedAlloc(u8, 4096, 100)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_1">字符串操作</h3>
+<pre><code class="language-zig">// 字符串比较
+std.mem.eql(u8, str1, str2);  // 返回 bool
+
+// 查找子串
+std.mem.indexOf(u8, haystack, needle);  // 返回？usize
+std.mem.lastIndexOf(u8, haystack, needle);
+
+// 分割字符串
+var iter = std.mem.split(u8, input, delimiter);
+while (iter.next()) |part| {
+    // 处理每个部分
+}
+
+// 修剪空白
+std.mem.trim(u8, input, &quot; \t\n\r&quot;);
+std.mem.trimLeft(u8, input, &quot; \t&quot;);
+std.mem.trimRight(u8, input, &quot;\n\r&quot;);
+
+// 复制内存
+@memcpy(dest, src);
+std.mem.copyForwards(u8, dest, src);
+
+// 填充内存
+@memset(slice, value);
+std.mem.set(u8, slice, value);
+</code></pre>
+<h2 id="a2-stdfmt">A.2 格式化输出（std.fmt）</h2>
+<h3 id="_2">打印函数</h3>
+<pre><code class="language-zig">// 调试输出（到 stderr）
+std.debug.print(&quot;Value: {d}\n&quot;, .{value});
+
+// 格式化到缓冲区
+var buffer: [100]u8 = undefined;
+const result = try std.fmt.bufPrint(&amp;buffer, &quot;Hello, {s}!&quot;, .{name});
+
+// 格式化到分配器
+const str = try std.fmt.allocPrint(allocator, &quot;{d} + {d} = {d}&quot;, .{ a, b, a + b });
+allocator.free(str);
+
+// 写入 Writer
+try writer.writeAll(&quot;Hello, World!\n&quot;);
+try writer.print(&quot;Count: {d}\n&quot;, .{count});
+</code></pre>
+<h3 id="_3">格式化占位符</h3>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>类型</th>
+<th>示例</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{}</code></td>
+<td>任意</td>
+<td><code>{}</code></td>
+<td>自动格式化</td>
+</tr>
+<tr>
+<td><code>{d}</code></td>
+<td>十进制</td>
+<td><code>{d}</code></td>
+<td><code>42</code></td>
+</tr>
+<tr>
+<td><code>{x}</code></td>
+<td>十六进制</td>
+<td><code>{x}</code></td>
+<td><code>2a</code></td>
+</tr>
+<tr>
+<td><code>{X}</code></td>
+<td>十六进制大写</td>
+<td><code>{X}</code></td>
+<td><code>2A</code></td>
+</tr>
+<tr>
+<td><code>{b}</code></td>
+<td>二进制</td>
+<td><code>{b}</code></td>
+<td><code>101010</code></td>
+</tr>
+<tr>
+<td><code>{o}</code></td>
+<td>八进制</td>
+<td><code>{o}</code></td>
+<td><code>52</code></td>
+</tr>
+<tr>
+<td><code>{s}</code></td>
+<td>字符串</td>
+<td><code>{s}</code></td>
+<td><code>Hello</code></td>
+</tr>
+<tr>
+<td><code>{c}</code></td>
+<td>字符</td>
+<td><code>{c}</code></td>
+<td><code>A</code></td>
+</tr>
+<tr>
+<td><code>{f}</code></td>
+<td>浮点</td>
+<td><code>{f}</code></td>
+<td><code>3.14159</code></td>
+</tr>
+<tr>
+<td><code>{f:.2}</code></td>
+<td>浮点（2 位）</td>
+<td><code>{f:.2}</code></td>
+<td><code>3.14</code></td>
+</tr>
+<tr>
+<td><code>{e}</code></td>
+<td>科学计数</td>
+<td><code>{e}</code></td>
+<td><code>3.14159e+00</code></td>
+</tr>
+<tr>
+<td><code>{any}</code></td>
+<td>任意（详细）</td>
+<td><code>{any}</code></td>
+<td>详细输出</td>
+</tr>
+<tr>
+<td><code>{?}</code></td>
+<td>可选类型</td>
+<td><code>{?}</code></td>
+<td><code>null</code> 或值</td>
+</tr>
+<tr>
+<td><code>{!}</code></td>
+<td>错误 union</td>
+<td><code>{!}</code></td>
+<td>错误或值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">格式化选项</h3>
+<pre><code class="language-zig">// 宽度填充
+std.fmt.format(writer, &quot;{d: &gt;5}&quot;, .{42});  // &quot;   42&quot;
+std.fmt.format(writer, &quot;{d:0&lt;5}&quot;, .{42});  // &quot;42000&quot;
+
+// 对齐
+std.fmt.format(writer, &quot;{s: &lt;10}&quot;, .{&quot;Hi&quot;});   // &quot;Hi        &quot;
+std.fmt.format(writer, &quot;{s: ^10}&quot;, .{&quot;Hi&quot;});   // &quot;    Hi    &quot;
+std.fmt.format(writer, &quot;{s: &gt;10}&quot;, .{&quot;Hi&quot;});   // &quot;        Hi&quot;
+
+// 精度
+std.fmt.format(writer, &quot;{f:.2}&quot;, .{3.14159});  // &quot;3.14&quot;
+
+// 分组
+std.fmt.format(writer, &quot;{d:3}&quot;, .{1000});  // &quot;1 000&quot;
+</code></pre>
+<h2 id="a3-stdfs">A.3 文件系统（std.fs）</h2>
+<h3 id="_5">文件操作</h3>
+<pre><code class="language-zig">const fs = std.fs;
+
+// 打开文件
+const file = try fs.cwd().openFile(&quot;path/to/file.txt&quot;, .{});
+defer file.close();
+
+// 创建文件
+const new_file = try fs.cwd().createFile(&quot;new.txt&quot;, .{});
+defer new_file.close();
+
+// 读取文件
+const content = try file.readToEndAlloc(allocator, max_size);
+defer allocator.free(content);
+
+// 写入文件
+try file.writeAll(&quot;Hello, World!&quot;);
+try file.print(&quot;Count: {d}\n&quot;, .{count});
+
+// 读取到缓冲区
+var buffer: [1024]u8 = undefined;
+const bytes_read = try file.read(&amp;buffer);
+
+// 删除文件
+try fs.cwd().deleteFile(&quot;old.txt&quot;);
+
+// 重命名文件
+try fs.cwd().rename(&quot;old.txt&quot;, &quot;new.txt&quot;);
+
+// 复制文件
+try fs.cwd().copyFile(&quot;src.txt&quot;, &quot;dest.txt&quot;, .{});
+</code></pre>
+<h3 id="_6">目录操作</h3>
+<pre><code class="language-zig">// 打开目录
+const dir = try fs.cwd().openDir(&quot;path/to/dir&quot;, .{});
+defer dir.close();
+
+// 创建目录
+try fs.cwd().makeDir(&quot;new_dir&quot;);
+try dir.makeDir(&quot;subdir&quot;);
+
+// 遍历目录
+var walker = try dir.walk(allocator);
+defer walker.deinit();
+
+while (try walker.next()) |entry| {
+    std.debug.print(&quot;{s}\n&quot;, .{entry.path});
+}
+
+// 检查文件是否存在
+dir.access(&quot;file.txt&quot;, .{}) catch |err| switch (err) {
+    error.FileNotFound =&gt; {
+        // 文件不存在
+    },
+    else =&gt; return err,
+};
+
+// 获取文件信息
+const stat = try dir.statFile(&quot;file.txt&quot;);
+std.debug.print(&quot;Size: {d}\n&quot;, .{stat.size});
+</code></pre>
+<h3 id="_7">路径操作</h3>
+<pre><code class="language-zig">// 连接路径
+const path = try std.fs.path.join(allocator, &amp;.{ &quot;home&quot;, &quot;user&quot;, &quot;file.txt&quot; });
+defer allocator.free(path);
+
+// 获取目录名
+const dir_name = std.fs.path.dirname(&quot;/home/user/file.txt&quot;);  // &quot;/home/user&quot;
+
+// 获取文件名
+const base_name = std.fs.path.basename(&quot;/home/user/file.txt&quot;);  // &quot;file.txt&quot;
+
+// 获取扩展名
+const ext = std.fs.path.extension(&quot;/home/user/file.txt&quot;);  // &quot;.txt&quot;
+
+// 判断是否为绝对路径
+const is_abs = std.fs.path.isAbsolute(&quot;/home/user&quot;);  // true
+</code></pre>
+<h2 id="a4-std">A.4 数据结构（std）</h2>
+<h3 id="arraylist">ArrayList</h3>
+<pre><code class="language-zig">// 创建
+var list = std.ArrayList(u8).init(allocator);
+defer list.deinit();
+
+// 或使用已分配缓冲
+var fixed_list = std.ArrayList(u8).initFixed(buffer);
+
+// 添加元素
+try list.append(42);
+try list.appendSlice(&amp;.{ 1, 2, 3 });
+
+// 访问
+const first = list.items[0];
+const slice = list.items;  // []T
+
+// 长度
+const len = list.items.len;
+const capacity = list.capacity;
+
+// 删除
+_ = list.pop();  // 删除并返回最后一个
+list.removeAt(0);  // 删除指定位置
+list.orderedRemove(0);  // 有序删除
+
+// 查找
+const index = list.indexOf(42);
+const contains = list.contains(42);
+
+// 调整大小
+try list.resize(100);
+try list.ensureTotalCapacity(1000);
+</code></pre>
+<h3 id="hashmap">HashMap</h3>
+<pre><code class="language-zig">// 定义类型
+const StringMap = std.AutoHashMap([]const u8, i32);
+
+// 创建
+var map = StringMap.init(allocator);
+defer map.deinit();
+
+// 或带初始容量
+var map = StringMap.initCapacity(allocator, 100);
+
+// 插入
+try map.put(&quot;key&quot;, 42);
+const result = try map.putIfAbsent(&quot;key&quot;, 100);
+
+// 获取
+const value = map.get(&quot;key&quot;);  // 返回？i32
+const entry = map.getEntry(&quot;key&quot;);  // 返回？*Entry
+
+// 删除
+_ = map.remove(&quot;key&quot;);  // 返回 bool
+
+// 遍历
+var it = map.iterator();
+while (it.next()) |entry| {
+    std.debug.print(&quot;{s} = {d}\n&quot;, .{ entry.key_ptr.*, entry.value_ptr.* });
+}
+
+// 数量
+const count = map.count();
+</code></pre>
+<h3 id="stringhashmap">StringHashMap</h3>
+<pre><code class="language-zig">// 专门用于字符串键的 HashMap
+const StringMap = std.StringHashMap(i32);
+
+var map = StringMap.init(allocator);
+defer map.deinit();
+
+// 使用（与 AutoHashMap 类似，但针对字符串优化）
+try map.put(&quot;key&quot;, 42);
+</code></pre>
+<h2 id="a5-stdtime">A.5 时间相关（std.time）</h2>
+<h3 id="_8">时间戳</h3>
+<pre><code class="language-zig">// 获取当前时间戳（毫秒）
+const ms = std.time.milliTimestamp();
+
+// 微秒
+const us = std.time.microTimestamp();
+
+// 纳秒
+const ns = std.time.nanoTimestamp();
+
+// 计算耗时
+const start = std.time.milliTimestamp();
+// ... 执行操作 ...
+const end = std.time.milliTimestamp();
+const duration = end - start;
+</code></pre>
+<h3 id="_9">睡眠</h3>
+<pre><code class="language-zig">// 毫秒睡眠
+std.time.sleep(std.time.ns_per_ms * 100);  // 睡眠 100ms
+
+// 微秒睡眠
+std.time.sleep(std.time.us_per_ms * 500);  // 睡眠 500μs
+</code></pre>
+<h3 id="_10">时间常量</h3>
+<pre><code class="language-zig">const ns_per_us = std.time.ns_per_us;       // 1000
+const ns_per_ms = std.time.ns_per_ms;       // 1_000_000
+const ns_per_s = std.time.ns_per_s;         // 1_000_000_000
+const us_per_ms = std.time.us_per_ms;       // 1000
+const us_per_s = std.time.us_per_s;         // 1_000_000
+const ms_per_s = std.time.ms_per_s;         // 1000
+</code></pre>
+<h2 id="a6-stdlog">A.6 日志（std.log）</h2>
+<h3 id="_11">日志级别</h3>
+<pre><code class="language-zig">// 设置日志级别
+pub const log_level = std.log.Level.info;
+
+// 日志输出
+std.log.info(&quot;Info message: {s}&quot;, .{&quot;data&quot;});
+std.log.warn(&quot;Warning: {d}&quot;, .{count});
+std.log.err(&quot;Error: {}&quot;, .{err});
+std.log.debug(&quot;Debug info&quot;, .{});  // 只在 debug 级别输出
+</code></pre>
+<h3 id="_12">自定义日志</h3>
+<pre><code class="language-zig">// 自定义日志前缀
+pub const log = struct {
+    pub fn log(
+        comptime level: std.log.Level,
+        comptime scope: @Type(.EnumLiteral),
+        comptime format: []const u8,
+        args: anytype,
+    ) void {
+        std.debug.print(&quot;[MyApp] &quot; ++ format, args);
+    }
+};
+</code></pre>
+<h2 id="a7-stdcryptohash">A.7 加密哈希（std.crypto.hash）</h2>
+<h3 id="_13">常用哈希</h3>
+<pre><code class="language-zig">// MD5（不推荐用于安全场景）
+var md5_hash: [16]u8 = undefined;
+std.crypto.hash.Md5.hash(data, &amp;md5_hash, .{});
+
+// SHA256
+var sha256_hash: [32]u8 = undefined;
+std.crypto.hash.Sha256.hash(data, &amp;sha256_hash, .{});
+
+// 输出为十六进制
+var hex: [64]u8 = undefined;
+_ = std.fmt.binToHex(&amp;sha256_hash, &amp;hex, .lower);
+</code></pre>
+<h2 id="a8-stdrandom">A.8 随机数（std.random）</h2>
+<h3 id="_14">生成随机数</h3>
+<pre><code class="language-zig">// 获取随机生成器
+var rng = std.random.DefaultPrng.init(blk: {
+    var seed: u64 = undefined;
+    try std.os.getrandom(std.mem.asBytes(&amp;seed));
+    break :blk seed;
+});
+const random = rng.random();
+
+// 生成整数
+const num = random.int(u32);
+const bounded = random.intRangeAtMost(u32, 1, 100);
+
+// 生成浮点数
+const float = random.float(f64);  // 0.0 &lt;= x &lt; 1.0
+
+// 随机选择
+const items = [_]i32{ 1, 2, 3, 4, 5 };
+const chosen = random.choice(&amp;items);
+
+// 打乱数组
+var arr = [_]i32{ 1, 2, 3, 4, 5 };
+random.shuffle(&amp;arr);
+
+// 填充随机字节
+var buffer: [16]u8 = undefined;
+try std.os.getrandom(&amp;buffer);
+</code></pre>
+<h2 id="a9-stdbit">A.9 位操作（std.bit）</h2>
+<h3 id="_15">位集</h3>
+<pre><code class="language-zig">// 定义位集
+const BitSet = std.bit_set.IntegerBitSet(64);
+var bits = BitSet.initEmpty();
+
+// 设置位
+bits.set(5);
+bits.set(10);
+
+// 清除位
+bits.unset(5);
+
+// 检查位
+const is_set = bits.isSet(10);
+
+// 计数
+const count = bits.count();
+</code></pre>
+<h2 id="a10-stddebug">A.10 错误处理（std.debug）</h2>
+<h3 id="_16">断言和检查</h3>
+<pre><code class="language-zig">// 断言（只在 Debug 模式生效）
+std.debug.assert(x &gt; 0);
+
+// 打印堆栈跟踪
+std.debug.dumpStackTrace(std.debug.getStackTrace());
+
+// 获取调用栈
+const trace = std.debug.getStackTrace();
+</code></pre>
+<h2 id="_17">相关文档</h2>
+<ul>
+<li><a href="../appendix-b-common-patterns/">附录 B: 常用代码模式</a> - 常见编程模式</li>
+<li><a href="../appendix-c-faq/">附录 C: 常见问题解答</a> - FAQ</li>
+<li><a href="../../part-08-memory-management/08-1-allocators/">8.1 分配器基础</a> - 内存管理基础</li>
+</ul>
+<hr />
+<p><em>本文档汇总了 my-blog 项目中常用的 Zig 标准库 API，包括内存管理、格式化、文件系统、数据结构等核心模块。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

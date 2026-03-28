@@ -1,0 +1,1679 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>09-2 错误传播 (Error Propagation) - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#09-2-error-propagation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              09-2 错误传播 (Error Propagation)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 错误传播基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 错误传播基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是错误传播
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 try 关键字
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. try 在项目中的使用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. try 在项目中的使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-mainzig-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 main.zig 中的 try
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-bloggergenerate-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Blogger.generate() 中的 try
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-postparse-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Post.parse() 中的 try
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. catch 关键字
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. catch 关键字">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 catch 基本用法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 项目中的 catch 使用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 项目中的 catch 使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优雅降级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误恢复
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成关于页面
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. catch 与错误集
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. catch 与错误集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 捕获特定错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 项目中的错误分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. orelse 与错误传播
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. orelse 与错误传播">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 orelse 基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 项目中的 orelse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-orelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 orelse 代码块
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 错误传播模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 错误传播模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 直接传播
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 错误转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 错误包装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 部分错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 完整实例分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 完整实例分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-generatepostpage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 generatePostPage() 错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 错误传播链
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 try 的位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 catch 的滥用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 错误传播与资源管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="09-2-error-propagation">09-2 错误传播 (Error Propagation)</h1>
+<blockquote>
+<p>Zig try/catch 机制与项目实例分析</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 错误传播基础</h2>
+<h3 id="11">1.1 什么是错误传播</h3>
+<p>错误传播是指将函数内部的错误传递给调用者处理的机制。</p>
+<p><strong>Zig 的错误传播方式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>关键字</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>try</td>
+<td><code>try</code></td>
+<td>传播错误给调用者</td>
+</tr>
+<tr>
+<td>catch</td>
+<td><code>catch</code></td>
+<td>本地处理错误</td>
+</tr>
+<tr>
+<td>orelse</td>
+<td><code>orelse</code></td>
+<td>处理可选类型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-try">1.2 try 关键字</h3>
+<p><strong>基本语法</strong>：</p>
+<pre><code class="language-zig">// try 用于传播错误
+fn caller() !void {
+    try mayFail();  // 如果失败，立即返回错误
+}
+
+fn mayFail() !void {
+    return error.SomeError;
+}
+</code></pre>
+<p><strong>执行流程</strong>：</p>
+<pre><code>try mayFail()
+    │
+    ├─ 成功 → 继续执行
+    │
+    └─ 失败 → 立即返回错误
+            │
+            ▼
+        caller() 返回相同错误
+</code></pre>
+<hr />
+<h2 id="2-try">2. try 在项目中的使用</h2>
+<h3 id="21-mainzig-try">2.1 main.zig 中的 try</h3>
+<pre><code class="language-zig">pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    // [1] 获取命令行参数
+    var args = try std.process.argsWithAllocator(allocator);
+    //         ^^^ 如果内存分配失败，main() 立即返回
+    defer args.deinit();
+    _ = args.skip();
+
+    // ... 参数解析
+
+    // [2] 创建并运行 Blogger
+    var blogger = Blogger.new(allocator, posts_dir, dest_dir);
+    try blogger.generate();
+    //  ^^^ 如果生成失败，main() 立即返回
+}
+</code></pre>
+<p><strong>错误传播链</strong>：</p>
+<pre><code>blogger.generate() 失败
+    │
+    ▼
+try 传播错误
+    │
+    ▼
+main() 返回错误
+    │
+    ▼
+Zig 运行时转换为进程退出码
+</code></pre>
+<h3 id="22-bloggergenerate-try">2.2 Blogger.generate() 中的 try</h3>
+<pre><code class="language-zig">pub fn generate(self: *Blogger) !void {
+    std.debug.print(&quot;Generating blog...\n&quot;, .{});
+
+    // [1] 创建输出目录
+    try std.fs.cwd().makePath(self.dest_dir);
+    //  ^^^ 如果创建失败（权限不足等），立即返回
+
+    // [2] 复制静态文件
+    try self.copyStaticFiles();
+    //  ^^^ 传播 copyStaticFiles 的错误
+
+    // [3] 加载文章
+    var posts = std.ArrayList(Post){};
+    try self.loadPosts(&amp;posts);
+    //  ^^^ 传播加载错误
+
+    // [4] 排序文章
+    std.mem.sort(Post, posts.items, {}, sortPostsByDateDesc);
+
+    // [5] 生成页面
+    for (posts.items) |post| try self.generatePostPage(post);
+    //                       ^^^ 每个文章生成失败都会传播
+
+    try self.generateIndex(posts.items);
+    try self.generateAbout();
+    try self.generateTagPages(posts.items);
+    //  ^^^ 任何一步失败都会停止后续操作
+}
+</code></pre>
+<p><strong>try 的短路行为</strong>：</p>
+<pre><code>generate() 执行流程:
+    │
+    ├─ try makePath() ✓
+    │
+    ├─ try copyStaticFiles() ✓
+    │
+    ├─ try loadPosts() ✓
+    │
+    ├─ try generatePostPage(post1) ✓
+    │
+    ├─ try generatePostPage(post2) ✗ 失败！
+    │   │
+    │   ▼
+    │   立即返回，不再执行后续
+    │
+    └─ try generateIndex() ← 不会执行
+</code></pre>
+<h3 id="23-postparse-try">2.3 Post.parse() 中的 try</h3>
+<pre><code class="language-zig">pub fn parse(allocator: Allocator, content: []const u8, filename: []const u8) !Post {
+    // ... 验证逻辑
+
+    while (lines.next()) |line| {
+        if (std.mem.startsWith(u8, trimmed, &quot;title:&quot;)) {
+            title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+            //    ^^^ 如果内存分配失败，立即返回
+        } else if (std.mem.startsWith(u8, trimmed, &quot;date_time:&quot;)) {
+            date_time = try extractValue(allocator, trimmed, &quot;date_time:&quot;);
+        } else if (std.mem.startsWith(u8, trimmed, &quot;tags:&quot;)) {
+            tags = try extractValue(allocator, trimmed, &quot;tags:&quot;);
+        }
+    }
+
+    return Post{
+        .title = title orelse return error.MissingTitle,
+        .date_time = date_time orelse return error.MissingDateTime,
+        .tags = tags orelse &quot;&quot;,
+        .content = try allocator.dupe(u8, content[content_start..]),
+        //         ^^^ 内存分配失败时返回 error.OutOfMemory
+        .filename = try allocator.dupe(u8, filename),
+        //         ^^^ 内存分配失败时返回 error.OutOfMemory
+    };
+}
+</code></pre>
+<hr />
+<h2 id="3-catch">3. catch 关键字</h2>
+<h3 id="31-catch">3.1 catch 基本用法</h3>
+<pre><code class="language-zig">// 提供默认值
+const value = mayFail() catch defaultValue;
+
+// 执行代码块
+const value = mayFail() catch {
+    std.debug.print(&quot;Failed!\n&quot;, .{});
+    defaultValue;
+};
+
+// 捕获错误
+mayFail() catch |err| {
+    std.debug.print(&quot;Error: {}\n&quot;, .{err});
+};
+</code></pre>
+<h3 id="32-catch">3.2 项目中的 catch 使用</h3>
+<h4 id="_1">优雅降级</h4>
+<pre><code class="language-zig">fn copyStaticFiles(self: *Blogger) !void {
+    const static_dir = &quot;static&quot;;
+    var dir = std.fs.cwd().openDir(static_dir, .{ .iterate = true }) catch {
+        // 静态目录不存在时，优雅降级
+        std.debug.print(&quot; Warning: static directory not found, skipping static files\n&quot;, .{});
+        return;  // 不中断程序
+    };
+    defer dir.close();
+
+    // ... 复制逻辑
+}
+</code></pre>
+<p><strong>catch vs try</strong>：</p>
+<pre><code class="language-zig">// try - 传播错误
+try std.fs.cwd().openDir(path, .{});
+// 失败 → 函数返回错误
+
+// catch - 本地处理
+std.fs.cwd().openDir(path, .{}) catch {
+    // 本地处理，函数可能继续执行
+};
+</code></pre>
+<h4 id="_2">错误恢复</h4>
+<pre><code class="language-zig">fn loadPosts(self: *Blogger, posts: *std.ArrayList(Post)) !void {
+    // ... 目录遍历
+
+    while (try walker.next()) |entry| {
+        if (entry.kind == .file) {
+            // ... 读取文件
+
+            // 错误恢复：解析失败不中断整体
+            const post = Post.parse(self.allocator, content, filename) catch |err| {
+                std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ 
+                    @errorName(err), 
+                    entry.path 
+                });
+                continue;  // 跳过坏文章
+            };
+
+            try posts.append(self.allocator, post);
+        }
+    }
+}
+</code></pre>
+<p><strong>错误恢复流程</strong>：</p>
+<pre><code>Post.parse() 失败
+    │
+    ▼
+catch |err| 捕获错误
+    │
+    ├─ @errorName(err) 获取错误名称
+    │
+    ├─ std.debug.print 打印诊断
+    │
+    └─ continue 继续下一次循环
+            │
+            ▼
+        处理下一篇文章
+</code></pre>
+<h4 id="_3">生成关于页面</h4>
+<pre><code class="language-zig">fn generateAbout(self: *Blogger) !void {
+    const about_path = try std.fs.path.join(self.allocator, &amp;.{ 
+        self.posts_dir, 
+        &quot;about.markdown&quot; 
+    });
+    defer self.allocator.free(about_path);
+
+    // 关于页面可选：不存在时不报错
+    const file = std.fs.cwd().openFile(about_path, .{}) catch {
+        std.debug.print(&quot; Skipped: about.markdown not found\n&quot;, .{});
+        return;  // 优雅返回
+    };
+    defer file.close();
+
+    // ... 生成关于页面
+}
+</code></pre>
+<hr />
+<h2 id="4-catch">4. catch 与错误集</h2>
+<h3 id="41">4.1 捕获特定错误</h3>
+<pre><code class="language-zig">operation() catch |err| switch (err) {
+    error.FileNotFound =&gt; {
+        std.debug.print(&quot;File not found\n&quot;, .{});
+        return error.MissingFile;
+    },
+    error.PermissionDenied =&gt; {
+        std.debug.print(&quot;Permission denied\n&quot;, .{});
+        return error.CannotAccess;
+    },
+    else =&gt; |e| {
+        std.debug.print(&quot;Unknown error: {}\n&quot;, .{e});
+        return e;
+    },
+};
+</code></pre>
+<h3 id="42">4.2 项目中的错误分类</h3>
+<pre><code class="language-zig">// 改进的 loadPosts 错误处理
+const post = Post.parse(...) catch |err| switch (err) {
+    error.InvalidFormat =&gt; {
+        std.debug.print(&quot; Skipped (invalid format): {s}\n&quot;, .{entry.path});
+        continue;
+    },
+    error.MissingTitle =&gt; {
+        std.debug.print(&quot; Skipped (no title): {s}\n&quot;, .{entry.path});
+        continue;
+    },
+    error.MissingDateTime =&gt; {
+        std.debug.print(&quot; Skipped (no date): {s}\n&quot;, .{entry.path});
+        continue;
+    },
+    error.OutOfMemory =&gt; {
+        // 内存错误需要立即处理
+        return error.OutOfMemory;
+    },
+    else =&gt; |e| {
+        std.debug.print(&quot; Skipped (unknown: {s}): {s}\n&quot;, .{ 
+            @errorName(e), entry.path 
+        });
+        continue;
+    },
+};
+</code></pre>
+<hr />
+<h2 id="5-orelse">5. orelse 与错误传播</h2>
+<h3 id="51-orelse">5.1 orelse 基础</h3>
+<pre><code class="language-zig">// orelse 用于可选类型
+const value: ?i32 = null;
+const result = value orelse 0;  // null 时使用默认值
+
+// orelse 返回错误
+const required = value orelse return error.MissingValue;
+</code></pre>
+<h3 id="52-orelse">5.2 项目中的 orelse</h3>
+<pre><code class="language-zig">pub fn parse(...) !Post {
+    // [1] 获取第一行
+    const first_line = lines.next() orelse return error.InvalidFormat;
+    //                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //                  如果没有第一行，返回错误
+
+    // [2] 验证必需字段
+    return Post{
+        .title = title orelse return error.MissingTitle,
+        //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //     title 为 null 时返回错误
+        .date_time = date_time orelse return error.MissingDateTime,
+        .tags = tags orelse &quot;&quot;,
+        //   ^^^^^^^^^^^^^^^^
+        //   tags 为 null 时使用空字符串
+    };
+}
+</code></pre>
+<h3 id="53-orelse">5.3 orelse 代码块</h3>
+<pre><code class="language-zig">// orelse 后面可以跟代码块
+posts_dir = args.next() orelse {
+    std.debug.print(&quot;Error: --posts requires a directory argument\n&quot;, .{});
+    std.process.exit(1);
+};
+</code></pre>
+<p><strong>执行流程</strong>：</p>
+<pre><code>args.next()
+    │
+    ├─ 返回 Some(value) → 赋值给 posts_dir
+    │
+    └─ 返回 null → 执行 orelse 块
+        │
+        ├─ 打印错误信息
+        │
+        └─ 退出程序 (exit code 1)
+</code></pre>
+<hr />
+<h2 id="6">6. 错误传播模式</h2>
+<h3 id="61">6.1 直接传播</h3>
+<pre><code class="language-zig">// 最简单的模式：使用 try 直接传播
+fn caller() !void {
+    try mayFail();
+}
+
+fn mayFail() !void {
+    return error.SomeError;
+}
+</code></pre>
+<h3 id="62">6.2 错误转换</h3>
+<pre><code class="language-zig">// 将底层错误转换为业务错误
+fn loadPost(path: []const u8) !Post {
+    const content = std.fs.cwd().readFile(path) catch |err| switch (err) {
+        error.FileNotFound =&gt; return error.PostNotFound,
+        error.PermissionDenied =&gt; return error.CannotReadPost,
+        else =&gt; |e| return e,
+    };
+    return Post.parse(..., content, ...);
+}
+</code></pre>
+<h3 id="63">6.3 错误包装</h3>
+<pre><code class="language-zig">// 包装错误添加上下文
+fn processPosts() !void {
+    loadPosts() catch |err| {
+        std.debug.print(&quot;Failed to load posts: {}\n&quot;, .{err});
+        return error.LoadFailed;
+    };
+}
+</code></pre>
+<h3 id="64">6.4 部分错误处理</h3>
+<pre><code class="language-zig">// 只处理特定错误，传播其他
+fn process() !void {
+    operation() catch |err| {
+        if (err == error.FileNotFound) {
+            std.debug.print(&quot;Using default\n&quot;, .{});
+            return;
+        }
+        // 其他错误继续传播
+        return err;
+    };
+}
+</code></pre>
+<hr />
+<h2 id="7">7. 完整实例分析</h2>
+<h3 id="71-generatepostpage">7.1 generatePostPage() 错误处理</h3>
+<pre><code class="language-zig">fn generatePostPage(self: *Blogger, post: Post) !void {
+    // [1] Markdown → HTML
+    const html_content = try markdown.toHtml(self.allocator, post.content);
+    //                   ^^^ 如果转换失败，立即返回
+    defer self.allocator.free(html_content);
+
+    // [2] 初始化上下文
+    var ctx = Context.init(self.allocator);
+    defer ctx.deinit();
+
+    try ctx.set(&quot;title&quot;, post.title);
+    //  ^^^ 如果设置失败，立即返回
+    try ctx.set(&quot;date_time&quot;, post.date_time);
+    try ctx.set(&quot;content&quot;, html_content);
+
+    // [3] 构建标签 HTML
+    var tags_html = std.ArrayList(u8){};
+    defer tags_html.deinit(self.allocator);
+
+    var tag_iter = std.mem.tokenizeScalar(u8, post.tags, ' ');
+    while (tag_iter.next()) |tag| {
+        try tags_html.appendSlice(self.allocator, &quot;&lt;a href=\&quot;/tags/&quot; ++ tag ++ &quot;\&quot;&gt;&quot; ++ tag ++ &quot;&lt;/a&gt;&quot;);
+        //  ^^^ 如果追加失败，立即返回
+    }
+    try ctx.set(&quot;tags&quot;, tags_html.items);
+
+    // [4] 渲染模板
+    const page_html = try self.template_engine.render(&quot;post.hbs&quot;, &amp;ctx);
+    //                  ^^^ 如果渲染失败，立即返回
+    defer self.allocator.free(page_html);
+
+    // [5] 设置页面标题
+    var full_title = std.ArrayList(u8){};
+    defer full_title.deinit(self.allocator);
+    try full_title.appendSlice(self.allocator, post.title);
+    try full_title.appendSlice(self.allocator, &quot; - &quot;);
+    try ctx.set(&quot;page_title&quot;, full_title.items);
+
+    // [6] 渲染最终 HTML
+    self.template_engine.setPageContent(page_html);
+    const html = try self.template_engine.render(&quot;layout.hbs&quot;, &amp;ctx);
+    //             ^^^ 如果渲染失败，立即返回
+    defer self.allocator.free(html);
+
+    // [7] 写入文件
+    try self.writeHtmlFileWithDate(post.filename, post.date_time, html);
+    //  ^^^ 如果写入失败，立即返回
+}
+</code></pre>
+<h3 id="72">7.2 错误传播链</h3>
+<pre><code>generatePostPage() 可能的错误点:
+    │
+    ├─ markdown.toHtml() → error.OutOfMemory
+    │
+    ├─ ctx.set() → error.OutOfMemory
+    │
+    ├─ tags_html.appendSlice() → error.OutOfMemory
+    │
+    ├─ template_engine.render() → error.OutOfMemory, error.TemplateNotFound
+    │
+    ├─ full_title.appendSlice() → error.OutOfMemory
+    │
+    └─ writeHtmlFileWithDate() → error.PathAlreadyExists, error.PermissionDenied
+            │
+            ▼
+    所有错误都通过 try 传播给 generate()
+</code></pre>
+<hr />
+<h2 id="8">8. 注意事项</h2>
+<h3 id="81-try">8.1 try 的位置</h3>
+<pre><code class="language-zig">// 推荐：try 靠近函数调用
+const value = try mayFail();
+
+// 不推荐：try 在表达式末尾
+const value = mayFail() try + 1;  // 语法错误！
+</code></pre>
+<h3 id="82-catch">8.2 catch 的滥用</h3>
+<pre><code class="language-zig">// 不推荐：忽略所有错误
+operation() catch {};  // 静默失败
+
+// 推荐：至少记录错误
+operation() catch |err| {
+    std.debug.print(&quot;Warning: {}\n&quot;, .{err});
+};
+</code></pre>
+<h3 id="83">8.3 错误传播与资源管理</h3>
+<pre><code class="language-zig">// 注意：try 之前的资源需要正确管理
+fn process() !void {
+    var resource = try acquireResource();
+    defer releaseResource(resource);
+
+    try doSomething();  // 如果失败，defer 仍然执行
+}
+</code></pre>
+<hr />
+<h2 id="_4">相关文档</h2>
+<ul>
+<li><a href="../09-1-error-types/">09-1 错误类型</a> - 错误类型基础</li>
+<li><a href="../09-3-error-handling-patterns/">09-3 错误处理模式</a> - 高级错误处理</li>
+<li><a href="../../part-04-control-flow/04-1-if-else/">04-1 条件语句</a> - orelse 运算符</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

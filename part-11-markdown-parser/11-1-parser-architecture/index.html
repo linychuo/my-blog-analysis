@@ -1,0 +1,1729 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>11-1 解析器架构 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#11-1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              11-1 解析器架构
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 解析器概览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 解析器概览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-zig-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是 zig-markdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 项目中的使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 解析器架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 解析器架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 两阶段解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 块级元素类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 内联元素类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 解析流程分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 解析流程分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 块级解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 自动换行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 表格
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. API 使用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. API 使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-tohtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 toHtml 函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 使用示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 项目中的集成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 项目中的集成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-bloggerzig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Blogger.zig 集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 内存管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 解析器特性对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 解析器特性对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-zig-markdown-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 zig-markdown vs 其他解析器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-zig-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 项目选择 zig-markdown 的原因
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 完整解析示例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 完整解析示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 输入 Markdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        列表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        公式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 HTML 转义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 代码高亮
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 性能考虑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="11-1">11-1 解析器架构</h1>
+<blockquote>
+<p>zig-markdown Markdown 解析器设计与实现分析</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 解析器概览</h2>
+<h3 id="11-zig-markdown">1.1 什么是 zig-markdown</h3>
+<p><code>zig-markdown</code> 是 my-blog 项目使用的 Markdown 解析器，它是用 Zig 语言实现的 Markdown 到 HTML 的转换工具。</p>
+<p><strong>核心特性</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CommonMark 支持</td>
+<td>完整支持 CommonMark 规范</td>
+</tr>
+<tr>
+<td>块级元素</td>
+<td>标题、段落、列表、代码块、引用、表格</td>
+</tr>
+<tr>
+<td>内联元素</td>
+<td>粗体、斜体、删除线、链接、图片、行内代码</td>
+</tr>
+<tr>
+<td>扩展功能</td>
+<td>数学公式 (KaTeX)、自动换行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">1.2 项目中的使用</h3>
+<pre><code class="language-zig">// Blogger.zig 中的使用
+const markdown = @import(&quot;zig-markdown&quot;);
+
+fn generatePostPage(self: *Blogger, post: Post) !void {
+    // Markdown → HTML 转换
+    const html_content = try markdown.toHtml(self.allocator, post.content);
+    defer self.allocator.free(html_content);
+
+    // 设置到模板上下文
+    try ctx.set(&quot;content&quot;, html_content);
+}
+</code></pre>
+<p><strong>调用流程</strong>：</p>
+<pre><code>post.content (Markdown 文本)
+    │
+    ▼
+markdown.toHtml(allocator, content)
+    │
+    ▼
+解析 Markdown 语法
+    │
+    ├─ 识别块级元素
+    ├─ 识别内联元素
+    └─ 处理扩展语法
+    │
+    ▼
+生成 HTML 代码
+    │
+    ▼
+返回 HTML 字符串
+</code></pre>
+<hr />
+<h2 id="2">2. 解析器架构</h2>
+<h3 id="21">2.1 两阶段解析</h3>
+<p>Markdown 解析通常分为两个阶段：</p>
+<pre><code>原始 Markdown 文本
+    │
+    ▼
+[阶段 1] 块级解析 (Block Parsing)
+    │
+    ├─ 识别段落
+    ├─ 识别标题
+    ├─ 识别列表
+    ├─ 识别代码块
+    └─ 识别引用块
+    │
+    ▼
+块级元素树 (AST)
+    │
+    ▼
+[阶段 2] 内联解析 (Inline Parsing)
+    │
+    ├─ 解析粗体 **text**
+    ├─ 解析斜体 *text*
+    ├─ 解析链接 [text](url)
+    ├─ 解析图片 ![alt](src)
+    └─ 解析行内代码 `code`
+    │
+    ▼
+完整 AST
+    │
+    ▼
+[阶段 3] HTML 生成
+    │
+    └─ 遍历 AST 生成 HTML
+</code></pre>
+<h3 id="22">2.2 块级元素类型</h3>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>Markdown 语法</th>
+<th>HTML 输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td><code># Heading</code></td>
+<td><code>&lt;h1&gt;Heading&lt;/h1&gt;</code></td>
+</tr>
+<tr>
+<td>段落</td>
+<td>普通文本</td>
+<td><code>&lt;p&gt;...&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td>引用</td>
+<td><code>&gt; quote</code></td>
+<td><code>&lt;blockquote&gt;...&lt;/blockquote&gt;</code></td>
+</tr>
+<tr>
+<td>代码块</td>
+<td><code>```</code></td>
+<td><code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code></td>
+</tr>
+<tr>
+<td>列表</td>
+<td><code>- item</code></td>
+<td><code>&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;</code></td>
+</tr>
+<tr>
+<td>有序列表</td>
+<td><code>1. item</code></td>
+<td><code>&lt;ol&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ol&gt;</code></td>
+</tr>
+<tr>
+<td>表格</td>
+<td><code>\| col \|</code></td>
+<td><code>&lt;table&gt;...&lt;/table&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="23">2.3 内联元素类型</h3>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>Markdown 语法</th>
+<th>HTML 输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>粗体</td>
+<td><code>**text**</code></td>
+<td><code>&lt;strong&gt;text&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td>斜体</td>
+<td><code>*text*</code></td>
+<td><code>&lt;em&gt;text&lt;/em&gt;</code></td>
+</tr>
+<tr>
+<td>删除线</td>
+<td><code>~~text~~</code></td>
+<td><code>&lt;del&gt;text&lt;/del&gt;</code></td>
+</tr>
+<tr>
+<td>链接</td>
+<td><code>[text](url)</code></td>
+<td><code>&lt;a href="url"&gt;text&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>图片</td>
+<td><code>![alt](src)</code></td>
+<td><code>&lt;img src="src" alt="alt"&gt;</code></td>
+</tr>
+<tr>
+<td>行内代码</td>
+<td><code>`code`</code></td>
+<td><code>&lt;code&gt;code&lt;/code&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 解析流程分析</h2>
+<h3 id="31">3.1 块级解析</h3>
+<pre><code>输入 Markdown:
+# 标题
+
+这是段落。
+
+- 列表项 1
+- 列表项 2
+
+``` 代码块
+code
+</code></pre>
+<p>解析过程:
+    │
+    ├─ 行 1: "# 标题" → 识别为标题 (ATX Heading)
+    │
+    ├─ 行 3: "这是段落。" → 识别为段落
+    │
+    ├─ 行 5-6: "- 列表项" → 识别为无序列表
+    │
+    └─ 行 8-10: "```..." → 识别为代码块</p>
+<pre><code>
+### 3.2 内联解析
+
+</code></pre>
+<p>段落文本:
+这是 <strong>粗体</strong> 和 <em>斜体</em> 还有 <code>代码</code>。</p>
+<p>解析过程:
+    │
+    ├─ "这是 " → 普通文本
+    │
+    ├─ "<strong>粗体</strong>" → 识别为粗体 → <strong>粗体</strong>
+    │
+    ├─ " 和 " → 普通文本
+    │
+    ├─ "<em>斜体</em>" → 识别为斜体 → <em>斜体</em>
+    │
+    ├─ " 还有 " → 普通文本
+    │
+    └─ "<code>代码</code>" → 识别为行内代码 → <code>代码</code></p>
+<pre><code>
+---
+
+## 4. 扩展功能
+
+### 4.1 数学公式 (KaTeX)
+
+**语法**：
+
+```markdown
+$$
+E = mc^2
+$$
+
+行内公式：$x^2$
+</code></pre>
+<p><strong>HTML 输出</strong>：</p>
+<pre><code class="language-html">&lt;!-- 块级公式 --&gt;
+&lt;div class=&quot;katex-display&quot;&gt;
+    &lt;span class=&quot;katex&quot;&gt;...&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- 行内公式 --&gt;
+&lt;span class=&quot;katex&quot;&gt;...&lt;/span&gt;
+</code></pre>
+<p><strong>项目配置</strong>：</p>
+<pre><code class="language-html">&lt;!-- layout.hbs 中引入 KaTeX --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css&quot;&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="42">4.2 自动换行</h3>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-markdown">这是第一行\
+这是第二行
+</code></pre>
+<p><strong>HTML 输出</strong>：</p>
+<pre><code class="language-html">&lt;p&gt;这是第一行&lt;br&gt;这是第二行&lt;/p&gt;
+</code></pre>
+<h3 id="43">4.3 表格</h3>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-markdown">| 列 1 | 列 2 | 列 3 |
+|------|------|------|
+| 值 1 | 值 2 | 值 3 |
+</code></pre>
+<p><strong>HTML 输出</strong>：</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;列 1&lt;/th&gt;
+            &lt;th&gt;列 2&lt;/th&gt;
+            &lt;th&gt;列 3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;值 1&lt;/td&gt;
+            &lt;td&gt;值 2&lt;/td&gt;
+            &lt;td&gt;值 3&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<hr />
+<h2 id="5-api">5. API 使用</h2>
+<h3 id="51-tohtml">5.1 toHtml 函数</h3>
+<p><strong>签名</strong>：</p>
+<pre><code class="language-zig">pub fn toHtml(allocator: Allocator, markdown: []const u8) ![]const u8
+</code></pre>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allocator</code></td>
+<td><code>Allocator</code></td>
+<td>内存分配器</td>
+</tr>
+<tr>
+<td><code>markdown</code></td>
+<td><code>[]const u8</code></td>
+<td>Markdown 文本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>返回</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>![]const u8</code></td>
+<td>HTML 字符串（需要调用者释放）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52">5.2 使用示例</h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+const markdown = @import(&quot;zig-markdown&quot;);
+
+pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    const md = 
+        \\# 标题
+        \\
+        \\这是 **粗体** 文本。
+    ;
+
+    // 转换 Markdown → HTML
+    const html = try markdown.toHtml(allocator, md);
+    defer allocator.free(html);
+
+    std.debug.print(&quot;{s}\n&quot;, .{html});
+}
+</code></pre>
+<h3 id="53">5.3 错误处理</h3>
+<pre><code class="language-zig">const html = markdown.toHtml(allocator, content) catch |err| {
+    std.debug.print(&quot;Markdown 解析失败：{}\n&quot;, .{err});
+    return error.ParseFailed;
+};
+defer allocator.free(html);
+</code></pre>
+<p><strong>可能的错误</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>error.OutOfMemory</code></td>
+<td>内存分配失败</td>
+</tr>
+<tr>
+<td><code>error.InvalidMarkdown</code></td>
+<td>Markdown 格式错误</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6">6. 项目中的集成</h2>
+<h3 id="61-bloggerzig">6.1 Blogger.zig 集成</h3>
+<pre><code class="language-zig">// Blogger.zig
+const std = @import(&quot;std&quot;);
+const markdown = @import(&quot;zig-markdown&quot;);
+
+pub const Blogger = struct {
+    // ...
+
+    fn generatePostPage(self: *Blogger, post: Post) !void {
+        // [1] Markdown → HTML
+        const html_content = try markdown.toHtml(self.allocator, post.content);
+        defer self.allocator.free(html_content);
+
+        // [2] 设置模板上下文
+        var ctx = Context.init(self.allocator);
+        try ctx.set(&quot;content&quot;, html_content);
+
+        // [3] 渲染模板
+        // ...
+    }
+};
+</code></pre>
+<h3 id="62">6.2 内存管理</h3>
+<pre><code class="language-zig">// 正确的内存管理模式
+fn processMarkdown(allocator: Allocator, md: []const u8) !void {
+    const html = try markdown.toHtml(allocator, md);
+    defer allocator.free(html);  // 必须释放
+
+    // 使用 html
+    useHtml(html);
+}  // defer 在此释放 html
+</code></pre>
+<hr />
+<h2 id="7">7. 解析器特性对比</h2>
+<h3 id="71-zig-markdown-vs">7.1 zig-markdown vs 其他解析器</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>zig-markdown</th>
+<th>cmark</th>
+<th>pulldown-cmark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语言</td>
+<td>Zig</td>
+<td>C</td>
+<td>Rust</td>
+</tr>
+<tr>
+<td>CommonMark</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>GFM 扩展</td>
+<td>部分</td>
+<td>部分</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>数学公式</td>
+<td>✓ (KaTeX)</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>自定义扩展</td>
+<td>有限</td>
+<td>插件</td>
+<td>插件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-zig-markdown">7.2 项目选择 zig-markdown 的原因</h3>
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zig 生态</td>
+<td>与项目语言一致</td>
+</tr>
+<tr>
+<td>轻量级</td>
+<td>适合静态博客生成</td>
+</tr>
+<tr>
+<td>扩展支持</td>
+<td>支持数学公式</td>
+</tr>
+<tr>
+<td>简单集成</td>
+<td>直接 @import 使用</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 完整解析示例</h2>
+<h3 id="81-markdown">8.1 输入 Markdown</h3>
+<pre><code class="language-markdown"># 我的文章
+
+这是**粗体**和*斜体*。
+
+## 代码示例
+
+```zig
+const std = @import(&quot;std&quot;);
+</code></pre>
+<h2 id="_1">列表</h2>
+<ul>
+<li>项目 1</li>
+<li>项目 2</li>
+</ul>
+<h2 id="_2">公式</h2>
+<p>$$
+\sum_{i=1}^n i = \frac{n(n+1)}{2}
+$$</p>
+<pre><code>
+### 8.2 输出 HTML
+
+```html
+&lt;h1&gt;我的文章&lt;/h1&gt;
+
+&lt;p&gt;这是&lt;strong&gt;粗体&lt;/strong&gt;和&lt;em&gt;斜体&lt;/em&gt;。&lt;/p&gt;
+
+&lt;h2&gt;代码示例&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-zig&quot;&gt;const std = @import(&quot;std&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;列表&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;项目 1&lt;/li&gt;
+&lt;li&gt;项目 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;公式&lt;/h2&gt;
+
+&lt;div class=&quot;katex-display&quot;&gt;
+    &lt;span class=&quot;katex&quot;&gt;
+        &lt;span class=&quot;katex-html&quot;&gt;
+            &lt;!-- KaTeX 渲染的公式 --&gt;
+        &lt;/span&gt;
+    &lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+<hr />
+<h2 id="9">9. 注意事项</h2>
+<h3 id="91-html">9.1 HTML 转义</h3>
+<pre><code class="language-markdown">&lt;!-- 输入 --&gt;
+使用 &lt;script&gt; 标签
+
+&lt;!-- 输出 --&gt;
+&lt;p&gt;使用 &amp;lt;script&amp;gt; 标签&lt;/p&gt;
+&lt;!-- 自动转义，防止 XSS --&gt;
+</code></pre>
+<h3 id="92">9.2 代码高亮</h3>
+<pre><code class="language-markdown">```zig
+// 指定语言
+const x = 1;
+</code></pre>
+<!-- 输出 -->
+<pre><code class="language-zig">
+const x = 1;
+</code></pre>
+
+<pre><code>
+**前端高亮**：
+
+```html
+&lt;!-- layout.hbs 中引入 highlight.js --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css&quot;&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/core.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/zig.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;hljs.highlightAll();&lt;/script&gt;
+</code></pre>
+<h3 id="93">9.3 性能考虑</h3>
+<pre><code class="language-zig">// 批量转换时复用分配器
+fn convertAll(allocator: Allocator, posts: []Post) !void {
+    for (posts) |*post| {
+        const html = try markdown.toHtml(allocator, post.content);
+        defer allocator.free(html);
+        // 处理 html
+    }
+}
+</code></pre>
+<hr />
+<h2 id="_3">相关文档</h2>
+<ul>
+<li><a href="../11-2-block-elements/">11-2 块级元素</a> - 标题、段落、列表等详解</li>
+<li><a href="../11-3-inline-elements/">11-3 内联元素</a> - 粗体、斜体、链接等详解</li>
+<li><a href="../11-4-html-generation/">11-4 HTML 生成</a> - HTML 渲染流程与高亮</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

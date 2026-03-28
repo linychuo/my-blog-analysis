@@ -1,0 +1,1470 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>12.2 主题系统实现 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#122" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              12.2 主题系统实现
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.1 主题系统架构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.2 主题检测脚本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.2 主题检测脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        内联脚本（防止闪烁）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行时机说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.3 主题切换逻辑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.3 主题切换逻辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        切换按钮实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript 切换函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图标显示逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1224-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.4 CSS 变量切换机制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.4 CSS 变量切换机制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        变量定义与覆盖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        级联覆盖规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.5 主题持久化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.5 主题持久化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#localstorage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        localStorage 数据结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        持久化流程图
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1226" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.6 代码高亮主题同步
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.6 代码高亮主题同步">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主题联动机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主题对比表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1227" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.7 时间自动检测逻辑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.7 时间自动检测逻辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间段划分
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实现代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时区考虑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1228" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.8 主题切换最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.8 主题切换最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fouc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        避免闪烁（FOUC）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平滑过渡
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无障碍考虑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1229" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2.9 主题扩展指南
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2.9 主题扩展指南">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加新主题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主题配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="122">12.2 主题系统实现</h1>
+<blockquote>
+<p><strong>核心机制</strong>: 基于 <code>data-theme</code> 属性的 CSS 变量切换 + localStorage 持久化 + 自动时间检测</p>
+</blockquote>
+<h2 id="1221">12.2.1 主题系统架构</h2>
+<p>my-blog 采用双层主题切换机制：</p>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│                  主题初始化流程                      │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  页面加载 → 执行内联脚本 → 检测 localStorage        │
+│                    ↓                                │
+│         ┌───────┬───────────────┬─────────┐         │
+│         │       │               │         │         │
+│      有缓存   无缓存         无缓存   →  默认     │
+│         │       │               │         │         │
+│         ↓       ↓               ↓         ↓         │
+│     使用缓存  检测时间      检测时间   暗色主题    │
+│     主题     6AM-6PM       其他时间   (fallback)  │
+│                │               │                   │
+│                ↓               ↓                   │
+│           亮色主题         暗色主题                │
+│                │               │                   │
+│                └───────┬───────┘                   │
+│                        ↓                           │
+│            设置 data-theme 属性                    │
+│                        ↓                           │
+│            CSS 变量自动应用                        │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<h2 id="1222">12.2.2 主题检测脚本</h2>
+<h3 id="_1">内联脚本（防止闪烁）</h3>
+<p>主题检测脚本放置在 <code>&lt;head&gt;</code> 中，在页面渲染前执行，避免主题闪烁（FOUC - Flash of Unstyled Content）：</p>
+<pre><code class="language-html">&lt;script&gt;
+!function(){
+    const t = localStorage.getItem('theme');
+    if (t) {
+        // 1. 优先使用用户缓存的主题
+        document.documentElement.setAttribute('data-theme', t);
+    } else {
+        // 2. 无缓存时根据时间自动选择
+        const hours = new Date().getHours();
+        const autoTheme = (hours &gt;= 6 &amp;&amp; hours &lt; 18) ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', autoTheme);
+    }
+}();
+&lt;/script&gt;
+</code></pre>
+<h3 id="_2">执行时机说明</h3>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>执行时机</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;head&gt;</code> 内联</td>
+<td>DOM 解析前</td>
+<td>防止主题闪烁</td>
+</tr>
+<tr>
+<td>外部 JS 文件</td>
+<td>DOM 加载后</td>
+<td>处理用户交互</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1223">12.2.3 主题切换逻辑</h2>
+<h3 id="_3">切换按钮实现</h3>
+<pre><code class="language-html">&lt;button class=&quot;theme-toggle&quot; onclick=&quot;toggleTheme()&quot; aria-label=&quot;Toggle theme&quot;&gt;
+    &lt;!-- 太阳图标（亮色主题显示） --&gt;
+    &lt;svg class=&quot;sun-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+        &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;/&gt;
+        &lt;path d=&quot;M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;!-- 月亮图标（暗色主题显示） --&gt;
+    &lt;svg class=&quot;moon-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+        &lt;path d=&quot;M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z&quot;/&gt;
+    &lt;/svg&gt;
+&lt;/button&gt;
+</code></pre>
+<h3 id="javascript">JavaScript 切换函数</h3>
+<pre><code class="language-javascript">function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    // 1. 更新 DOM 属性
+    html.setAttribute('data-theme', newTheme);
+
+    // 2. 持久化到 localStorage
+    localStorage.setItem('theme', newTheme);
+
+    // 3. 切换 highlight.js 主题
+    const hljsTheme = newTheme === 'light' 
+        ? 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css'
+        : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
+    document.getElementById('hljs-theme').href = hljsTheme;
+}
+</code></pre>
+<h3 id="_4">图标显示逻辑</h3>
+<pre><code class="language-css">/* 默认状态（暗色主题） */
+.theme-toggle .sun-icon { 
+    display: none;  /* 隐藏太阳 */
+}
+.theme-toggle .moon-icon { 
+    display: block; /* 显示月亮 */
+}
+
+/* 亮色主题状态 */
+[data-theme=&quot;light&quot;] .theme-toggle .sun-icon { 
+    display: block; /* 显示太阳 */
+}
+[data-theme=&quot;light&quot;] .theme-toggle .moon-icon { 
+    display: none;  /* 隐藏月亮 */
+}
+</code></pre>
+<h2 id="1224-css">12.2.4 CSS 变量切换机制</h2>
+<h3 id="_5">变量定义与覆盖</h3>
+<pre><code class="language-css">/* 基础定义（暗色主题默认值） */
+:root {
+    --bg-primary: #0d1117;
+    --text-primary: #f0f6fc;
+    --accent: #58a6ff;
+}
+
+/* 亮色主题覆盖 */
+[data-theme=&quot;light&quot;] {
+    --bg-primary: #ffffff;
+    --text-primary: #1f2328;
+    --accent: #0969da;
+}
+
+/* 使用变量（自动应用当前主题） */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+</code></pre>
+<h3 id="_6">级联覆盖规则</h3>
+<pre><code class="language-css">/* 优先级：元素选择器 &gt; 属性选择器 &gt; :root */
+
+/* 1. 最低优先级 - :root */
+:root { --bg-primary: #0d1117; }
+
+/* 2. 中优先级 - 属性选择器 */
+[data-theme=&quot;light&quot;] { --bg-primary: #ffffff; }
+
+/* 3. 高优先级 - 具体元素 */
+.article-content { --bg-primary: #161b22; }
+
+/* 4. 最高优先级 - !important（慎用） */
+.critical { --bg-primary: #000000 !important; }
+</code></pre>
+<h2 id="1225">12.2.5 主题持久化</h2>
+<h3 id="localstorage">localStorage 数据结构</h3>
+<pre><code class="language-javascript">// 存储结构
+localStorage = {
+    'theme': 'light'  // 或 'dark'
+}
+
+// 读取示例
+const savedTheme = localStorage.getItem('theme');  // &quot;light&quot;
+
+// 删除缓存（恢复自动检测）
+localStorage.removeItem('theme');
+</code></pre>
+<h3 id="_7">持久化流程图</h3>
+<pre><code>用户点击切换按钮
+       ↓
+toggleTheme() 执行
+       ↓
+┌──────────────────┐
+│ 1. 更新 DOM 属性   │ → [data-theme=&quot;light&quot;] 生效
+│    setAttribute  │
+├──────────────────┤
+│ 2. 写入 localStorage │ → localStorage.setItem('theme', 'light')
+├──────────────────┤
+│ 3. 切换代码高亮主题  │ → 更新 link#hljs-theme.href
+└──────────────────┘
+       ↓
+页面刷新
+       ↓
+读取 localStorage → 恢复用户偏好
+</code></pre>
+<h2 id="1226">12.2.6 代码高亮主题同步</h2>
+<h3 id="_8">主题联动机制</h3>
+<pre><code class="language-javascript">// highlight.js 主题映射表
+const hljsThemes = {
+    'light': 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css',
+    'dark': 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'
+};
+
+// 切换时同步更新
+function syncCodeHighlight(theme) {
+    const link = document.getElementById('hljs-theme');
+    link.href = hljsThemes[theme];
+}
+</code></pre>
+<h3 id="_9">主题对比表</h3>
+<table>
+<thead>
+<tr>
+<th>主题模式</th>
+<th>highlight.js 主题</th>
+<th>配色特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>暗色</td>
+<td>github-dark</td>
+<td>深灰背景，蓝色/绿色语法色</td>
+</tr>
+<tr>
+<td>亮色</td>
+<td>github</td>
+<td>白色背景，红色/紫色语法色</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1227">12.2.7 时间自动检测逻辑</h2>
+<h3 id="_10">时间段划分</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│                  24 小时主题自动切换                  │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│   00:00 ────── 06:00 ────── 18:00 ────── 24:00     │
+│     │            │            │            │        │
+│     │   暗色     │   亮色     │   暗色     │        │
+│     │  (夜间)   │  (白天)   │  (夜间)   │        │
+│     │            │            │            │        │
+│     └────────────┴────────────┴────────────┘        │
+│                  │            │                     │
+│              6AM 切换     6PM 切换                  │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="_11">实现代码</h3>
+<pre><code class="language-javascript">function getAutoTheme() {
+    const hours = new Date().getHours();
+    // 6:00 - 18:00 使用亮色主题
+    if (hours &gt;= 6 &amp;&amp; hours &lt; 18) {
+        return 'light';
+    }
+    // 其他时间使用暗色主题
+    return 'dark';
+}
+</code></pre>
+<h3 id="_12">时区考虑</h3>
+<pre><code class="language-javascript">// 使用本地时间（用户时区）
+const localHours = new Date().getHours();
+
+// 如需统一时区（如 UTC）
+const utcHours = new Date().getUTCHours();
+</code></pre>
+<h2 id="1228">12.2.8 主题切换最佳实践</h2>
+<h3 id="fouc">避免闪烁（FOUC）</h3>
+<pre><code class="language-html">&lt;!-- ✅ 正确：内联脚本放在 &lt;head&gt; 顶部 --&gt;
+&lt;head&gt;
+    &lt;script&gt;/* 主题检测脚本 */&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;!-- ❌ 错误：外部脚本或放在 &lt;body&gt; --&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script src=&quot;theme.js&quot;&gt;&lt;/script&gt;  &lt;!-- 会闪烁！ --&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="_13">平滑过渡</h3>
+<pre><code class="language-css">/* 启用主题过渡动画 */
+html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 排除不需要过渡的元素 */
+.navbar {
+    transition: background-color 0.3s ease;
+}
+</code></pre>
+<h3 id="_14">无障碍考虑</h3>
+<pre><code class="language-html">&lt;!-- 添加 aria-label 说明按钮功能 --&gt;
+&lt;button class=&quot;theme-toggle&quot; onclick=&quot;toggleTheme()&quot; aria-label=&quot;Toggle theme&quot;&gt;
+    &lt;!-- 图标 --&gt;
+&lt;/button&gt;
+
+&lt;!-- 屏幕阅读器提示 --&gt;
+&lt;span class=&quot;sr-only&quot;&gt;当前主题：{{currentTheme}}&lt;/span&gt;
+</code></pre>
+<h2 id="1229">12.2.9 主题扩展指南</h2>
+<h3 id="_15">添加新主题</h3>
+<pre><code class="language-css">/* 1. 定义新主题变量 */
+[data-theme=&quot;dim&quot;] {
+    --bg-primary: #1a1f2e;
+    --text-primary: #b0b8c4;
+    --accent: #79c0ff;
+}
+
+/* 2. 添加切换选项 */
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}
+
+// 使用
+setTheme('dim');  // 切换到&quot;护眼模式&quot;
+</code></pre>
+<h3 id="_16">主题配置文件</h3>
+<pre><code class="language-json">// themes.json
+{
+    &quot;dark&quot;: {
+        &quot;name&quot;: &quot;暗色主题&quot;,
+        &quot;icon&quot;: &quot;moon&quot;,
+        &quot;variables&quot;: { /* ... */ }
+    },
+    &quot;light&quot;: {
+        &quot;name&quot;: &quot;亮色主题&quot;,
+        &quot;icon&quot;: &quot;sun&quot;,
+        &quot;variables&quot;: { /* ... */ }
+    },
+    &quot;dim&quot;: {
+        &quot;name&quot;: &quot;护眼模式&quot;,
+        &quot;icon&quot;: &quot;eye&quot;,
+        &quot;variables&quot;: { /* ... */ }
+    }
+}
+</code></pre>
+<h2 id="_17">相关文档</h2>
+<ul>
+<li><a href="../12-1-css-architecture/">12.1 CSS 架构与设计系统</a> - CSS 变量定义</li>
+<li><a href="../12-3-frontend-features/">12.3 前端功能集成</a> - highlight.js 与 KaTeX</li>
+<li><a href="../../part-10-template-engine/10-1-architecture/">10.1 模板引擎架构</a> - layout.hbs 模板结构</li>
+</ul>
+<hr />
+<p><em>本文档详细分析了 my-blog 的主题系统实现，包括主题检测、切换逻辑、持久化机制和代码高亮同步。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1915 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>06-2 std.Build API - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#06-2-stdbuild-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              06-2 std.Build API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-stdbuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. std.Build 概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. std.Build 概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 核心类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 项目中的使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 标准选项 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 标准选项 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-standardtargetoptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 standardTargetOptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-standardoptimizeoption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 standardOptimizeOption
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 依赖管理 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 依赖管理 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 dependency()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 module()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 模块 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 模块 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-addmodule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 addModule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Import 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 可执行文件 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 可执行文件 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-addexecutable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 addExecutable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-installartifact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 installArtifact
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-step-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 步骤 (Step) API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 步骤 (Step) API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 step()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-dependon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 dependOn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 可用步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 运行工件 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 运行工件 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-addrunartifact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 addRunArtifact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 配置运行环境
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 添加参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 测试 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 测试 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-addtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 addTest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 运行测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 测试覆盖率
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 路径 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 路径 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 path()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 路径类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-lazypath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 LazyPath 使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 完整实例分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 完整实例分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-buildzig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 项目 build.zig 逐行解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 高级用法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. 高级用法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 条件编译
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 自定义选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 多模块构建
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. 注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 模块导入顺序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 步骤依赖循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 内存管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="06-2-stdbuild-api">06-2 std.Build API</h1>
+<blockquote>
+<p>Zig 构建系统 API 详解与项目实例</p>
+</blockquote>
+<hr />
+<h2 id="1-stdbuild">1. std.Build 概述</h2>
+<h3 id="11">1.1 核心类型</h3>
+<p>Zig 构建系统围绕以下核心类型构建：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std.Build</code></td>
+<td>构建上下文，管理所有构建操作</td>
+</tr>
+<tr>
+<td><code>std.Build.Module</code></td>
+<td>模块（编译单元）</td>
+</tr>
+<tr>
+<td><code>std.Build.Step</code></td>
+<td>构建步骤（可依赖的任务）</td>
+</tr>
+<tr>
+<td><code>std.Build.Artifact</code></td>
+<td>构建产物（可执行文件、库等）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">1.2 项目中的使用</h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+
+pub fn build(b: *std.Build) void {
+    // b 是构建上下文
+    // 所有构建操作都通过 b 进行
+}
+</code></pre>
+<hr />
+<h2 id="2-api">2. 标准选项 API</h2>
+<h3 id="21-standardtargetoptions">2.1 standardTargetOptions</h3>
+<pre><code class="language-zig">const target = b.standardTargetOptions(.{});
+</code></pre>
+<p><strong>功能</strong>：提供标准的 <code>-Dtarget</code> 命令行选项。</p>
+<p><strong>返回类型</strong>：<code>std.Build.ResolvedTarget</code></p>
+<p><strong>可用选项</strong>：</p>
+<pre><code class="language-bash"># 查看可用目标
+zig targets
+
+# 指定目标
+zig build -Dtarget=x86_64-linux-gnu
+zig build -Dtarget=aarch64-macos
+</code></pre>
+<p><strong>等价的手动配置</strong>：</p>
+<pre><code class="language-zig">// 手动配置（不推荐）
+const target = b.resolveTargetQuery(.{
+    .cpu_arch = .x86_64,
+    .os_tag = .linux,
+    .abi = .gnu,
+});
+
+// 使用标准选项（推荐）
+const target = b.standardTargetOptions(.{});
+</code></pre>
+<h3 id="22-standardoptimizeoption">2.2 standardOptimizeOption</h3>
+<pre><code class="language-zig">const optimize = b.standardOptimizeOption(.{});
+</code></pre>
+<p><strong>功能</strong>：提供标准的 <code>-Doptimize</code> 命令行选项。</p>
+<p><strong>返回类型</strong>：<code>std.builtin.OptimizeMode</code></p>
+<p><strong>优化模式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.Debug</code></td>
+<td>无优化，完整调试信息</td>
+<td>开发调试</td>
+</tr>
+<tr>
+<td><code>.ReleaseSafe</code></td>
+<td>适度优化，安全检查</td>
+<td>生产环境（安全优先）</td>
+</tr>
+<tr>
+<td><code>.ReleaseFast</code></td>
+<td>激进优化，较少检查</td>
+<td>生产环境（性能优先）</td>
+</tr>
+<tr>
+<td><code>.ReleaseSmall</code></td>
+<td>优化代码大小</td>
+<td>嵌入式/小体积需求</td>
+</tr>
+</tbody>
+</table>
+<p><strong>命令行使用</strong>：</p>
+<pre><code class="language-bash"># Debug 构建（默认）
+zig build
+
+# Release 构建
+zig build -Doptimize=ReleaseFast
+
+# 最小体积构建
+zig build -Doptimize=ReleaseSmall
+</code></pre>
+<hr />
+<h2 id="3-api">3. 依赖管理 API</h2>
+<h3 id="31-dependency">3.1 dependency()</h3>
+<pre><code class="language-zig">const zig_markdown_mod = b.dependency(&quot;zig_markdown&quot;, .{
+    .target = target,
+    .optimize = optimize,
+}).module(&quot;zig-markdown&quot;);
+</code></pre>
+<p><strong>签名</strong>：</p>
+<pre><code class="language-zig">fn dependency(self: *Build, name: []const u8, options: anytype) *Module
+</code></pre>
+<p><strong>参数说明</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>[]const u8</code></td>
+<td>依赖名称（来自 build.zig.zon）</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td><code>anytype</code></td>
+<td>依赖配置选项</td>
+</tr>
+</tbody>
+</table>
+<p><strong>常用选项</strong>：</p>
+<pre><code class="language-zig">b.dependency(&quot;name&quot;, .{
+    .target = target,           // 编译目标
+    .optimize = optimize,       // 优化模式
+    .some_option = value,       // 依赖特定选项
+})
+</code></pre>
+<h3 id="32-module">3.2 module()</h3>
+<pre><code class="language-zig">.module(&quot;zig-markdown&quot;)
+</code></pre>
+<p><strong>功能</strong>：从依赖中获取指定名称的模块。</p>
+<p><strong>依赖的模块结构</strong>：</p>
+<pre><code>zig-markdown 依赖
+└── 导出模块
+    ├── &quot;zig-markdown&quot; (主模块)
+    └── ... (其他导出模块)
+</code></pre>
+<hr />
+<h2 id="4-api">4. 模块 API</h2>
+<h3 id="41-addmodule">4.1 addModule</h3>
+<pre><code class="language-zig">const mod = b.addModule(&quot;my_blog&quot;, .{
+    .root_source_file = b.path(&quot;src/main.zig&quot;),
+    .target = target,
+    .optimize = optimize,
+    .imports = &amp;.{
+        .{
+            .name = &quot;zig-markdown&quot;,
+            .module = zig_markdown_mod,
+        },
+        .{
+            .name = &quot;zig-handlebars&quot;,
+            .module = zig_handlebars_mod,
+        },
+    },
+});
+</code></pre>
+<p><strong>Module.Options 字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>root_source_file</code></td>
+<td><code>?Build.LazyPath</code></td>
+<td>✓</td>
+<td>根源文件路径</td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td><code>ResolvedTarget</code></td>
+<td>✗</td>
+<td>编译目标（默认当前系统）</td>
+</tr>
+<tr>
+<td><code>optimize</code></td>
+<td><code>OptimizeMode</code></td>
+<td>✗</td>
+<td>优化模式（默认 Debug）</td>
+</tr>
+<tr>
+<td><code>imports</code></td>
+<td><code>[]const Import</code></td>
+<td>✗</td>
+<td>依赖模块列表</td>
+</tr>
+<tr>
+<td><code>link_libc</code></td>
+<td><code>bool</code></td>
+<td>✗</td>
+<td>是否链接 C 标准库</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-import">4.2 Import 结构</h3>
+<pre><code class="language-zig">.{
+    .name = &quot;zig-markdown&quot;,     // 导入名称（用于 @import）
+    .module = zig_markdown_mod, // 模块引用
+}
+</code></pre>
+<p><strong>在源代码中使用</strong>：</p>
+<pre><code class="language-zig">// src/main.zig
+const markdown = @import(&quot;zig-markdown&quot;);
+const handlebars = @import(&quot;zig-handlebars&quot;);
+</code></pre>
+<hr />
+<h2 id="5-api">5. 可执行文件 API</h2>
+<h3 id="51-addexecutable">5.1 addExecutable</h3>
+<pre><code class="language-zig">const exe = b.addExecutable(.{
+    .name = &quot;my-blog&quot;,
+    .root_module = mod,
+});
+</code></pre>
+<p><strong>Executable.Options 字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>[]const u8</code></td>
+<td>✓</td>
+<td>输出文件名</td>
+</tr>
+<tr>
+<td><code>root_module</code></td>
+<td><code>*Module</code></td>
+<td>✓</td>
+<td>根模块</td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td><code>ResolvedTarget</code></td>
+<td>✗</td>
+<td>目标（从模块继承）</td>
+</tr>
+<tr>
+<td><code>optimize</code></td>
+<td><code>OptimizeMode</code></td>
+<td>✗</td>
+<td>优化（从模块继承）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-installartifact">5.2 installArtifact</h3>
+<pre><code class="language-zig">b.installArtifact(exe);
+</code></pre>
+<p><strong>功能</strong>：将工件安装到 <code>zig-out/bin/</code>。</p>
+<p><strong>输出位置</strong>：</p>
+<pre><code>zig-out/
+└── bin/
+    └── my-blog    # Linux/macOS
+    └── my-blog.exe # Windows
+</code></pre>
+<hr />
+<h2 id="6-step-api">6. 步骤 (Step) API</h2>
+<h3 id="61-step">6.1 step()</h3>
+<pre><code class="language-zig">const run_step = b.step(&quot;run&quot;, &quot;Run the app&quot;);
+const test_step = b.step(&quot;test&quot;, &quot;Run tests&quot;);
+</code></pre>
+<p><strong>签名</strong>：</p>
+<pre><code class="language-zig">fn step(self: *Build, name: []const u8, description: []const u8) *Step
+</code></pre>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>步骤名称（命令行使用）</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>步骤描述（<code>zig build --help</code> 显示）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-dependon">6.2 dependOn</h3>
+<pre><code class="language-zig">run_step.dependOn(&amp;run_cmd.step);
+run_cmd.step.dependOn(b.getInstallStep());
+</code></pre>
+<p><strong>功能</strong>：建立步骤依赖关系。</p>
+<p><strong>依赖链示例</strong>：</p>
+<pre><code>run_step
+  └─&gt; run_cmd.step
+        └─&gt; install_step
+              └─&gt; compile_step
+</code></pre>
+<h3 id="63">6.3 可用步骤</h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>获取方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>install</code></td>
+<td><code>b.getInstallStep()</code></td>
+<td>安装所有工件</td>
+</tr>
+<tr>
+<td><code>run</code></td>
+<td>自定义</td>
+<td>运行程序</td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>自定义</td>
+<td>运行测试</td>
+</tr>
+<tr>
+<td><code>clean</code></td>
+<td>内置</td>
+<td>清理构建产物</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-api">7. 运行工件 API</h2>
+<h3 id="71-addrunartifact">7.1 addRunArtifact</h3>
+<pre><code class="language-zig">const run_cmd = b.addRunArtifact(exe);
+</code></pre>
+<p><strong>功能</strong>：创建一个运行可执行文件的步骤。</p>
+<p><strong>返回类型</strong>：<code>*std.Build.RunStep</code></p>
+<h3 id="72">7.2 配置运行环境</h3>
+<pre><code class="language-zig">// 设置工作目录
+run_cmd.setCwd(.{ .src_path = .{ .owner = b, .sub_path = &quot;.&quot; } });
+
+// 添加命令行参数
+if (b.args) |args| {
+    run_cmd.addArgs(args);
+}
+</code></pre>
+<p><strong>setCwd 选项</strong>：</p>
+<pre><code class="language-zig">// 相对于构建目录
+run_cmd.setCwd(.{ .src_path = .{ .owner = b, .sub_path = &quot;data&quot; } });
+
+// 相对于源目录
+run_cmd.setCwd(.{ .cwd_dir = .{ .owner = b, .sub_path = &quot;.&quot; } });
+</code></pre>
+<h3 id="73">7.3 添加参数</h3>
+<pre><code class="language-zig">// 添加单个参数
+run_cmd.addArg(&quot;--posts&quot;);
+run_cmd.addArg(&quot;./content&quot;);
+
+// 添加多个参数
+run_cmd.addArgs(&amp;.{ &quot;--output&quot;, &quot;./public&quot; });
+
+// 从构建命令行传递
+if (b.args) |args| {
+    run_cmd.addArgs(args);
+}
+</code></pre>
+<p><strong>使用方式</strong>：</p>
+<pre><code class="language-bash"># zig build run -- 后面的参数传递给程序
+zig build run -- --posts ./content -o ./public
+</code></pre>
+<hr />
+<h2 id="8-api">8. 测试 API</h2>
+<h3 id="81-addtest">8.1 addTest</h3>
+<pre><code class="language-zig">const exe_tests = b.addTest(.{
+    .root_module = exe.root_module,
+});
+</code></pre>
+<p><strong>Test.Options 字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>root_module</code></td>
+<td><code>*Module</code></td>
+<td>测试模块（通常复用可执行文件模块）</td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td><code>ResolvedTarget</code></td>
+<td>目标（可选）</td>
+</tr>
+<tr>
+<td><code>optimize</code></td>
+<td><code>OptimizeMode</code></td>
+<td>优化（可选）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82">8.2 运行测试</h3>
+<pre><code class="language-zig">const run_exe_tests = b.addRunArtifact(exe_tests);
+const test_step = b.step(&quot;test&quot;, &quot;Run tests&quot;);
+test_step.dependOn(&amp;run_exe_tests.step);
+</code></pre>
+<p><strong>测试命令</strong>：</p>
+<pre><code class="language-bash"># 运行所有测试
+zig build test
+
+# 运行特定测试
+zig build test -- --test-filter &quot;Post.parse&quot;
+</code></pre>
+<h3 id="83">8.3 测试覆盖率</h3>
+<pre><code class="language-zig">// 添加覆盖率选项
+const coverage = b.option(bool, &quot;coverage&quot;, &quot;Enable coverage&quot;) orelse false;
+if (coverage) {
+    // 配置覆盖率收集
+}
+</code></pre>
+<hr />
+<h2 id="9-api">9. 路径 API</h2>
+<h3 id="91-path">9.1 path()</h3>
+<pre><code class="language-zig">.root_source_file = b.path(&quot;src/main.zig&quot;),
+</code></pre>
+<p><strong>功能</strong>：创建相对于项目根目录的路径。</p>
+<p><strong>返回类型</strong>：<code>Build.LazyPath</code></p>
+<h3 id="92">9.2 路径类型</h3>
+<pre><code class="language-zig">// 相对于项目根目录
+b.path(&quot;src/main.zig&quot;)
+
+// 相对于依赖
+dependency.path(&quot;src/dependency.zig&quot;)
+
+// 绝对路径（不推荐）
+b.path(&quot;/absolute/path/file.zig&quot;)
+</code></pre>
+<h3 id="93-lazypath">9.3 LazyPath 使用</h3>
+<pre><code class="language-zig">// 用于源文件
+.addExecutable(.{
+    .root_module = mod,
+});
+
+// 用于资源文件
+exe.addCopyFileToOutput(source_file, &quot;dest/path.txt&quot;);
+</code></pre>
+<hr />
+<h2 id="10">10. 完整实例分析</h2>
+<h3 id="101-buildzig">10.1 项目 build.zig 逐行解析</h3>
+<pre><code class="language-zig">// [1] 导入标准库
+const std = @import(&quot;std&quot;);
+
+// [2] build 函数入口
+pub fn build(b: *std.Build) void {
+
+    // [3] 获取标准选项
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
+
+    // [4] 导入依赖模块
+    const zig_markdown_mod = b.dependency(&quot;zig_markdown&quot;, .{
+        .target = target,
+        .optimize = optimize,
+    }).module(&quot;zig-markdown&quot;);
+
+    const zig_handlebars_mod = b.dependency(&quot;zig_handlebars&quot;, .{
+        .target = target,
+        .optimize = optimize,
+    }).module(&quot;zig-handlebars&quot;);
+
+    // [5] 创建主模块
+    const mod = b.addModule(&quot;my_blog&quot;, .{
+        .root_source_file = b.path(&quot;src/main.zig&quot;),
+        .target = target,
+        .optimize = optimize,
+        .imports = &amp;.{
+            .{ .name = &quot;zig-markdown&quot;, .module = zig_markdown_mod },
+            .{ .name = &quot;zig-handlebars&quot;, .module = zig_handlebars_mod },
+        },
+    });
+
+    // [6] 创建可执行文件
+    const exe = b.addExecutable(.{
+        .name = &quot;my-blog&quot;,
+        .root_module = mod,
+    });
+
+    // [7] 安装工件
+    b.installArtifact(exe);
+
+    // [8] 创建 run 步骤
+    const run_step = b.step(&quot;run&quot;, &quot;Run the app&quot;);
+    const run_cmd = b.addRunArtifact(exe);
+    run_step.dependOn(&amp;run_cmd.step);
+    run_cmd.step.dependOn(b.getInstallStep());
+    run_cmd.setCwd(.{ .src_path = .{ .owner = b, .sub_path = &quot;.&quot; } });
+
+    // [9] 传递命令行参数
+    if (b.args) |args| {
+        run_cmd.addArgs(args);
+    }
+
+    // [10] 创建 test 步骤
+    const exe_tests = b.addTest(.{
+        .root_module = exe.root_module,
+    });
+
+    const run_exe_tests = b.addRunArtifact(exe_tests);
+    const test_step = b.step(&quot;test&quot;, &quot;Run tests&quot;);
+    test_step.dependOn(&amp;run_exe_tests.step);
+}
+</code></pre>
+<hr />
+<h2 id="11_1">11. 高级用法</h2>
+<h3 id="111">11.1 条件编译</h3>
+<pre><code class="language-zig">// 根据目标平台选择配置
+if (target.result.os.tag == .windows) {
+    mod.addCMacro(&quot;PLATFORM_WINDOWS&quot;, &quot;1&quot;);
+} else {
+    mod.addCMacro(&quot;PLATFORM_UNIX&quot;, &quot;1&quot;);
+}
+</code></pre>
+<h3 id="112">11.2 自定义选项</h3>
+<pre><code class="language-zig">// 添加自定义构建选项
+const enable_feature = b.option(
+    bool,
+    &quot;enable-feature&quot;,
+    &quot;Enable experimental feature&quot;
+) orelse false;
+
+if (enable_feature) {
+    mod.addCMacro(&quot;ENABLE_FEATURE&quot;, &quot;1&quot;);
+}
+</code></pre>
+<h3 id="113">11.3 多模块构建</h3>
+<pre><code class="language-zig">// 创建多个模块
+const lib_mod = b.addModule(&quot;mylib&quot;, .{
+    .root_source_file = b.path(&quot;src/lib.zig&quot;),
+});
+
+const exe_mod = b.addModule(&quot;myapp&quot;, .{
+    .root_source_file = b.path(&quot;src/main.zig&quot;),
+    .imports = &amp;.{
+        .{ .name = &quot;mylib&quot;, .module = lib_mod },
+    },
+});
+</code></pre>
+<hr />
+<h2 id="12_1">12. 注意事项</h2>
+<h3 id="121">12.1 模块导入顺序</h3>
+<pre><code class="language-zig">// 正确：先创建依赖模块
+const dep = b.dependency(&quot;dep&quot;, .{}).module(&quot;dep&quot;);
+const mod = b.addModule(&quot;main&quot;, .{
+    .imports = &amp;.{.{ .name = &quot;dep&quot;, .module = dep }},
+});
+
+// 错误：模块未定义就使用
+const mod = b.addModule(&quot;main&quot;, .{
+    .imports = &amp;.{.{ .name = &quot;dep&quot;, .module = dep }}, // dep 未定义！
+});
+const dep = b.dependency(&quot;dep&quot;, .{}).module(&quot;dep&quot;);
+</code></pre>
+<h3 id="122">12.2 步骤依赖循环</h3>
+<pre><code class="language-zig">// 错误：循环依赖
+step_a.dependOn(&amp;step_b.step);
+step_b.dependOn(&amp;step_a.step);  // 会导致构建失败
+</code></pre>
+<h3 id="123">12.3 内存管理</h3>
+<pre><code class="language-zig">// build.zig 中的内存由构建系统自动管理
+// 不需要手动释放分配的资源
+
+pub fn build(b: *std.Build) void {
+    // 所有分配都使用 b.allocator
+    // 构建完成后自动清理
+}
+</code></pre>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../06-1-build-zig-structure/">06-1 build.zig 结构</a> - 构建配置基础</li>
+<li><a href="../06-3-package-management/">06-3 包管理</a> - 依赖管理深入</li>
+<li><a href="../../part-04-control-flow/04-4-comptime/">04-4 comptime</a> - @import 机制</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

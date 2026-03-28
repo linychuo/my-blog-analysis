@@ -1,0 +1,1842 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>07-4 文件系统操作 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#07-4" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              07-4 文件系统操作
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 文件系统 API 概览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 文件系统 API 概览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 核心类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 项目中的使用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 目录操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 目录操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 获取当前工作目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 打开目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 创建目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 目录遍历
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 目录遍历">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-walk-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 walk() API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Entry 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 遍历结果示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 文件操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 文件操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 打开文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 创建文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 读取文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 写入文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 路径操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 路径操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-pathjoin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 path.join()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-pathdirname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 path.dirname()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-pathbasename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 path.basename()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 完整实例分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 完整实例分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-copystaticfiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 copyStaticFiles() 完整流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-writehtmlfilewithdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 writeHtmlFileWithDate() 日期目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 错误处理模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 错误处理模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 优雅降级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 文件不存在处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 错误传播
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 资源管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 资源管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-defer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 defer 清理模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 内存管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 性能考虑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 性能考虑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 批量操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 内存限制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 跨平台考虑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 跨平台考虑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 路径分隔符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 大小写敏感性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="07-4">07-4 文件系统操作</h1>
+<blockquote>
+<p>Zig 标准库文件系统 API 在项目中的应用</p>
+</blockquote>
+<hr />
+<h2 id="1-api">1. 文件系统 API 概览</h2>
+<h3 id="11">1.1 核心类型</h3>
+<p>Zig 标准库的文件系统 API 主要围绕以下类型构建：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std.fs.Dir</code></td>
+<td>目录句柄，表示打开的目录</td>
+</tr>
+<tr>
+<td><code>std.fs.File</code></td>
+<td>文件句柄，表示打开的文件</td>
+</tr>
+<tr>
+<td><code>std.fs.cwd()</code></td>
+<td>获取当前工作目录</td>
+</tr>
+<tr>
+<td><code>std.fs.path</code></td>
+<td>路径操作工具</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">1.2 项目中的使用场景</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>使用的 API</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打开目录</td>
+<td><code>openDir()</code></td>
+<td><code>loadPosts()</code>, <code>copyStaticFiles()</code></td>
+</tr>
+<tr>
+<td>遍历目录</td>
+<td><code>walk()</code></td>
+<td><code>loadPosts()</code>, <code>copyStaticFiles()</code></td>
+</tr>
+<tr>
+<td>创建目录</td>
+<td><code>makePath()</code></td>
+<td><code>generate()</code>, <code>writeHtmlFileWithDate()</code></td>
+</tr>
+<tr>
+<td>打开文件</td>
+<td><code>openFile()</code></td>
+<td><code>loadPosts()</code>, <code>generateAbout()</code></td>
+</tr>
+<tr>
+<td>创建文件</td>
+<td><code>createFile()</code></td>
+<td><code>writeHtmlFileWithDate()</code>, <code>generateIndex()</code></td>
+</tr>
+<tr>
+<td>读取文件</td>
+<td><code>readToEndAlloc()</code></td>
+<td><code>loadPosts()</code>, <code>copyStaticFiles()</code></td>
+</tr>
+<tr>
+<td>写入文件</td>
+<td><code>writeAll()</code></td>
+<td><code>writeHtmlFileWithDate()</code></td>
+</tr>
+<tr>
+<td>路径操作</td>
+<td><code>path.join()</code>, <code>path.dirname()</code></td>
+<td>多处使用</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2">2. 目录操作</h2>
+<h3 id="21">2.1 获取当前工作目录</h3>
+<pre><code class="language-zig">// 获取当前工作目录
+const cwd = std.fs.cwd();
+
+// 创建输出目录
+try std.fs.cwd().makePath(self.dest_dir);
+</code></pre>
+<p><strong>cwd() 返回</strong>：<code>std.fs.Dir</code> 类型，表示当前工作目录</p>
+<h3 id="22">2.2 打开目录</h3>
+<pre><code class="language-zig">fn copyStaticFiles(self: *Blogger) !void {
+    const static_dir = &quot;static&quot;;
+    var dir = std.fs.cwd().openDir(static_dir, .{ .iterate = true }) catch {
+        std.debug.print(&quot; Warning: static directory not found, skipping static files\n&quot;, .{});
+        return;
+    };
+    defer dir.close();
+    // ...
+}
+</code></pre>
+<p><strong>openDir() 参数</strong>：</p>
+<pre><code class="language-zig">fn openDir(path: []const u8, options: OpenDirOptions) !Dir
+</code></pre>
+<p><strong>OpenDirOptions 字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iterate</code></td>
+<td><code>bool</code></td>
+<td><code>false</code></td>
+<td>是否需要遍历目录</td>
+</tr>
+<tr>
+<td><code>no_follow</code></td>
+<td><code>bool</code></td>
+<td><code>false</code></td>
+<td>不跟随符号链接</td>
+</tr>
+</tbody>
+</table>
+<p><strong>项目中的使用</strong>：</p>
+<pre><code class="language-zig">// 需要遍历
+var dir = try std.fs.cwd().openDir(self.posts_dir, .{ .iterate = true });
+
+// 不需要遍历
+var dir = try std.fs.cwd().openDir(&quot;templates&quot;, .{});
+</code></pre>
+<h3 id="23">2.3 创建目录</h3>
+<pre><code class="language-zig">// 创建单个目录
+try std.fs.cwd().makePath(&quot;output&quot;);
+
+// 创建嵌套目录
+try std.fs.cwd().makePath(&quot;2026/03/21&quot;);
+</code></pre>
+<p><strong>makePath() 特点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>递归创建</td>
+<td>自动创建所有父目录</td>
+</tr>
+<tr>
+<td>幂等操作</td>
+<td>目录已存在时不报错</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>Windows/Linux/macOS 行为一致</td>
+</tr>
+</tbody>
+</table>
+<p><strong>项目中的使用</strong>：</p>
+<pre><code class="language-zig">// 在 generate() 中
+try std.fs.cwd().makePath(self.dest_dir);
+
+// 在 writeHtmlFileWithDate() 中
+const dir_path = std.fs.path.dirname(output_path.items);
+if (dir_path) |dp| {
+    try std.fs.cwd().makePath(dp);
+}
+</code></pre>
+<hr />
+<h2 id="3">3. 目录遍历</h2>
+<h3 id="31-walk-api">3.1 walk() API</h3>
+<pre><code class="language-zig">fn loadPosts(self: *Blogger, posts: *std.ArrayList(Post)) !void {
+    var dir = try std.fs.cwd().openDir(self.posts_dir, .{ .iterate = true });
+    defer dir.close();
+
+    var walker = try dir.walk(self.allocator);
+    defer walker.deinit();
+
+    while (try walker.next()) |entry| {
+        // 处理每个条目
+    }
+}
+</code></pre>
+<p><strong>Walker 类型</strong>：<code>std.fs.Dir.Walker</code></p>
+<p><strong>Walker 方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>返回类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>next()</code></td>
+<td><code>!?Entry</code></td>
+<td>获取下一个条目</td>
+</tr>
+<tr>
+<td><code>deinit()</code></td>
+<td><code>void</code></td>
+<td>清理 walker 资源</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-entry">3.2 Entry 结构</h3>
+<pre><code class="language-zig">while (try walker.next()) |entry| {
+    if (entry.kind == .file) {
+        // 处理文件
+    }
+}
+</code></pre>
+<p><strong>Entry 字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kind</code></td>
+<td><code>Entry.Kind</code></td>
+<td>条目类型（文件/目录/符号链接）</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td><code>[]const u8</code></td>
+<td>相对路径</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Entry.Kind 枚举</strong>：</p>
+<pre><code class="language-zig">pub const Kind = enum {
+    directory,
+    file,
+    symlink,
+    // ...
+};
+</code></pre>
+<h3 id="33">3.3 遍历结果示例</h3>
+<pre><code>posts/
+├── about.markdown       → entry.path = &quot;about.markdown&quot;, kind = .file
+├── first-post.markdown  → entry.path = &quot;first-post.markdown&quot;, kind = .file
+└── drafts/
+    └── wip.markdown     → entry.path = &quot;drafts/wip.markdown&quot;, kind = .file
+</code></pre>
+<p><strong>walker 遍历顺序</strong>：</p>
+<pre><code>[1] about.markdown
+[2] first-post.markdown
+[3] drafts/wip.markdown  (递归进入子目录)
+</code></pre>
+<hr />
+<h2 id="4">4. 文件操作</h2>
+<h3 id="41">4.1 打开文件</h3>
+<pre><code class="language-zig">fn loadPosts(self: *Blogger, posts: *std.ArrayList(Post)) !void {
+    // ...
+    while (try walker.next()) |entry| {
+        if (entry.kind == .file) {
+            const file = try dir.openFile(entry.path, .{});
+            defer file.close();
+
+            const content = try file.readToEndAlloc(self.allocator, 1024 * 1024);
+            defer self.allocator.free(content);
+
+            // 处理文件内容
+        }
+    }
+}
+</code></pre>
+<p><strong>openFile() 签名</strong>：</p>
+<pre><code class="language-zig">fn openFile(self: *Dir, sub_path: []const u8, options: OpenFileOptions) !File
+</code></pre>
+<p><strong>常用选项</strong>：</p>
+<pre><code class="language-zig">// 默认选项
+dir.openFile(&quot;file.txt&quot;, .{});
+
+// 只读模式
+dir.openFile(&quot;file.txt&quot;, .{ .mode = .read_only });
+
+// 写入模式
+dir.openFile(&quot;file.txt&quot;, .{ .mode = .write_only });
+</code></pre>
+<h3 id="42">4.2 创建文件</h3>
+<pre><code class="language-zig">fn writeHtmlFileWithDate(self: *Blogger, markdown_filename: []const u8, date_time: []const u8, html: []const u8) !void {
+    // ... 构建 output_path
+
+    const file = try std.fs.cwd().createFile(output_path.items, .{});
+    defer file.close();
+    try file.writeAll(html);
+}
+</code></pre>
+<p><strong>createFile() 签名</strong>：</p>
+<pre><code class="language-zig">fn createFile(self: *Dir, sub_path: []const u8, options: CreateFileOptions) !File
+</code></pre>
+<p><strong>CreateFileOptions 字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>read</code></td>
+<td><code>bool</code></td>
+<td><code>false</code></td>
+<td>是否允许读取</td>
+</tr>
+<tr>
+<td><code>truncate</code></td>
+<td><code>bool</code></td>
+<td><code>true</code></td>
+<td>是否截断已存在的文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43">4.3 读取文件</h3>
+<pre><code class="language-zig">// 读取整个文件到分配的内存
+const content = try file.readToEndAlloc(self.allocator, 1024 * 1024);
+defer self.allocator.free(content);
+</code></pre>
+<p><strong>readToEndAlloc() 参数</strong>：</p>
+<pre><code class="language-zig">fn readToEndAlloc(self: *File, allocator: Allocator, max_size: usize) ![]u8
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allocator</code></td>
+<td>用于分配内存的分配器</td>
+</tr>
+<tr>
+<td><code>max_size</code></td>
+<td>最大读取字节数（防止 DoS）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>项目中的 max_size</strong>：</p>
+<pre><code class="language-zig">// 限制 1MB
+const content = try file.readToEndAlloc(self.allocator, 1024 * 1024);
+</code></pre>
+<h3 id="44">4.4 写入文件</h3>
+<pre><code class="language-zig">const file = try std.fs.cwd().createFile(output_path.items, .{});
+defer file.close();
+try file.writeAll(html);
+</code></pre>
+<p><strong>writeAll() 特点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原子写入</td>
+<td>要么全部写入，要么返回错误</td>
+</tr>
+<tr>
+<td>阻塞操作</td>
+<td>直到所有数据写入完成</td>
+</tr>
+<tr>
+<td>错误处理</td>
+<td>磁盘满、权限不足等返回错误</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 路径操作</h2>
+<h3 id="51-pathjoin">5.1 path.join()</h3>
+<pre><code class="language-zig">const src_path = try std.fs.path.join(self.allocator, &amp;.{ static_dir, entry.path });
+defer self.allocator.free(src_path);
+</code></pre>
+<p><strong>签名</strong>：</p>
+<pre><code class="language-zig">fn join(allocator: Allocator, paths: []const []const u8) ![]const u8
+</code></pre>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-zig">// Linux/macOS
+path.join(allocator, &amp;.{ &quot;static&quot;, &quot;css&quot;, &quot;style.css&quot; })
+    → &quot;static/css/style.css&quot;
+
+// Windows
+path.join(allocator, &amp;.{ &quot;static&quot;, &quot;css&quot;, &quot;style.css&quot; })
+    → &quot;static\\css\\style.css&quot;
+</code></pre>
+<h3 id="52-pathdirname">5.2 path.dirname()</h3>
+<pre><code class="language-zig">const dest_dir_path = std.fs.path.dirname(dest_path);
+if (dest_dir_path) |dir_path| {
+    try std.fs.cwd().makePath(dir_path);
+}
+</code></pre>
+<p><strong>返回值</strong>：<code>?[]const u8</code>（可选类型）</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-zig">dirname(&quot;foo/bar/baz.txt&quot;) → &quot;foo/bar&quot;
+dirname(&quot;file.txt&quot;)        → &quot;&quot;
+dirname(&quot;/&quot;)               → null
+</code></pre>
+<h3 id="53-pathbasename">5.3 path.basename()</h3>
+<pre><code class="language-zig">if (std.mem.eql(u8, std.fs.path.basename(entry.path), &quot;about.markdown&quot;)) {
+    continue;
+}
+</code></pre>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-zig">basename(&quot;foo/bar/baz.txt&quot;) → &quot;baz.txt&quot;
+basename(&quot;file.txt&quot;)        → &quot;file.txt&quot;
+basename(&quot;/dir/&quot;)           → &quot;dir&quot;
+</code></pre>
+<hr />
+<h2 id="6">6. 完整实例分析</h2>
+<h3 id="61-copystaticfiles">6.1 copyStaticFiles() 完整流程</h3>
+<pre><code class="language-zig">fn copyStaticFiles(self: *Blogger) !void {
+    // [1] 打开 static 目录
+    const static_dir = &quot;static&quot;;
+    var dir = std.fs.cwd().openDir(static_dir, .{ .iterate = true }) catch {
+        std.debug.print(&quot; Warning: static directory not found, skipping static files\n&quot;, .{});
+        return;
+    };
+    defer dir.close();
+
+    // [2] 创建输出目录
+    try std.fs.cwd().makePath(self.dest_dir);
+
+    // [3] 初始化 walker
+    var walker = try dir.walk(self.allocator);
+    defer walker.deinit();
+
+    // [4] 遍历目录
+    while (try walker.next()) |entry| {
+        if (entry.kind == .file) {
+            // [5] 构建源路径和目标路径
+            const src_path = try std.fs.path.join(self.allocator, &amp;.{ static_dir, entry.path });
+            defer self.allocator.free(src_path);
+            const dest_path = try std.fs.path.join(self.allocator, &amp;.{ self.dest_dir, entry.path });
+            defer self.allocator.free(dest_path);
+
+            // [6] 创建父目录
+            const dest_dir_path = std.fs.path.dirname(dest_path);
+            if (dest_dir_path) |dir_path| {
+                try std.fs.cwd().makePath(dir_path);
+            }
+
+            // [7] 打开源文件
+            var src_file = try dir.openFile(entry.path, .{});
+            defer src_file.close();
+
+            // [8] 创建目标文件
+            const dest_file = try std.fs.cwd().createFile(dest_path, .{});
+            defer dest_file.close();
+
+            // [9] 读取并写入内容
+            const content = try src_file.readToEndAlloc(self.allocator, 1024 * 1024);
+            defer self.allocator.free(content);
+            try dest_file.writeAll(content);
+
+            std.debug.print(&quot; Copied: {s}\n&quot;, .{entry.path});
+        }
+    }
+}
+</code></pre>
+<h3 id="62-writehtmlfilewithdate">6.2 writeHtmlFileWithDate() 日期目录</h3>
+<pre><code class="language-zig">fn writeHtmlFileWithDate(self: *Blogger, markdown_filename: []const u8, date_time: []const u8, html: []const u8) !void {
+    // [1] 解析日期
+    const year = date_time[0..4];  // &quot;2026&quot;
+    // ... 解析 month 和 day
+
+    // [2] 构建输出路径
+    var output_path = std.ArrayList(u8){};
+    defer output_path.deinit(self.allocator);
+    try output_path.appendSlice(self.allocator, self.dest_dir);
+    try output_path.appendSlice(self.allocator, &quot;/&quot;);
+    try output_path.appendSlice(self.allocator, year);
+    try output_path.appendSlice(self.allocator, &quot;/&quot;);
+    try output_path.appendSlice(self.allocator, month);
+    try output_path.appendSlice(self.allocator, &quot;/&quot;);
+    try output_path.appendSlice(self.allocator, day);
+    try output_path.appendSlice(self.allocator, &quot;/&quot;);
+    try output_path.appendSlice(self.allocator, output_filename.items);
+
+    // [3] 创建目录结构
+    const dir_path = std.fs.path.dirname(output_path.items);
+    if (dir_path) |dp| {
+        try std.fs.cwd().makePath(dp);
+    }
+
+    // [4] 创建并写入文件
+    const file = try std.fs.cwd().createFile(output_path.items, .{});
+    defer file.close();
+    try file.writeAll(html);
+}
+</code></pre>
+<p><strong>输出路径示例</strong>：</p>
+<pre><code>输入：
+  markdown_filename = &quot;my-first-post.markdown&quot;
+  date_time = &quot;2026-03-21&quot;
+  dest_dir = &quot;zig-out/blog&quot;
+
+输出：
+  zig-out/blog/2026/03/21/my-first-post.html
+</code></pre>
+<hr />
+<h2 id="7">7. 错误处理模式</h2>
+<h3 id="71">7.1 优雅降级</h3>
+<pre><code class="language-zig">var dir = std.fs.cwd().openDir(static_dir, .{ .iterate = true }) catch {
+    std.debug.print(&quot; Warning: static directory not found, skipping static files\n&quot;, .{});
+    return;  // 不中断程序，继续执行
+};
+</code></pre>
+<h3 id="72">7.2 文件不存在处理</h3>
+<pre><code class="language-zig">const file = std.fs.cwd().openFile(about_path, .{}) catch {
+    std.debug.print(&quot; Skipped: about.markdown not found\n&quot;, .{});
+    return;  // 关于页面可选
+};
+</code></pre>
+<h3 id="73">7.3 错误传播</h3>
+<pre><code class="language-zig">// 关键操作失败时传播错误
+try std.fs.cwd().makePath(self.dest_dir);
+// 如果失败，generate() 立即返回错误
+</code></pre>
+<hr />
+<h2 id="8">8. 资源管理</h2>
+<h3 id="81-defer">8.1 defer 清理模式</h3>
+<pre><code class="language-zig">// 目录句柄
+var dir = try std.fs.cwd().openDir(path, .{});
+defer dir.close();
+
+// 文件句柄
+var file = try dir.openFile(entry.path, .{});
+defer file.close();
+
+// Walker
+var walker = try dir.walk(self.allocator);
+defer walker.deinit();
+
+// 动态路径
+const src_path = try std.fs.path.join(self.allocator, &amp;.{ ... });
+defer self.allocator.free(src_path);
+</code></pre>
+<h3 id="82">8.2 内存管理</h3>
+<pre><code class="language-zig">// 读取文件内容
+const content = try file.readToEndAlloc(self.allocator, 1024 * 1024);
+defer self.allocator.free(content);
+
+// 构建路径
+const dest_path = try std.fs.path.join(self.allocator, &amp;.{ ... });
+defer self.allocator.free(dest_path);
+</code></pre>
+<hr />
+<h2 id="9">9. 性能考虑</h2>
+<h3 id="91">9.1 批量操作</h3>
+<pre><code class="language-zig">// 不推荐：逐个文件打开/关闭
+for (files) |file| {
+    var f = try openFile(file);
+    // ...
+    f.close();
+}
+
+// 推荐：保持文件打开直到完成
+// 项目中使用 defer 自动管理
+</code></pre>
+<h3 id="92">9.2 内存限制</h3>
+<pre><code class="language-zig">// 设置最大读取大小，防止大文件耗尽内存
+const content = try file.readToEndAlloc(self.allocator, 1024 * 1024);  // 1MB 限制
+</code></pre>
+<hr />
+<h2 id="10">10. 跨平台考虑</h2>
+<h3 id="101">10.1 路径分隔符</h3>
+<pre><code class="language-zig">// path.join() 自动处理
+// Linux/macOS: &quot;foo/bar&quot;
+// Windows:     &quot;foo\\bar&quot;
+</code></pre>
+<h3 id="102">10.2 大小写敏感性</h3>
+<pre><code class="language-zig">// Linux: 文件名大小写敏感
+// Windows/macOS: 文件名大小写不敏感
+
+// 项目假设：文件名完全匹配
+if (std.mem.eql(u8, std.fs.path.basename(entry.path), &quot;about.markdown&quot;)) {
+    continue;
+}
+</code></pre>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../07-3-blogger-struct/">07-3 Blogger 结构体</a> - 使用文件系统 API</li>
+<li><a href="../../part-06-build-system/06-2-std-build-api/">06-2 std.Build API</a> - 构建系统中的路径处理</li>
+<li><a href="../../part-08-memory-management/08-1-allocators/">08-1 内存分配器</a> - 内存分配与文件读取</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

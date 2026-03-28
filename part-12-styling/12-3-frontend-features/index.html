@@ -1,0 +1,1683 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>12.3 前端功能集成 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#123" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              12.3 前端功能集成
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.1 前端资源加载策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.1 前端资源加载策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CDN 资源清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        加载顺序优化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1232-highlightjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.2 语法高亮（highlight.js）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.2 语法高亮（highlight.js）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自动高亮机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown 代码块渲染
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1233-katex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.3 数学公式（KaTeX）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.3 数学公式（KaTeX）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        公式语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown 解析器集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#katex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KaTeX 渲染脚本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        支持的数学符号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见公式示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1234" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.4 字体系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.4 字体系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-fonts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Fonts 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        字体栈定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        字体特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        字体加载优化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1235" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.5 返回顶部功能
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.5 返回顶部功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实现逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        按钮样式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1236" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.6 响应式图片
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.6 响应式图片">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图片加载优化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown 图片语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1237" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.7 性能优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.7 性能优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cdn_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CDN 选择策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        资源加载优先级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缓存策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1238-a11y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3.8 无障碍（a11y）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3.8 无障碍（a11y）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARIA 标签
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        键盘导航
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="123">12.3 前端功能集成</h1>
+<blockquote>
+<p><strong>核心依赖</strong>: highlight.js 11.9.0（语法高亮）, KaTeX 0.12.0（数学公式）, Google Fonts（字体）</p>
+</blockquote>
+<h2 id="1231">12.3.1 前端资源加载策略</h2>
+<h3 id="cdn">CDN 资源清单</h3>
+<table>
+<thead>
+<tr>
+<th>资源类型</th>
+<th>提供商</th>
+<th>版本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inter Font</td>
+<td>Google Fonts</td>
+<td>-</td>
+<td>正文字体</td>
+</tr>
+<tr>
+<td>JetBrains Mono</td>
+<td>Google Fonts</td>
+<td>-</td>
+<td>代码字体</td>
+</tr>
+<tr>
+<td>highlight.js CSS</td>
+<td>Cloudflare</td>
+<td>11.9.0</td>
+<td>语法高亮样式</td>
+</tr>
+<tr>
+<td>highlight.js JS</td>
+<td>Cloudflare</td>
+<td>11.9.0</td>
+<td>语法高亮引擎</td>
+</tr>
+<tr>
+<td>KaTeX CSS</td>
+<td>jsDelivr</td>
+<td>0.12.0</td>
+<td>数学公式样式</td>
+</tr>
+<tr>
+<td>KaTeX JS</td>
+<td>jsDelivr</td>
+<td>0.12.0</td>
+<td>数学公式渲染</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_1">加载顺序优化</h3>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;!-- 1. 字体预连接（提前建立连接） --&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+
+    &lt;!-- 2. 字体加载（阻塞渲染但必要） --&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+
+    &lt;!-- 3. highlight.js（先 CSS 后 JS） --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css&quot; id=&quot;hljs-theme&quot;&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!-- 4. KaTeX（defer 延迟执行） --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css&quot;&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!-- 5. 本地样式（最后加载，可覆盖 CDN 样式） --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<h2 id="1232-highlightjs">12.3.2 语法高亮（highlight.js）</h2>
+<h3 id="_2">自动高亮机制</h3>
+<pre><code class="language-javascript">// highlight.js 自动检测并高亮代码块
+hljs.highlightAll();
+
+// 在页面加载完成后调用
+document.addEventListener('DOMContentLoaded', () =&gt; {
+    hljs.highlightAll();
+});
+</code></pre>
+<h3 id="markdown">Markdown 代码块渲染</h3>
+<pre><code class="language-markdown">&lt;!-- 输入 Markdown --&gt;
+```zig
+const std = @import(&quot;std&quot;);
+
+pub fn main() void {
+    std.debug.print(&quot;Hello, {s}!\n&quot;, .{&quot;World&quot;});
+}
+</code></pre>
+<!-- 输出 HTML -->
+<pre><code class="language-zig">
+<span class="hljs-keyword">const</span> std = <span class="hljs-built_in">@import</span>(<span class="hljs-string">"std"</span>);
+
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title">main</span>() <span class="hljs-type">void</span> {
+    std.debug.<span class="hljs-title">print</span>(<span class="hljs-string">"Hello, {s}!\n"</span>, .{<span class="hljs-string">"World"</span>});
+}
+</code></pre>
+
+<pre><code>
+### 支持的语言
+
+my-blog 的 highlight.js 配置支持自动检测以下语言：
+
+| 语言类别 | 支持语言 |
+|---------|---------|
+| 系统编程 | Zig, C, C++, Rust |
+| Web 开发 | JavaScript, TypeScript, HTML, CSS |
+| 脚本语言 | Python, Ruby, Bash, PowerShell |
+| 数据 | JSON, YAML, XML, SQL |
+| 其他 | Go, Java, Kotlin, Swift |
+
+### 手动指定语言
+
+```markdown
+&lt;!-- 推荐：明确指定语言 --&gt;
+```python
+def hello():
+    print(&quot;Hello, World!&quot;)
+</code></pre>
+<!-- 不推荐：依赖自动检测 -->
+
+<pre><code>def hello():
+    print(&quot;Hello, World!&quot;)
+</code></pre>
+<pre><code>
+### 高亮主题切换
+
+```javascript
+// 主题切换时同步更新 highlight.js 样式
+function toggleTheme() {
+    const newTheme = document.documentElement.getAttribute('data-theme');
+    const hljsLink = document.getElementById('hljs-theme');
+
+    if (newTheme === 'light') {
+        hljsLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
+    } else {
+        hljsLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
+    }
+}
+</code></pre>
+<h2 id="1233-katex">12.3.3 数学公式（KaTeX）</h2>
+<h3 id="_3">公式语法</h3>
+<p>my-blog 使用 <code>$$</code> 包裹数学公式，支持行内公式和块级公式：</p>
+<pre><code class="language-markdown">&lt;!-- 行内公式 --&gt;
+质能方程是 $E = mc^2$。
+
+&lt;!-- 块级公式（独占一行） --&gt;
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$
+
+&lt;!-- 多行公式 --&gt;
+$$
+\begin{aligned}
+f(x) &amp;= x^2 + 2x + 1 \\
+     &amp;= (x + 1)^2
+\end{aligned}
+$$
+</code></pre>
+<h3 id="markdown_1">Markdown 解析器集成</h3>
+<p>在 <code>Blogger.zig</code> 中，Markdown 解析器识别 <code>$$</code> 包裹的内容并转换为 KaTeX 可渲染的格式：</p>
+<pre><code class="language-zig">// 伪代码：识别数学公式块
+if (content.startsWith(&quot;$$&quot;) and content.endsWith(&quot;$$&quot;)) {
+    const tex = content[2..content.len - 2];  // 提取 LaTeX 内容
+    return fmt&quot;&lt;pre class=\&quot;math-block\&quot;&gt;{s}&lt;/pre&gt;&quot;, .{tex};
+}
+</code></pre>
+<h3 id="katex">KaTeX 渲染脚本</h3>
+<pre><code class="language-javascript">// 页面加载后渲染所有数学公式块
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof katex !== 'undefined') {
+        document.querySelectorAll('pre.math-block').forEach(function(el) {
+            try {
+                const tex = el.textContent.trim();
+                const div = document.createElement('div');
+                div.className = 'katex-display';
+                katex.render(tex, div, {
+                    displayMode: true,
+                    throwOnError: false  // 错误不抛出异常
+                });
+                el.parentNode.replaceChild(div, el);
+            } catch (e) {
+                console.error('KaTeX render error:', e);
+            }
+        });
+    }
+});
+</code></pre>
+<h3 id="_4">支持的数学符号</h3>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>示例</th>
+<th>渲染结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上标/下标</td>
+<td><code>x^2</code>, <code>a_n</code></td>
+<td>$x^2$, $a_n$</td>
+</tr>
+<tr>
+<td>分数</td>
+<td><code>\frac{a}{b}</code></td>
+<td>$\frac{a}{b}$</td>
+</tr>
+<tr>
+<td>根号</td>
+<td><code>\sqrt{x}</code>, <code>\sqrt[n]{x}</code></td>
+<td>$\sqrt{x}$, $\sqrt[n]{x}$</td>
+</tr>
+<tr>
+<td>积分</td>
+<td><code>\int_{a}^{b}</code></td>
+<td>$\int_{a}^{b}$</td>
+</tr>
+<tr>
+<td>求和</td>
+<td><code>\sum_{i=1}^{n}</code></td>
+<td>$\sum_{i=1}^{n}$</td>
+</tr>
+<tr>
+<td>极限</td>
+<td><code>\lim_{x \to 0}</code></td>
+<td>$\lim_{x \to 0}$</td>
+</tr>
+<tr>
+<td>希腊字母</td>
+<td><code>\alpha</code>, <code>\beta</code>, <code>\gamma</code></td>
+<td>$\alpha$, $\beta$, $\gamma$</td>
+</tr>
+<tr>
+<td>运算符</td>
+<td><code>\times</code>, <code>\div</code>, <code>\pm</code></td>
+<td>$\times$, $\div$, $\pm$</td>
+</tr>
+<tr>
+<td>关系符</td>
+<td><code>\leq</code>, <code>\geq</code>, <code>\neq</code></td>
+<td>$\leq$, $\geq$, $\neq$</td>
+</tr>
+<tr>
+<td>矩阵</td>
+<td><code>\begin{matrix} a &amp; b \\ c &amp; d \end{matrix}</code></td>
+<td>2×2 矩阵</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">常见公式示例</h3>
+<pre><code class="language-markdown">&lt;!-- 二次方程求根公式 --&gt;
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+&lt;!-- 欧拉公式 --&gt;
+$$
+e^{i\pi} + 1 = 0
+$$
+
+&lt;!-- 麦克斯韦方程组 --&gt;
+$$
+\begin{aligned}
+\nabla \cdot \mathbf{E} &amp;= \frac{\rho}{\varepsilon_0} \\
+\nabla \cdot \mathbf{B} &amp;= 0 \\
+\nabla \times \mathbf{E} &amp;= -\frac{\partial \mathbf{B}}{\partial t} \\
+\nabla \times \mathbf{B} &amp;= \mu_0\mathbf{J} + \mu_0\varepsilon_0\frac{\partial \mathbf{E}}{\partial t}
+\end{aligned}
+$$
+
+&lt;!-- 矩阵乘法 --&gt;
+$$
+\begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 4
+\end{bmatrix}
+\begin{bmatrix}
+5 &amp; 6 \\
+7 &amp; 8
+\end{bmatrix}
+=
+\begin{bmatrix}
+19 &amp; 22 \\
+43 &amp; 50
+\end{bmatrix}
+$$
+</code></pre>
+<h2 id="1234">12.3.4 字体系统</h2>
+<h3 id="google-fonts">Google Fonts 配置</h3>
+<pre><code class="language-html">&lt;!-- Inter: 正文字体（多语言支持） --&gt;
+&lt;!-- JetBrains Mono: 代码字体（等宽） --&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+<h3 id="_6">字体栈定义</h3>
+<pre><code class="language-css">/* 正文字体栈 */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* 代码字体栈 */
+code, pre {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+</code></pre>
+<h3 id="_7">字体特性</h3>
+<table>
+<thead>
+<tr>
+<th>字体</th>
+<th>字重</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inter</td>
+<td>400</td>
+<td>正文</td>
+</tr>
+<tr>
+<td>Inter</td>
+<td>500</td>
+<td>强调文字</td>
+</tr>
+<tr>
+<td>Inter</td>
+<td>600</td>
+<td>小标题</td>
+</tr>
+<tr>
+<td>Inter</td>
+<td>700</td>
+<td>主标题</td>
+</tr>
+<tr>
+<td>Inter</td>
+<td>800</td>
+<td>特大标题</td>
+</tr>
+<tr>
+<td>JetBrains Mono</td>
+<td>400</td>
+<td>行内代码</td>
+</tr>
+<tr>
+<td>JetBrains Mono</td>
+<td>500</td>
+<td>代码块</td>
+</tr>
+<tr>
+<td>JetBrains Mono</td>
+<td>600</td>
+<td>代码强调</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">字体加载优化</h3>
+<pre><code class="language-html">&lt;!-- 使用 display=swap 避免 FOIT（Flash of Invisible Text） --&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;!-- 预加载关键字体 --&gt;
+&lt;link rel=&quot;preload&quot; href=&quot;https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2&quot; as=&quot;font&quot; crossorigin&gt;
+</code></pre>
+<h2 id="1235">12.3.5 返回顶部功能</h2>
+<h3 id="_9">实现逻辑</h3>
+<pre><code class="language-javascript">// 1. 监听滚动事件
+const backToTopBtn = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () =&gt; {
+    // 滚动超过 400px 显示按钮
+    if (window.scrollY &gt; 400) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+});
+
+// 2. 平滑滚动到顶部
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'  // 平滑滚动
+    });
+}
+</code></pre>
+<h3 id="_10">按钮样式</h3>
+<pre><code class="language-css">.back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-4px);
+}
+</code></pre>
+<h2 id="1236">12.3.6 响应式图片</h2>
+<h3 id="_11">图片加载优化</h3>
+<pre><code class="language-html">&lt;!-- 懒加载图片 --&gt;
+&lt;img src=&quot;image.jpg&quot; alt=&quot;描述&quot; loading=&quot;lazy&quot;&gt;
+
+&lt;!-- 响应式图片（根据屏幕尺寸加载不同版本） --&gt;
+&lt;img srcset=&quot;image-480.jpg 480w,
+             image-768.jpg 768w,
+             image-1200.jpg 1200w&quot;
+     sizes=&quot;(max-width: 600px) 480px,
+            (max-width: 900px) 768px,
+            1200px&quot;
+     src=&quot;image-1200.jpg&quot;
+     alt=&quot;描述&quot;&gt;
+</code></pre>
+<h3 id="markdown_2">Markdown 图片语法</h3>
+<pre><code class="language-markdown">&lt;!-- 标准图片 --&gt;
+![图片描述](image.jpg)
+
+&lt;!-- 带标题的图片 --&gt;
+![图片描述](image.jpg &quot;图片标题&quot;)
+
+&lt;!-- 响应式图片（需要自定义语法） --&gt;
+{{&lt; responsive-img src=&quot;image.jpg&quot; alt=&quot;描述&quot; &gt;}}
+</code></pre>
+<h2 id="1237">12.3.7 性能优化</h2>
+<h3 id="cdn_1">CDN 选择策略</h3>
+<table>
+<thead>
+<tr>
+<th>CDN</th>
+<th>优势</th>
+<th>适用资源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Google Fonts</td>
+<td>全球覆盖，字体专用</td>
+<td>字体文件</td>
+</tr>
+<tr>
+<td>Cloudflare</td>
+<td>速度快，稳定性高</td>
+<td>highlight.js</td>
+</tr>
+<tr>
+<td>jsDelivr</td>
+<td>支持 npm/GitHub</td>
+<td>KaTeX</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">资源加载优先级</h3>
+<pre><code class="language-html">&lt;!-- 高优先级：关键 CSS --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+
+&lt;!-- 中优先级：非关键 JS --&gt;
+&lt;script defer src=&quot;app.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- 低优先级：懒加载资源 --&gt;
+&lt;link rel=&quot;preload&quot; href=&quot;font.woff2&quot; as=&quot;font&quot; crossorigin&gt;
+</code></pre>
+<h3 id="_13">缓存策略</h3>
+<pre><code class="language-html">&lt;!-- 设置长缓存时间（带版本号） --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css&quot;&gt;
+
+&lt;!-- 本地资源添加哈希 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/style.a1b2c3d4.css&quot;&gt;
+</code></pre>
+<h2 id="1238-a11y">12.3.8 无障碍（a11y）</h2>
+<h3 id="aria">ARIA 标签</h3>
+<pre><code class="language-html">&lt;!-- 主题切换按钮 --&gt;
+&lt;button class=&quot;theme-toggle&quot; onclick=&quot;toggleTheme()&quot; aria-label=&quot;Toggle theme&quot;&gt;
+    &lt;!-- 图标 --&gt;
+&lt;/button&gt;
+
+&lt;!-- 返回顶部按钮 --&gt;
+&lt;button id=&quot;backToTop&quot; class=&quot;back-to-top&quot; onclick=&quot;scrollToTop()&quot; aria-label=&quot;Back to top&quot;&gt;
+    &lt;!-- 图标 --&gt;
+&lt;/button&gt;
+
+&lt;!-- 导航菜单 --&gt;
+&lt;nav class=&quot;navbar&quot; aria-label=&quot;Main navigation&quot;&gt;
+    &lt;!-- 导航链接 --&gt;
+&lt;/nav&gt;
+</code></pre>
+<h3 id="_14">键盘导航</h3>
+<pre><code class="language-css">/* 焦点可见样式 */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* 跳过导航链接（屏幕阅读器） */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    z-index: 1001;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+</code></pre>
+<h2 id="_15">相关文档</h2>
+<ul>
+<li><a href="../12-1-css-architecture/">12.1 CSS 架构与设计系统</a> - CSS 变量与布局</li>
+<li><a href="../12-2-theme-system/">12.2 主题系统实现</a> - 主题切换机制</li>
+<li><a href="../part-11-markdown-parser/11-3-html-generation.md">11.3 HTML 生成器</a> - Markdown 转 HTML 流程</li>
+</ul>
+<hr />
+<p><em>本文档介绍了 my-blog 集成的前端功能，包括 highlight.js 语法高亮、KaTeX 数学公式、Google Fonts 字体系统以及性能优化和无障碍设计。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

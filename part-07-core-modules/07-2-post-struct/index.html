@@ -1,0 +1,1771 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>07-2 Post 结构体 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#07-2-post" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              07-2 Post 结构体
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Post 结构体概览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Post 结构体概览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 完整代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 结构体字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deinit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 内存管理：deinit()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 内存管理：deinit()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 内存释放
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 使用模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-frontmatter-parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Frontmatter 解析：parse()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Frontmatter 解析：parse()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 函数签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-frontmatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Frontmatter 格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 解析流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 分隔符验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 字段提取循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 必需字段验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 辅助函数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 辅助函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-extractvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 extractValue()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-content_offset_for_line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 content_offset_for_line()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 内存分配分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 内存分配分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 分配点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 内存所有权
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 内存使用估算
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 错误处理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 错误处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 错误传播
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 错误恢复
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 使用示例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 使用示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 基本使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 批量加载
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 设计模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 设计模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 解析器模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 资源管理模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="07-2-post">07-2 Post 结构体</h1>
+<blockquote>
+<p>文章数据结构与 Frontmatter 解析</p>
+</blockquote>
+<hr />
+<h2 id="1-post">1. Post 结构体概览</h2>
+<h3 id="11">1.1 完整代码</h3>
+<pre><code class="language-zig">pub const Post = struct {
+    title: []const u8,
+    date_time: []const u8,
+    tags: []const u8,
+    content: []const u8,
+    filename: []const u8,
+
+    pub fn deinit(self: *Post, allocator: Allocator) void {
+        allocator.free(self.title);
+        allocator.free(self.date_time);
+        allocator.free(self.tags);
+        allocator.free(self.content);
+        allocator.free(self.filename);
+    }
+
+    pub fn parse(allocator: Allocator, content: []const u8, filename: []const u8) !Post {
+        var lines = std.mem.splitScalar(u8, content, '\n');
+        const first_line = lines.next() orelse return error.InvalidFormat;
+        if (!std.mem.eql(u8, std.mem.trim(u8, first_line, &quot; \r\n\t&quot;), &quot;---&quot;)) {
+            return error.InvalidFormat;
+        }
+
+        var title: ?[]const u8 = null;
+        var date_time: ?[]const u8 = null;
+        var tags: ?[]const u8 = null;
+        var frontmatter_end: usize = 1;
+
+        while (lines.next()) |line| {
+            const trimmed = std.mem.trim(u8, line, &quot; \r\n\t&quot;);
+            if (std.mem.eql(u8, trimmed, &quot;---&quot;)) {
+                frontmatter_end += 1;
+                break;
+            }
+            if (std.mem.startsWith(u8, trimmed, &quot;title:&quot;)) {
+                title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+            } else if (std.mem.startsWith(u8, trimmed, &quot;date_time:&quot;)) {
+                date_time = try extractValue(allocator, trimmed, &quot;date_time:&quot;);
+            } else if (std.mem.startsWith(u8, trimmed, &quot;tags:&quot;)) {
+                tags = try extractValue(allocator, trimmed, &quot;tags:&quot;);
+            }
+            frontmatter_end += 1;
+        }
+
+        const content_start = content_offset_for_line(content, frontmatter_end);
+        return Post{
+            .title = title orelse return error.MissingTitle,
+            .date_time = date_time orelse return error.MissingDateTime,
+            .tags = tags orelse &quot;&quot;,
+            .content = try allocator.dupe(u8, content[content_start..]),
+            .filename = try allocator.dupe(u8, filename),
+        };
+    }
+
+    fn extractValue(allocator: Allocator, line: []const u8, prefix: []const u8) ![]const u8 {
+        return allocator.dupe(u8, std.mem.trim(u8, line[prefix.len..], &quot; \r\n\t\&quot;'&quot;));
+    }
+
+    fn content_offset_for_line(content: []const u8, line_num: usize) usize {
+        var offset: usize = 0;
+        var current_line: usize = 0;
+        while (offset &lt; content.len and current_line &lt; line_num) {
+            if (content[offset] == '\n') current_line += 1;
+            offset += 1;
+        }
+        while (offset &lt; content.len and (content[offset] == '\n' or content[offset] == '\r')) offset += 1;
+        return offset;
+    }
+};
+</code></pre>
+<h3 id="12">1.2 结构体字段</h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>大小</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td><code>[]const u8</code></td>
+<td>16 字节</td>
+<td>文章标题</td>
+</tr>
+<tr>
+<td><code>date_time</code></td>
+<td><code>[]const u8</code></td>
+<td>16 字节</td>
+<td>发布日期时间</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td><code>[]const u8</code></td>
+<td>16 字节</td>
+<td>标签（空格分隔）</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td><code>[]const u8</code></td>
+<td>16 字节</td>
+<td>Markdown 内容</td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td><code>[]const u8</code></td>
+<td>16 字节</td>
+<td>源文件名</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总大小</strong>：80 字节（64 位系统）</p>
+<hr />
+<h2 id="2-deinit">2. 内存管理：deinit()</h2>
+<h3 id="21">2.1 函数签名</h3>
+<pre><code class="language-zig">pub fn deinit(self: *Post, allocator: Allocator) void
+</code></pre>
+<p><strong>参数分析</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>self</code></td>
+<td><code>*Post</code></td>
+<td>指向 Post 实例的指针</td>
+</tr>
+<tr>
+<td><code>allocator</code></td>
+<td><code>Allocator</code></td>
+<td>用于释放内存的分配器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22">2.2 内存释放</h3>
+<pre><code class="language-zig">pub fn deinit(self: *Post, allocator: Allocator) void {
+    allocator.free(self.title);
+    allocator.free(self.date_time);
+    allocator.free(self.tags);
+    allocator.free(self.content);
+    allocator.free(self.filename);
+}
+</code></pre>
+<p><strong>释放顺序</strong>：</p>
+<pre><code>Post 实例
+    │
+    ├─ title (动态分配的字符串)
+    ├─ date_time (动态分配的字符串)
+    ├─ tags (动态分配的字符串)
+    ├─ content (动态分配的字符串)
+    └─ filename (动态分配的字符串)
+</code></pre>
+<h3 id="23">2.3 使用模式</h3>
+<pre><code class="language-zig">// 创建 Post
+const post = try Post.parse(allocator, content, filename);
+
+// 使用完毕后释放
+defer post.deinit(allocator);
+
+// 或者显式调用
+post.deinit(allocator);
+</code></pre>
+<p><strong>在 Blogger 中的使用</strong>：</p>
+<pre><code class="language-zig">var posts = std.ArrayList(Post){};
+defer {
+    // 批量释放所有 Post
+    for (posts.items) |*post| post.deinit(self.allocator);
+    posts.deinit(self.allocator);
+}
+</code></pre>
+<hr />
+<h2 id="3-frontmatter-parse">3. Frontmatter 解析：parse()</h2>
+<h3 id="31">3.1 函数签名</h3>
+<pre><code class="language-zig">pub fn parse(allocator: Allocator, content: []const u8, filename: []const u8) !Post
+</code></pre>
+<p><strong>返回类型</strong>：<code>!Post</code>（错误联合类型）</p>
+<p><strong>可能的错误</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>触发条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>error.InvalidFormat</code></td>
+<td>缺少 <code>---</code> 分隔符</td>
+</tr>
+<tr>
+<td><code>error.MissingTitle</code></td>
+<td>缺少 title 字段</td>
+</tr>
+<tr>
+<td><code>error.MissingDateTime</code></td>
+<td>缺少 date_time 字段</td>
+</tr>
+<tr>
+<td><code>error.OutOfMemory</code></td>
+<td>内存分配失败</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-frontmatter">3.2 Frontmatter 格式</h3>
+<p><strong>标准格式</strong>：</p>
+<pre><code class="language-markdown">---
+title: 我的文章
+date_time: 2026-03-21
+tags: zig blog
+---
+
+这里是文章内容...
+</code></pre>
+<p><strong>字段说明</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>必需</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>✓</td>
+<td>文章标题</td>
+</tr>
+<tr>
+<td><code>date_time</code></td>
+<td>✓</td>
+<td>发布日期（YYYY-MM-DD 格式）</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>✗</td>
+<td>标签列表（空格分隔）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 解析流程</h3>
+<pre><code>输入：完整的 Markdown 文件内容
+    │
+    ▼
+[1] 验证起始分隔符 &quot;---&quot;
+    │
+    ▼
+[2] 逐行解析 frontmatter
+    │
+    ├─ 提取 title
+    ├─ 提取 date_time
+    └─ 提取 tags（可选）
+    │
+    ▼
+[3] 找到结束分隔符 &quot;---&quot;
+    │
+    ▼
+[4] 计算内容起始位置
+    │
+    ▼
+[5] 构造并返回 Post 实例
+</code></pre>
+<h3 id="34">3.4 分隔符验证</h3>
+<pre><code class="language-zig">var lines = std.mem.splitScalar(u8, content, '\n');
+const first_line = lines.next() orelse return error.InvalidFormat;
+
+if (!std.mem.eql(u8, std.mem.trim(u8, first_line, &quot; \r\n\t&quot;), &quot;---&quot;)) {
+    return error.InvalidFormat;
+}
+</code></pre>
+<p><strong>验证逻辑</strong>：</p>
+<pre><code>content = &quot;---\ntitle: Hello\n---\nContent...&quot;
+    │
+    ▼
+splitScalar('\n') → 迭代器
+    │
+    ▼
+lines.next() → &quot;---&quot;
+    │
+    ▼
+trim(&quot; \r\n\t&quot;) → &quot;---&quot;
+    │
+    ▼
+eql(&quot;---&quot;) → true ✓
+</code></pre>
+<h3 id="35">3.5 字段提取循环</h3>
+<pre><code class="language-zig">var title: ?[]const u8 = null;
+var date_time: ?[]const u8 = null;
+var tags: ?[]const u8 = null;
+var frontmatter_end: usize = 1;
+
+while (lines.next()) |line| {
+    const trimmed = std.mem.trim(u8, line, &quot; \r\n\t&quot;);
+    if (std.mem.eql(u8, trimmed, &quot;---&quot;)) {
+        frontmatter_end += 1;
+        break;
+    }
+    if (std.mem.startsWith(u8, trimmed, &quot;title:&quot;)) {
+        title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+    } else if (std.mem.startsWith(u8, trimmed, &quot;date_time:&quot;)) {
+        date_time = try extractValue(allocator, trimmed, &quot;date_time:&quot;);
+    } else if (std.mem.startsWith(u8, trimmed, &quot;tags:&quot;)) {
+        tags = try extractValue(allocator, trimmed, &quot;tags:&quot;);
+    }
+    frontmatter_end += 1;
+}
+</code></pre>
+<p><strong>可选类型使用</strong>：</p>
+<pre><code class="language-zig">var title: ?[]const u8 = null;  // 初始为 null
+// ...
+title = try extractValue(...);  // 解析后为 Some(value)
+// ...
+.title = title orelse return error.MissingTitle  // 验证
+</code></pre>
+<h3 id="36">3.6 必需字段验证</h3>
+<pre><code class="language-zig">return Post{
+    .title = title orelse return error.MissingTitle,
+    .date_time = date_time orelse return error.MissingDateTime,
+    .tags = tags orelse &quot;&quot;,  // tags 可选，默认空字符串
+    .content = try allocator.dupe(u8, content[content_start..]),
+    .filename = try allocator.dupe(u8, filename),
+};
+</code></pre>
+<p><strong>orelse 模式对比</strong>：</p>
+<pre><code class="language-zig">// 必需字段 - 缺失时返回错误
+title orelse return error.MissingTitle
+
+// 可选字段 - 缺失时使用默认值
+tags orelse &quot;&quot;
+</code></pre>
+<hr />
+<h2 id="4">4. 辅助函数</h2>
+<h3 id="41-extractvalue">4.1 extractValue()</h3>
+<pre><code class="language-zig">fn extractValue(allocator: Allocator, line: []const u8, prefix: []const u8) ![]const u8 {
+    return allocator.dupe(u8, std.mem.trim(u8, line[prefix.len..], &quot; \r\n\t\&quot;'&quot;));
+}
+</code></pre>
+<p><strong>功能</strong>：从 <code>key: value</code> 格式中提取 value</p>
+<p><strong>解析示例</strong>：</p>
+<pre><code>输入：line = &quot;title: 我的文章&quot;, prefix = &quot;title:&quot;
+    │
+    ▼
+line[prefix.len..] → &quot; 我的文章&quot;
+    │
+    ▼
+trim(&quot; \r\n\t\&quot;'&quot;) → &quot;我的文章&quot;
+    │
+    ▼
+allocator.dupe() → 分配并复制字符串
+    │
+    ▼
+返回：[]const u8 = &quot;我的文章&quot;
+</code></pre>
+<p><strong>支持的格式</strong>：</p>
+<pre><code class="language-zig">// 标准格式
+&quot;title: 标题&quot;       → &quot;标题&quot;
+
+// 带引号
+&quot;title: \&quot;标题\&quot;&quot;   → &quot;标题&quot;
+
+// 带空格
+&quot;title:   标题  &quot;   → &quot;标题&quot;
+
+// 单引号
+&quot;title: '标题'&quot;    → &quot;标题&quot;
+</code></pre>
+<h3 id="42-content_offset_for_line">4.2 content_offset_for_line()</h3>
+<pre><code class="language-zig">fn content_offset_for_line(content: []const u8, line_num: usize) usize {
+    var offset: usize = 0;
+    var current_line: usize = 0;
+    while (offset &lt; content.len and current_line &lt; line_num) {
+        if (content[offset] == '\n') current_line += 1;
+        offset += 1;
+    }
+    while (offset &lt; content.len and (content[offset] == '\n' or content[offset] == '\r')) {
+        offset += 1;
+    }
+    return offset;
+}
+</code></pre>
+<p><strong>功能</strong>：计算第 line_num 行之后的字节偏移量</p>
+<p><strong>示例</strong>：</p>
+<pre><code>content = &quot;---\ntitle: Hi\n---\n\n文章内容...&quot;
+          0123  5678901   15 678901234
+                    1         2
+
+line_num = 3 (frontmatter_end)
+    │
+    ▼
+遍历字符直到第 3 行
+    │
+    ▼
+offset = 17 (跳过所有换行符)
+    │
+    ▼
+返回 17 → content[17..] = &quot;文章内容...&quot;
+</code></pre>
+<p><strong>两个 while 循环</strong>：</p>
+<pre><code class="language-zig">// [1] 找到目标行的起始位置
+while (offset &lt; content.len and current_line &lt; line_num) {
+    if (content[offset] == '\n') current_line += 1;
+    offset += 1;
+}
+
+// [2] 跳过后续的空白行（换行符）
+while (offset &lt; content.len and (content[offset] == '\n' or content[offset] == '\r')) {
+    offset += 1;
+}
+</code></pre>
+<hr />
+<h2 id="5">5. 内存分配分析</h2>
+<h3 id="51">5.1 分配点</h3>
+<pre><code class="language-zig">pub fn parse(allocator: Allocator, content: []const u8, filename: []const u8) !Post {
+    // ...
+
+    // [1] 提取 title
+    title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+    //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //      allocator.dupe() 分配内存
+
+    // [2] 提取 date_time
+    date_time = try extractValue(allocator, trimmed, &quot;date_time:&quot;);
+    //          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //          allocator.dupe() 分配内存
+
+    // [3] 提取 tags（如果有）
+    tags = try extractValue(allocator, trimmed, &quot;tags:&quot;);
+    //       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //       allocator.dupe() 分配内存
+
+    // [4] 复制内容
+    .content = try allocator.dupe(u8, content[content_start..]);
+    //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //         分配新内存
+
+    // [5] 复制文件名
+    .filename = try allocator.dupe(u8, filename);
+    //          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //          分配新内存
+}
+</code></pre>
+<h3 id="52">5.2 内存所有权</h3>
+<pre><code>调用者传递 content (切片引用)
+    │
+    ▼
+parse() 分配新内存存储 Post 字段
+    │
+    ├─ title (新分配)
+    ├─ date_time (新分配)
+    ├─ tags (新分配)
+    ├─ content (新分配)
+    └─ filename (新分配)
+    │
+    ▼
+返回 Post (拥有所有字段的所有权)
+    │
+    ▼
+调用者负责通过 deinit() 释放
+</code></pre>
+<h3 id="53">5.3 内存使用估算</h3>
+<p>对于一篇典型文章：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>典型大小</th>
+<th>分配开销</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>50 字节</td>
+<td>~16 字节</td>
+</tr>
+<tr>
+<td><code>date_time</code></td>
+<td>10 字节</td>
+<td>~16 字节</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>30 字节</td>
+<td>~16 字节</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td>5000 字节</td>
+<td>~16 字节</td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td>20 字节</td>
+<td>~16 字节</td>
+</tr>
+<tr>
+<td><strong>总计</strong></td>
+<td><strong>~5110 字节</strong></td>
+<td><strong>~80 字节</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6">6. 错误处理</h2>
+<h3 id="62">6.2 错误传播</h3>
+<pre><code class="language-zig">// extractValue 中的错误传播
+title = try extractValue(allocator, trimmed, &quot;title:&quot;);
+//      ^^^^ 如果分配失败，立即返回 error.OutOfMemory
+
+// 内容复制的错误传播
+.content = try allocator.dupe(u8, content[content_start..]);
+//         ^^^^ 如果分配失败，立即返回 error.OutOfMemory
+</code></pre>
+<h3 id="63">6.3 错误恢复</h3>
+<pre><code class="language-zig">// 在 loadPosts() 中的错误处理
+const post = Post.parse(self.allocator, content, std.fs.path.basename(entry.path)) catch |err| {
+    std.debug.print(&quot; Skipped ({s}): {s}\n&quot;, .{ @errorName(err), entry.path });
+    continue;  // 跳过坏文章，继续处理其他文章
+};
+</code></pre>
+<p><strong>错误恢复策略</strong>：</p>
+<pre><code>解析失败的文章
+    │
+    ├─ 打印错误信息（包括错误类型和文件路径）
+    │
+    └─ continue → 跳过该文章
+        │
+        ▼
+    继续处理下一篇文章
+</code></pre>
+<hr />
+<h2 id="7">7. 使用示例</h2>
+<h3 id="71">7.1 基本使用</h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+const Post = @import(&quot;Blogger.zig&quot;).Post;
+
+pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    const markdown_content = 
+        \\---
+        \\title: 我的第一篇文章
+        \\date_time: 2026-03-21
+        \\tags: zig blog
+        \\---
+        \\
+        \\这是文章内容...
+    ;
+
+    // 解析文章
+    const post = try Post.parse(allocator, markdown_content, &quot;my-post.markdown&quot;);
+    defer post.deinit(allocator);
+
+    // 使用文章数据
+    std.debug.print(&quot;Title: {s}\n&quot;, .{post.title});
+    std.debug.print(&quot;Date: {s}\n&quot;, .{post.date_time});
+    std.debug.print(&quot;Tags: {s}\n&quot;, .{post.tags});
+}
+</code></pre>
+<h3 id="72">7.2 批量加载</h3>
+<pre><code class="language-zig">var posts = std.ArrayList(Post).init(allocator);
+defer {
+    for (posts.items) |*post| {
+        post.deinit(allocator);
+    }
+    posts.deinit();
+}
+
+// 加载多篇文章
+try posts.append(try Post.parse(allocator, content1, &quot;post1.markdown&quot;));
+try posts.append(try Post.parse(allocator, content2, &quot;post2.markdown&quot;));
+</code></pre>
+<hr />
+<h2 id="8">8. 设计模式</h2>
+<h3 id="81">8.1 解析器模式</h3>
+<pre><code>原始输入 (String)
+    │
+    ▼
+验证格式 (validate)
+    │
+    ▼
+提取字段 (extract)
+    │
+    ▼
+构造对象 (construct)
+    │
+    ▼
+返回结果 (Result/Error)
+</code></pre>
+<h3 id="82">8.2 资源管理模式</h3>
+<pre><code class="language-zig">// 创建时分配内存
+const post = try Post.parse(allocator, ...);
+
+// 使用 defer 确保释放
+defer post.deinit(allocator);
+
+// 安全使用
+// ...
+</code></pre>
+<hr />
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../07-3-blogger-struct/">07-3 Blogger 结构体</a> - 使用 Post 生成页面</li>
+<li><a href="../../part-05-functions/05-2-parameters-and-return/">05-2 参数与返回值</a> - 内存所有权</li>
+<li><a href="../../part-08-memory-management/08-2-memory-ownership/">08-2 内存所有权</a> - 内存管理深入</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

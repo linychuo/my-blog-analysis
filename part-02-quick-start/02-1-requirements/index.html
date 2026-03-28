@@ -1,0 +1,1243 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2.1 环境要求 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.1 环境要求
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心要求
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心要求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        必需工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作系统支持
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        硬件要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安装 Zig 编译器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="安装 Zig 编译器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方法一：官方网站下载（推荐）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方法一：官方网站下载（推荐）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-x86_64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux (x86_64)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos-intelapple-silicon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS (Intel/Apple Silicon)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方法二：使用包管理器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方法二：使用包管理器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntudebian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ubuntu/Debian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos-homebrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS (Homebrew)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证安装
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="验证安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zig_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检查 Zig 版本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zig_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试 Zig 编译器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可选工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可选工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码编辑器/IDE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关阅读
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="21">2.1 环境要求</h1>
+<blockquote>
+<p>构建和运行 my-blog 所需的环境和工具</p>
+</blockquote>
+<hr />
+<h2 id="_1">目录</h2>
+<ul>
+<li><a href="#核心要求">核心要求</a></li>
+<li><a href="#安装-zig-编译器">安装 Zig 编译器</a></li>
+<li><a href="#验证安装">验证安装</a></li>
+<li><a href="#可选工具">可选工具</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+</ul>
+<hr />
+<h2 id="_2">核心要求</h2>
+<h3 id="_3">必需工具</h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>最低版本</th>
+<th>推荐版本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Zig</strong></td>
+<td>0.15.2</td>
+<td>0.15.2+</td>
+<td>编译和运行</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>2.0+</td>
+<td>最新</td>
+<td>代码管理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">操作系统支持</h3>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>支持状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Linux</strong></td>
+<td>✅ 完全支持</td>
+<td>x86_64, aarch64</td>
+</tr>
+<tr>
+<td><strong>macOS</strong></td>
+<td>✅ 完全支持</td>
+<td>Intel, Apple Silicon</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td>✅ 完全支持</td>
+<td>WS L2 或原生</td>
+</tr>
+<tr>
+<td><strong>FreeBSD</strong></td>
+<td>⚠️ 社区支持</td>
+<td>可能需要额外配置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">硬件要求</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>最低要求</th>
+<th>推荐配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPU</strong></td>
+<td>双核</td>
+<td>四核或更多</td>
+</tr>
+<tr>
+<td><strong>内存</strong></td>
+<td>512 MB</td>
+<td>2 GB+</td>
+</tr>
+<tr>
+<td><strong>磁盘</strong></td>
+<td>100 MB</td>
+<td>500 MB+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="zig">安装 Zig 编译器</h2>
+<h3 id="_6">方法一：官方网站下载（推荐）</h3>
+<p>访问 <a href="https://ziglang.org/download/">Zig 下载页面</a> 获取对应系统的二进制包。</p>
+<h4 id="linux-x86_64">Linux (x86_64)</h4>
+<pre><code class="language-bash"># 1. 下载
+wget https://ziglang.org/download/0.15.2/zig-linux-x86_64-0.15.2.tar.xz
+
+# 2. 解压
+tar -xf zig-linux-x86_64-0.15.2.tar.xz
+
+# 3. 移动到系统目录
+sudo mv zig-linux-x86_64-0.15.2 /opt/zig
+
+# 4. 添加到 PATH
+echo 'export PATH=&quot;/opt/zig:$PATH&quot;' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<h4 id="macos-intelapple-silicon">macOS (Intel/Apple Silicon)</h4>
+<pre><code class="language-bash"># 使用 Homebrew（推荐）
+brew install zig@0.15
+
+# 或手动安装
+wget https://ziglang.org/download/0.15.2/zig-macos-x86_64-0.15.2.tar.xz
+# Apple Silicon:
+# wget https://ziglang.org/download/0.15.2/zig-macos-aarch64-0.15.2.tar.xz
+
+tar -xf zig-macos-*.tar.xz
+sudo mv zig-macos-* /opt/zig
+export PATH=&quot;/opt/zig:$PATH&quot;
+</code></pre>
+<h4 id="windows">Windows</h4>
+<ol>
+<li>下载 <code>zig-windows-x86_64-0.15.2.zip</code></li>
+<li>解压到 <code>C:\zig</code></li>
+<li>添加 <code>C:\zig</code> 到系统 PATH 环境变量</li>
+<li>重启终端验证</li>
+</ol>
+<h3 id="_7">方法二：使用包管理器</h3>
+<h4 id="ubuntudebian">Ubuntu/Debian</h4>
+<pre><code class="language-bash">sudo apt install software-properties-common
+sudo add-apt-repository ppa:zig-lang/zig
+sudo apt update
+sudo apt install zig-0.15
+</code></pre>
+<h4 id="macos-homebrew">macOS (Homebrew)</h4>
+<pre><code class="language-bash">brew install zig@0.15
+</code></pre>
+<hr />
+<h2 id="_8">验证安装</h2>
+<h3 id="zig_1">检查 Zig 版本</h3>
+<pre><code class="language-bash">zig version
+</code></pre>
+<p>期望输出：<code>0.15.2</code></p>
+<h3 id="zig_2">测试 Zig 编译器</h3>
+<pre><code class="language-bash">echo 'const std = @import(&quot;std&quot;);
+pub fn main() void {
+    std.debug.print(&quot;Hello, Zig!\n&quot;, .{});
+}' &gt; test.zig
+
+zig run test.zig
+rm test.zig
+</code></pre>
+<p>期望输出：<code>Hello, Zig!</code></p>
+<hr />
+<h2 id="_9">可选工具</h2>
+<h3 id="ide">代码编辑器/IDE</h3>
+<table>
+<thead>
+<tr>
+<th>编辑器</th>
+<th>插件</th>
+<th>推荐度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VS Code</strong></td>
+<td>Zig Language Server</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Neovim</strong></td>
+<td>zig.vim + zls</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>IntelliJ</strong></td>
+<td>Zig 插件</td>
+<td>⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_10">小结</h2>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 安装 Zig</td>
+<td>下载或使用包管理器</td>
+<td><code>zig version</code></td>
+</tr>
+<tr>
+<td>2. 配置 PATH</td>
+<td>添加到环境变量</td>
+<td>终端可执行 <code>zig</code></td>
+</tr>
+<tr>
+<td>3. 安装编辑器</td>
+<td>VS Code + Zig 插件</td>
+<td>语法高亮正常</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_11">相关阅读</h2>
+<ul>
+<li><a href="../02-2-build-and-run/">构建与运行</a> - 下一步：编译项目</li>
+<li><a href="../02-3-cli-options/">命令行选项</a> - 自定义构建参数</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

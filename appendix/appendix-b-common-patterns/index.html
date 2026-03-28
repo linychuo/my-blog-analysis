@@ -1,0 +1,1653 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>附录 B: 常用代码模式 - My Blog Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#b" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Blog Analysis" class="md-header__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Blog Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              附录 B: 常用代码模式
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Blog Analysis" class="md-nav__button md-logo" aria-label="My Blog Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Blog Analysis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part8/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part9/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part10/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part11/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part12/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part13/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part14/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#b1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B.1 内存管理模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B.1 内存管理模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 基本分配 - 释放模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-owned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. owned 模式（所有权转移）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 双分配器模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 结构体析构模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B.2 错误处理模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B.2 错误处理模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 错误转换模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 错误合并模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 错误忽略模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-try-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. try-catch 组合模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B.3 字符串处理模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B.3 字符串处理模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 字符串分割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 字符串构建
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 字符串插值
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B.4 集合操作模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B.4 集合操作模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 过滤和转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 去重模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 分组模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B.5 迭代器模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B.5 迭代器模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 自定义迭代器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 生成器模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B.6 编译时编程模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B.6 编译时编程模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-comptime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. comptime 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 泛型模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 编译时反射
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B.7 测试模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B.7 测试模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 表格驱动测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 测试夹具模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关文档
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="b">附录 B: 常用代码模式</h1>
+<blockquote>
+<p><strong>适用范围</strong>: Zig 0.15.2+<br />
+<strong>来源</strong>: my-blog 项目实践总结</p>
+</blockquote>
+<h2 id="b1">B.1 内存管理模式</h2>
+<h3 id="1-">1. 基本分配 - 释放模式</h3>
+<pre><code class="language-zig">// 模式：分配后立即 defer 释放
+pub fn process(allocator: Allocator) !void {
+    const buffer = try allocator.alloc(u8, 1024);
+    defer allocator.free(buffer);  // ✅ 标准模式
+
+    // 使用 buffer...
+}
+
+// 模式：错误时立即释放
+pub fn loadData(allocator: Allocator) !Data {
+    const ptr = try allocator.create(Data);
+    errdefer allocator.destroy(ptr);  // ✅ 错误时清理
+
+    // 可能出错的操作...
+
+    return ptr;  // 调用者负责释放
+}
+</code></pre>
+<h3 id="2-owned">2. <em>owned</em> 模式（所有权转移）</h3>
+<pre><code class="language-zig">// 模式：函数返回分配的内存，调用者负责释放
+pub fn loadFile(allocator: Allocator, path: []const u8) ![]u8 {
+    const file = try std.fs.cwd().openFile(path, .{});
+    defer file.close();
+
+    return try file.readToEndAlloc(allocator, 1024 * 1024);
+    // ↑ 返回 owned slice，调用者必须 free
+}
+
+// 调用者责任
+pub fn useFile() void {
+    const allocator = std.heap.page_allocator;
+    const content = loadFile(allocator, &quot;data.txt&quot;) catch return;
+    defer allocator.free(content);  // ✅ 调用者释放
+
+    // 使用 content...
+}
+</code></pre>
+<h3 id="3">3. 双分配器模式</h3>
+<pre><code class="language-zig">// 模式：一个分配器用于长期对象，一个用于临时对象
+pub fn processPosts(allocator: Allocator, posts: []Post) !void {
+    // 长期分配器：存储结果
+    var results = std.ArrayList(Result).init(allocator);
+    defer results.deinit();
+
+    // 临时分配器：每轮迭代重用
+    var arena = std.heap.ArenaAllocator.init(allocator);
+    defer arena.deinit();
+
+    for (posts) |post| {
+        const temp_allocator = arena.allocator();
+
+        // 使用临时分配器进行中间计算
+        const temp_string = try temp_allocator.alloc(u8, 100);
+        // ... 处理 ...
+
+        // 将结果复制到长期分配器
+        const final_result = try allocator.create(Result);
+        try results.append(final_result.*);
+
+        // 重置临时分配器（不释放内存，只是重置指针）
+        arena.reset(.{ .retain_capacity = true });
+    }
+}
+</code></pre>
+<h3 id="4">4. 结构体析构模式</h3>
+<pre><code class="language-zig">// 模式：结构体带 deinit 方法
+pub const BlogPost = struct {
+    title: []const u8,
+    content: []const u8,
+    tags: []const u8,
+    allocator: Allocator,
+
+    pub fn init(allocator: Allocator) !BlogPost {
+        return BlogPost{
+            .title = try allocator.dupe(u8, &quot;Untitled&quot;),
+            .content = try allocator.dupe(u8, &quot;&quot;),
+            .tags = try allocator.dupe(u8, &quot;&quot;),
+            .allocator = allocator,
+        };
+    }
+
+    pub fn deinit(self: *BlogPost) void {
+        self.allocator.free(self.title);
+        self.allocator.free(self.content);
+        self.allocator.free(self.tags);
+    }
+};
+
+// 使用
+pub fn createPost() void {
+    var post = BlogPost.init(std.testing.allocator) catch return;
+    defer post.deinit();  // ✅ 统一清理
+
+    // 使用 post...
+}
+</code></pre>
+<h2 id="b2">B.2 错误处理模式</h2>
+<h3 id="1">1. 错误转换模式</h3>
+<pre><code class="language-zig">// 模式：将底层错误转换为业务错误
+pub const MyError = error{
+    FileNotFound,
+    InvalidFormat,
+    OutOfMemory,
+};
+
+pub fn loadPost(allocator: Allocator, path: []const u8) MyError!Post {
+    const file = std.fs.cwd().openFile(path, .{}) catch |err| switch (err) {
+        error.FileNotFound =&gt; return MyError.FileNotFound,
+        else =&gt; return MyError.InvalidFormat,
+    };
+    defer file.close();
+
+    const content = file.readToEndAlloc(allocator, 1024 * 1024) catch |err| switch (err) {
+        error.OutOfMemory =&gt; return MyError.OutOfMemory,
+        else =&gt; return MyError.InvalidFormat,
+    };
+
+    // 解析内容...
+}
+</code></pre>
+<h3 id="2">2. 错误合并模式</h3>
+<pre><code class="language-zig">// 模式：合并多个错误集
+pub const ParseError = error{
+    InvalidSyntax,
+    MissingField,
+} || std.fmt.ParseError || std.mem.Allocator.Error;
+
+pub fn parseFrontmatter(text: []const u8) ParseError!Frontmatter {
+    // 可能返回多种错误
+}
+</code></pre>
+<h3 id="3_1">3. 错误忽略模式</h3>
+<pre><code class="language-zig">// 模式：忽略特定错误
+pub fn cleanupFile(path: []const u8) void {
+    std.fs.cwd().deleteFile(path) catch |err| switch (err) {
+        error.FileNotFound =&gt; {},  // ✅ 文件不存在是可以接受的
+        else =&gt; {
+            std.debug.print(&quot;Failed to delete: {}\n&quot;, .{err});
+        },
+    };
+}
+
+// 模式：提供默认值
+pub fn getPort(config: ?Config) u16 {
+    return config orelse Config{ .port = 8080 }.port;
+}
+
+// 模式：catch 默认值
+pub fn parseCount(text: []const u8) u32 {
+    return std.fmt.parseInt(u32, text, 10) catch 0;  // 解析失败返回 0
+}
+</code></pre>
+<h3 id="4-try-catch">4. try-catch 组合模式</h3>
+<pre><code class="language-zig">// 模式：try 用于成功路径，catch 用于错误恢复
+pub fn robustLoad(allocator: Allocator) !Data {
+    // 尝试主路径
+    const data = loadFromPrimary(allocator) catch 
+        loadFromBackup(allocator) catch 
+        return error.FailedToLoad;
+
+    return data;
+}
+
+// 模式：错误时清理并返回
+pub fn processWithCleanup(allocator: Allocator) !Result {
+    var resource = try acquireResource();
+    errdefer resource.release();  // ✅ 错误时自动清理
+
+    const data = try resource.read();
+
+    return Result{
+        .data = data,
+        .resource = resource,  // 成功时转移所有权
+    };
+}
+</code></pre>
+<h2 id="b3">B.3 字符串处理模式</h2>
+<h3 id="1_1">1. 字符串分割</h3>
+<pre><code class="language-zig">// 模式：分割逗号分隔的字符串
+pub fn parseTags(allocator: Allocator, tags_str: []const u8) ![][]const u8 {
+    var tags = std.ArrayList([]const u8).init(allocator);
+    errdefer {
+        for (tags.items) |tag| allocator.free(tag);
+        tags.deinit();
+    }
+
+    var iter = std.mem.splitScalar(u8, tags_str, ',');
+    while (iter.next()) |tag| {
+        const trimmed = std.mem.trim(u8, tag, &quot; \t\n\r&quot;);
+        if (trimmed.len &gt; 0) {
+            try tags.append(try allocator.dupe(u8, trimmed));
+        }
+    }
+
+    return tags.toOwnedSlice();
+}
+
+// 使用
+pub fn useTags() void {
+    const allocator = std.testing.allocator;
+    const tags = parseTags(allocator, &quot;zig, rust, go&quot;) catch return;
+    defer {
+        for (tags) |tag| allocator.free(tag);
+        allocator.free(tags);
+    }
+
+    for (tags) |tag| {
+        std.debug.print(&quot;Tag: {s}\n&quot;, .{tag});
+    }
+}
+</code></pre>
+<h3 id="2_1">2. 字符串构建</h3>
+<pre><code class="language-zig">// 模式：使用 ArrayList 构建字符串
+pub fn buildPath(allocator: Allocator, parts: [][]const u8) ![]const u8 {
+    var result = std.ArrayList(u8).init(allocator);
+    errdefer result.deinit();
+
+    for (parts, 0..) |part, i| {
+        if (i &gt; 0) try result.append('/');
+        try result.appendSlice(part);
+    }
+
+    return result.toOwnedSlice();
+}
+
+// 模式：使用 bufPrint 到固定缓冲
+pub fn formatTitle(title: []const u8, date: []const u8) [256]u8 {
+    var buffer: [256]u8 = undefined;
+    const result = std.fmt.bufPrint(&amp;buffer, &quot;[{s}] {s}&quot;, .{date, title}) catch 
+        return undefined;  // 或处理错误
+
+    // 返回整个数组（调用者需要注意只使用有效部分）
+    return buffer;
+}
+</code></pre>
+<h3 id="3_2">3. 字符串插值</h3>
+<pre><code class="language-zig">// 模式：使用 allocPrint 进行字符串插值
+pub fn createSlug(allocator: Allocator, title: []const u8, date: []const u8) ![]const u8 {
+    return try std.fmt.allocPrint(allocator, &quot;{s}-{s}&quot;, .{date, title});
+}
+
+// 模式：条件格式化
+pub fn formatStatus(status: ?Status) []const u8 {
+    return switch (status) {
+        null =&gt; &quot;unknown&quot;,
+        .active =&gt; &quot;active&quot;,
+        .inactive =&gt; &quot;inactive&quot;,
+    };
+}
+</code></pre>
+<h2 id="b4">B.4 集合操作模式</h2>
+<h3 id="1_2">1. 过滤和转换</h3>
+<pre><code class="language-zig">// 模式：过滤数组
+pub fn filterPosts(posts: []Post, allocator: Allocator) ![]Post {
+    var filtered = std.ArrayList(Post).init(allocator);
+    errdefer filtered.deinit();
+
+    for (posts) |post| {
+        if (post.published) {
+            try filtered.append(post);
+        }
+    }
+
+    return filtered.toOwnedSlice();
+}
+
+// 模式：转换数组
+pub fn extractTitles(posts: []Post, allocator: Allocator) ![][]const u8 {
+    var titles = std.ArrayList([]const u8).init(allocator);
+    errdefer {
+        for (titles.items) |t| allocator.free(t);
+        titles.deinit();
+    }
+
+    for (posts) |post| {
+        try titles.append(try allocator.dupe(u8, post.title));
+    }
+
+    return titles.toOwnedSlice();
+}
+</code></pre>
+<h3 id="2_2">2. 去重模式</h3>
+<pre><code class="language-zig">// 模式：使用 HashMap 去重
+pub fn uniqueTags(allocator: Allocator, all_tags: [][]const u8) ![][]const u8 {
+    var set = std.StringHashMap(void).init(allocator);
+    defer set.deinit();
+
+    for (all_tags) |tags| {
+        for (tags) |tag| {
+            try set.put(try allocator.dupe(u8, tag), {});
+        }
+    }
+
+    var result = std.ArrayList([]const u8).init(allocator);
+    errdefer {
+        for (result.items) |t| allocator.free(t);
+        result.deinit();
+    }
+
+    var it = set.keyIterator();
+    while (it.next()) |key| {
+        try result.append(key.*);
+    }
+
+    return result.toOwnedSlice();
+}
+</code></pre>
+<h3 id="3_3">3. 分组模式</h3>
+<pre><code class="language-zig">// 模式：按标签分组
+pub const TagGroup = struct {
+    tag: []const u8,
+    posts: std.ArrayList(Post),
+};
+
+pub fn groupByTag(allocator: Allocator, posts: []Post) !std.AutoHashMap([]const u8, std.ArrayList(Post)) {
+    var groups = std.AutoHashMap([]const u8, std.ArrayList(Post)).init(allocator);
+
+    for (posts) |post| {
+        var iter = std.mem.splitScalar(u8, post.tags, ',');
+        while (iter.next()) |tag| {
+            const trimmed = std.mem.trim(u8, tag, &quot; \t&quot;);
+
+            const group = groups.getOrPut(trimmed) catch |err| {
+                // 清理已分配的资源
+                var it = groups.valueIterator();
+                while (it.next()) |list| list.deinit();
+                groups.deinit();
+                return err;
+            };
+
+            if (!group.found_existing) {
+                group.value_ptr.* = std.ArrayList(Post).init(allocator);
+            }
+
+            try group.value_ptr.append(post);
+        }
+    }
+
+    return groups;
+}
+</code></pre>
+<h2 id="b5">B.5 迭代器模式</h2>
+<h3 id="1_3">1. 自定义迭代器</h3>
+<pre><code class="language-zig">// 模式：实现迭代器
+pub const LineIterator = struct {
+    lines: std.mem.Split(u8, []const u8, &quot;\n&quot;),
+
+    pub fn next(self: *LineIterator) ?[]const u8 {
+        return self.lines.next();
+    }
+};
+
+pub fn iterateLines(content: []const u8) LineIterator {
+    return LineIterator{
+        .lines = std.mem.split(u8, content, &quot;\n&quot;),
+    };
+}
+
+// 使用
+pub fn processLines(content: []const u8) void {
+    var it = iterateLines(content);
+    while (it.next()) |line| {
+        std.debug.print(&quot;Line: {s}\n&quot;, .{line});
+    }
+}
+</code></pre>
+<h3 id="2_3">2. 生成器模式</h3>
+<pre><code class="language-zig">// 模式：惰性生成序列
+pub const RangeIterator = struct {
+    current: i32,
+    end: i32,
+
+    pub fn next(self: *RangeIterator) ?i32 {
+        if (self.current &gt;= self.end) return null;
+        const value = self.current;
+        self.current += 1;
+        return value;
+    }
+};
+
+pub fn range(start: i32, end: i32) RangeIterator {
+    return RangeIterator{ .current = start, .end = end };
+}
+
+// 使用
+pub fn sumRange() i32 {
+    var sum: i32 = 0;
+    var it = range(0, 10);
+    while (it.next()) |n| {
+        sum += n;
+    }
+    return sum;
+}
+</code></pre>
+<h2 id="b6">B.6 编译时编程模式</h2>
+<h3 id="1-comptime">1. comptime 循环</h3>
+<pre><code class="language-zig">// 模式：编译时生成代码
+pub fn registerHandlers() void {
+    const handlers = [_]struct {
+        name: []const u8,
+        handler: *const fn () void,
+    }{
+        .{ .name = &quot;init&quot;, .handler = initHandler },
+        .{ .name = &quot;load&quot;, .handler = loadHandler },
+        .{ .name = &quot;save&quot;, .handler = saveHandler },
+    };
+
+    comptime for (handlers, 0..) |h, i| {
+        @export(h.handler, .{ .name = &quot;handler_&quot; ++ std.fmt.comptimePrint(&quot;{d}&quot;, .{i}) });
+    };
+}
+</code></pre>
+<h3 id="2_4">2. 泛型模式</h3>
+<pre><code class="language-zig">// 模式：泛型函数
+pub fn max(comptime T: type, a: T, b: T) T {
+    return if (a &gt; b) a else b;
+}
+
+// 使用
+const a = max(i32, 10, 20);
+const b = max(f64, 3.14, 2.71);
+
+// 模式：泛型结构
+pub fn Box(comptime T: type) type {
+    return struct {
+        value: T,
+
+        pub fn init(v: T) @This() {
+            return .{ .value = v };
+        }
+    };
+}
+
+// 使用
+const IntBox = Box(i32);
+const box = IntBox.init(42);
+</code></pre>
+<h3 id="3_4">3. 编译时反射</h3>
+<pre><code class="language-zig">// 模式：遍历结构体字段
+pub fn printFields(comptime T: type, value: T) void {
+    inline for (std.meta.fields(T)) |field| {
+        const field_value = @field(value, field.name);
+        std.debug.print(&quot;{s}: {}\n&quot;, .{ field.name, field_value });
+    }
+}
+
+// 使用
+const Config = struct {
+    name: []const u8,
+    count: i32,
+    enabled: bool,
+};
+
+const config = Config{
+    .name = &quot;test&quot;,
+    .count = 42,
+    .enabled = true,
+};
+
+printFields(Config, config);
+</code></pre>
+<h2 id="b7">B.7 测试模式</h2>
+<h3 id="1_4">1. 表格驱动测试</h3>
+<pre><code class="language-zig">test &quot;parse integers&quot; {
+    const TestCase = struct {
+        input: []const u8,
+        expected: i32,
+        should_fail: bool = false,
+    };
+
+    const cases = [_]TestCase{
+        .{ .input = &quot;42&quot;, .expected = 42 },
+        .{ .input = &quot;-10&quot;, .expected = -10 },
+        .{ .input = &quot;abc&quot;, .expected = 0, .should_fail = true },
+        .{ .input = &quot;&quot;, .expected = 0, .should_fail = true },
+    };
+
+    inline for (cases) |c| {
+        if (c.should_fail) {
+            try std.testing.expectError(
+                error.InvalidFormat,
+                std.fmt.parseInt(i32, c.input, 10)
+            );
+        } else {
+            const result = try std.fmt.parseInt(i32, c.input, 10);
+            try std.testing.expectEqual(c.expected, result);
+        }
+    }
+}
+</code></pre>
+<h3 id="2_5">2. 测试夹具模式</h3>
+<pre><code class="language-zig">// 模式：测试夹具
+fn createTestPost(allocator: Allocator) !Post {
+    return Post{
+        .title = try allocator.dupe(u8, &quot;Test Post&quot;),
+        .content = try allocator.dupe(u8, &quot;Test content&quot;),
+        .date_time = try allocator.dupe(u8, &quot;2024-01-15 10:00&quot;),
+        .tags = try allocator.dupe(u8, &quot;test&quot;),
+        .filename = try allocator.dupe(u8, &quot;test.markdown&quot;),
+    };
+}
+
+test &quot;Post processing&quot; {
+    const allocator = std.testing.allocator;
+    var post = try createTestPost(allocator);
+    defer {
+        allocator.free(post.title);
+        allocator.free(post.content);
+        allocator.free(post.date_time);
+        allocator.free(post.tags);
+        allocator.free(post.filename);
+    }
+
+    // 测试逻辑...
+}
+</code></pre>
+<h2 id="_1">相关文档</h2>
+<ul>
+<li><a href="../appendix-a-std-lib-api/">附录 A: std 库 API</a> - 标准库参考</li>
+<li><a href="../appendix-c-faq/">附录 C: FAQ</a> - 常见问题</li>
+<li><a href="../../part-09-error-handling/09-3-error-handling-patterns/">9.3 错误处理模式</a> - 错误处理</li>
+</ul>
+<hr />
+<p><em>本文档总结了 my-blog 项目中的常用 Zig 代码模式，包括内存管理、错误处理、字符串操作、集合操作和测试模式。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
