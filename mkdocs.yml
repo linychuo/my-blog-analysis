@@ -42,8 +42,7 @@ plugins:
   - search:
       lang: 
         - zh
-  - glightbox
-
+        
 markdown_extensions:
   - pymdownx.highlight:
       use_pygments: true
