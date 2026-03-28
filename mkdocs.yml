@@ -1,24 +1,44 @@
-# Project Information
+# =============================================================================
+# my-blog 技术文档 - MkDocs 配置文件
+# =============================================================================
+# 文档：https://www.mkdocs.org/user-guide/configuration/
+# 主题：https://squidfunk.github.io/mkdocs-material/
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 站点信息
+# -----------------------------------------------------------------------------
 site_name: my-blog 技术文档
-site_description: Zig 静态博客生成器的完整技术剖析 - 53 篇文章全面覆盖项目架构、实现细节和扩展开发
+site_description: Zig 静态博客生成器的完整技术剖析
 site_url: https://linychuo.github.io/my-blog-analysis
 site_author: linyichuo
 
-# Repository
+# -----------------------------------------------------------------------------
+# 仓库配置
+# -----------------------------------------------------------------------------
 repo_url: https://github.com/linychuo/my-blog-analysis
 repo_name: linyichuo/my-blog-analysis
 edit_uri: edit/main/docs/
 
-# Theme Configuration
+# -----------------------------------------------------------------------------
+# 主题配置 (mkdocs-material)
+# -----------------------------------------------------------------------------
 theme:
   name: material
   language: zh
   icon:
     logo: material/library
     repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
   favicon: img/favicon.ico
+  
+  # 颜色模式 - 支持自动切换和用户手动切换
   palette:
-    # Palette toggle for light mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: 跟随系统
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
@@ -26,7 +46,6 @@ theme:
       toggle:
         icon: material/weather-night
         name: 切换到深色模式
-    # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: indigo
@@ -35,45 +54,57 @@ theme:
         icon: material/weather-sunny
         name: 切换到浅色模式
 
+  # 功能特性
   features:
-    # Navigation
+    # 导航
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
     - navigation.indexes
+    - navigation.path
     - navigation.top
     - navigation.tracking
-    - navigation.path
+    - navigation.footer
     
-    # Search
+    # 搜索
     - search.suggest
     - search.highlight
     - search.share
     
-    # Content
+    # 内容
     - content.tabs.link
     - content.code.copy
     - content.code.annotate
+    - content.code.select
     - content.action.edit
+    - content.action.view
     - content.tooltips
     
-    # Table of Contents
+    # 目录
     - toc.follow
     - toc.integrate
 
-# Plugins
+# -----------------------------------------------------------------------------
+# 插件配置
+# -----------------------------------------------------------------------------
 plugins:
+  # 搜索插件
   - search:
       lang:
         - zh
         - en
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  
+  # HTML 压缩
   - minify:
       minify_html: true
 
-# Markdown Extensions
+# -----------------------------------------------------------------------------
+# Markdown 扩展
+# -----------------------------------------------------------------------------
 markdown_extensions:
-  # Syntax Highlighting
+  # 代码高亮
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -81,13 +112,15 @@ markdown_extensions:
       use_pygments: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
+  
+  # 代码块
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   
-  # Tabs
+  # 标签页
   - pymdownx.tabbed:
       alternate_style: true
       combine_header_slug: true
@@ -95,44 +128,47 @@ markdown_extensions:
         kwds:
           case: lower
   
-  # Emoji
+  # Emoji 表情
   - pymdownx.emoji:
       emoji_index: !!python/name:pymdownx.emoji.twemoji
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
-      options:
-        custom_icons:
-          - overrides/.icons
   
-  # Admonitions
+  # 提示框
   - admonition
   - pymdownx.details
   - pymdownx.superfences
   
-  # Task Lists
+  # 任务列表
   - pymdownx.tasklist:
       custom_checkbox: true
   
-  # Attributes
+  # 属性支持
   - attr_list
   - md_in_html
   
-  # Table of Contents
+  # 目录
   - toc:
       permalink: true
       permalink_title: 永久链接
       separator: "-"
   
-  # Other
+  # 数学公式
   - pymdownx.arithmatex:
       generic: true
+  
+  # 其他增强
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
   - pymdownx.mark
   - pymdownx.tilde
   - pymdownx.keys
+  - pymdownx.critic
+  - pymdownx.magiclink
 
-# Navigation Structure
+# -----------------------------------------------------------------------------
+# 导航结构
+# -----------------------------------------------------------------------------
 nav:
   - 🏠 首页: index.md
   
@@ -237,48 +273,42 @@ nav:
     - 常用模式: appendix/appendix-b-common-patterns.md
     - 常见问题: appendix/appendix-c-faq.md
 
-# Extra Configuration
+# -----------------------------------------------------------------------------
+# 额外配置
+# -----------------------------------------------------------------------------
 extra:
-  # Social Links
+  # 社交链接
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/linychuo/my-blog-analysis
-      name: GitHub 仓库
+      name: GitHub
     - icon: fontawesome/brands/zhihu
       link: https://www.zhihu.com
       name: 知乎
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com
-      name: Twitter
-
-  # Version Selector (for future use)
-  # version:
-  #   provider: mike
-
-  # Analytics (optional - configure with your tracking ID)
+  
+  # 分析 (可选 - 配置你的统计 ID)
   # analytics:
   #   provider: google
   #   property: G-XXXXXXXXXX
 
-# Extra CSS
+# 额外 CSS
 extra_css:
   - stylesheets/extra.css
 
-# Extra JavaScript
+# 额外 JavaScript (包含 MathJax 支持数学公式)
 extra_javascript:
   - javascripts/extra.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
-# Copyright
+# 版权信息
 copyright: |
-  Copyright &copy; 2026 my-blog-analysis<br>
+  Copyright &copy; 2026 my-blog-analysis
+  <br>
   <a href="https://github.com/linychuo/my-blog-analysis/blob/main/LICENSE" target="_blank">MIT License</a>
 
-# Customization
-extra_templates:
-  - overrides/main.html
-
-# Validation
+# -----------------------------------------------------------------------------
+# 验证配置
+# -----------------------------------------------------------------------------
 validation:
   omitted_files: warn
   absolute_links: warn
