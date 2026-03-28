@@ -476,7 +476,7 @@ const trace = std.debug.getStackTrace();
 
 - [附录 B: 常用代码模式](./appendix-b-common-patterns.md) - 常见编程模式
 - [附录 C: 常见问题解答](./appendix-c-faq.md) - FAQ
-- [8.1 分配器基础](../part-08-memory-management/008-1-allocator-basics.md) - 内存管理基础
+- [8.1 分配器基础](../part-08-memory-management/08-1-allocators.md) - 内存管理基础
 
 ---
 

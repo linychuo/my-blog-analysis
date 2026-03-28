@@ -595,7 +595,7 @@ test "Post processing" {
 
 - [附录 A: std 库 API](./appendix-a-std-lib-api.md) - 标准库参考
 - [附录 C: FAQ](./appendix-c-faq.md) - 常见问题
-- [9.3 错误处理模式](../part-09-error-handling/009-3-error-handling-patterns.md) - 错误处理
+- [9.3 错误处理模式](../part-09-error-handling/09-3-error-handling-patterns.md) - 错误处理
 
 ---
 
